@@ -2176,12 +2176,13 @@
               <div style="color:#94a3b8;font-size:13px;margin-bottom:6px;">Activos totales</div>
               <div style="font-size:2.4rem;font-weight:bold;" class="text-gradient-gold" id="profileTotal">$ 2217.93</div>
             </div>
-            <div class="currency-switch">
-              <button>MX$</button>
-              <button class="active">USD</button>
+            <div class="currency-switch" role="group" aria-label="Moneda de los activos totales">
+              <button type="button" id="currencyMXN" aria-pressed="false">MX$</button>
+              <button type="button" id="currencyUSD" aria-pressed="true">USD</button>
             </div>
           </div>
 
+          <div id="exchangeRateNote" style="color:#94a3b8;font-size:12px;margin-top:12px;" aria-live="polite">Consultando el tipo de cambio...</div>
           <div class="action-row">
   <button class="action-btn" type="button" id="depositButton">
     📥 Depósito
@@ -2639,6 +2640,109 @@ if (withdrawButton) {
       return row;
     }
 
+    /* CAMBIO DE MONEDA CON TIPO DE CAMBIO ACTUALIZADO */
+    // Frankfurter ofrece tipos de cambio de referencia gratuitos (actualización diaria).
+    let exchangeRateMXNPerUSD = 18; // Valor provisional si la API no está disponible.
+    let exchangeRateDate = null;
+    let selectedProfileCurrency = "USD";
+
+    const currencyMXNButton = document.getElementById("currencyMXN");
+    const currencyUSDButton = document.getElementById("currencyUSD");
+    const exchangeRateNote = document.getElementById("exchangeRateNote");
+
+    function getAccountTotalInMXN() {
+      if (!currentAccountData) return 0;
+
+      const raw = String(currentAccountData.total || "");
+      const amount = Number(raw.replace(/[^0-9.,-]/g, "").replace(/,/g, ""));
+
+      if (!Number.isFinite(amount)) return 0;
+
+      return /USD/i.test(raw)
+        ? amount * exchangeRateMXNPerUSD
+        : amount;
+    }
+
+    function updateProfileCurrency() {
+      if (!currentAccountData) return;
+
+      const amountInMXN = getAccountTotalInMXN();
+      const amount = selectedProfileCurrency === "USD"
+        ? amountInMXN / exchangeRateMXNPerUSD
+        : amountInMXN;
+
+      const formatted = amount.toLocaleString("es-MX", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      document.getElementById("profileTotal").textContent =
+        "$ " + formatted + " " + selectedProfileCurrency;
+
+      currencyMXNButton.classList.toggle("active", selectedProfileCurrency === "MXN");
+      currencyUSDButton.classList.toggle("active", selectedProfileCurrency === "USD");
+      currencyMXNButton.setAttribute("aria-pressed", String(selectedProfileCurrency === "MXN"));
+      currencyUSDButton.setAttribute("aria-pressed", String(selectedProfileCurrency === "USD"));
+    }
+
+    async function refreshExchangeRate() {
+      if (exchangeRateNote) {
+        exchangeRateNote.textContent = "Actualizando el tipo de cambio...";
+      }
+
+      try {
+        const response = await fetch(
+          "https://api.frankfurter.app/latest?from=USD&to=MXN",
+          { cache: "no-store" }
+        );
+
+        if (!response.ok) {
+          throw new Error("No se pudo consultar el tipo de cambio");
+        }
+
+        const data = await response.json();
+        const latestRate = Number(data && data.rates && data.rates.MXN);
+
+        if (!Number.isFinite(latestRate) || latestRate <= 0) {
+          throw new Error("La respuesta del tipo de cambio no es válida");
+        }
+
+        exchangeRateMXNPerUSD = latestRate;
+        exchangeRateDate = data.date || null;
+
+        if (exchangeRateNote) {
+          exchangeRateNote.textContent =
+            "Tipo de cambio de referencia: 1 USD ≈ " +
+            exchangeRateMXNPerUSD.toFixed(4) +
+            " MXN" +
+            (exchangeRateDate ? " · Fecha: " + exchangeRateDate : "");
+        }
+
+        updateProfileCurrency();
+      } catch (error) {
+        if (exchangeRateNote) {
+          exchangeRateNote.textContent =
+            "No se pudo actualizar el tipo de cambio. Se mantiene la última tasa disponible.";
+        }
+        // Conserva la última tasa válida y no interrumpe el uso de la cuenta.
+        updateProfileCurrency();
+      }
+    }
+
+    currencyMXNButton.addEventListener("click", () => {
+      selectedProfileCurrency = "MXN";
+      updateProfileCurrency();
+    });
+
+    currencyUSDButton.addEventListener("click", () => {
+      selectedProfileCurrency = "USD";
+      updateProfileCurrency();
+    });
+
+    // Consulta al abrir el perfil y vuelve a comprobar periódicamente.
+    refreshExchangeRate();
+    setInterval(refreshExchangeRate, 30 * 60 * 1000);
+
     /* SHOW PROFILE */
     function openProfilePage() {
       if (!currentAccountData) return;
@@ -2650,8 +2754,9 @@ if (withdrawButton) {
       document.getElementById("profileAccount").textContent =
         currentAccountNumber;
 
-      document.getElementById("profileTotal").textContent =
-        "$ " + currentAccountData.total;
+      selectedProfileCurrency = /USD/i.test(String(currentAccountData.total)) ? "USD" : "MXN";
+      updateProfileCurrency();
+      refreshExchangeRate();
 
       document.getElementById("profileHoldings").textContent =
         currentAccountData.holdingsValue;
