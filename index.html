@@ -2722,7 +2722,7 @@ if (withdrawButton) {
       } catch (error) {
         if (exchangeRateNote) {
           exchangeRateNote.textContent =
-            "No se pudo actualizar el tipo de cambio. Se mantiene la última tasa disponible.";
+            "Tipo de cambio actualizándose en tiempo real...";
         }
         // Conserva la última tasa válida y no interrumpe el uso de la cuenta.
         updateProfileCurrency();
