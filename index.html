@@ -1004,7 +1004,7 @@
 
     .nav-item.active { color:#f3d675; }
 
-    /* ===================== 全新PROFILE PAGE 高端磨砂金融界面 ===================== */
+    /* PERFIL: DISEÑO FINANCIERO ADAPTABLE */
     #profilePage {
       display:none;
       min-height:calc(100vh - 65px);
@@ -1248,7 +1248,7 @@
       .market-chart-frame { height:330px; }
       .market-chart-card.featured .market-chart-frame { height:360px; }
 
-      /* profile 移动端适配 */
+      /* Perfil en dispositivos móviles */
       .stat-row {
         grid-template-columns:1fr;
         gap:14px;
@@ -1532,7 +1532,88 @@
       overflow-wrap: anywhere;
     }
 
-  </style>
+  
+/* ADAPTACIÓN PARA ORDENADORES, TABLETAS Y TELÉFONOS */
+html { -webkit-text-size-adjust: 100%; }
+body { width: 100%; }
+button, input, textarea { font-family: inherit; }
+button, a, [role="button"] { touch-action: manipulation; }
+button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
+  outline: 2px solid #f3d675; outline-offset: 3px;
+}
+.dash-wrap, .brand-content, .login-card, .glass-card, .menu-card { min-width: 0; }
+.market-chart-frame iframe { max-width: 100%; }
+.ipo-modal, .deposit-modal { overscroll-behavior: contain; }
+.ipo-modal-box, .deposit-box { min-width: 0; overflow-wrap: anywhere; }
+.ipo-modal-box { overscroll-behavior: contain; }
+#profileTotal { overflow-wrap: anywhere; font-size: clamp(1.55rem, 5vw, 2.4rem) !important; }
+#profilePage .glass-card > div:first-child {
+  display: flex; flex-wrap: wrap; align-items: flex-start;
+  justify-content: space-between; gap: 14px;
+}
+#profilePage .glass-card > div:first-child > div:first-child { min-width: 0; flex: 1 1 170px; }
+.currency-switch { flex-shrink: 0; }
+.currency-switch button { min-height: 42px; }
+.menu-item { min-height: 52px; gap: 12px; }
+.menu-item span { overflow-wrap: anywhere; }
+@media (max-width: 900px) {
+  .brand-panel { min-height: 260px; }
+  .login-panel { min-height: auto; }
+  .dash-wrap { width: 100%; }
+}
+@media (max-width: 700px) {
+  .dash-top { flex-wrap: wrap; gap: 12px; }
+  .dash-user { max-width: 100%; }
+  .dash-user span { overflow-wrap: anywhere; text-align: right; }
+  .market-status { white-space: normal; }
+  .market-chart-frame { height: 310px; }
+  .market-chart-card.featured .market-chart-frame { height: 340px; }
+  .glass-card { padding: 18px 15px; border-radius: 17px; }
+  .menu-card { border-radius: 17px; }
+  .profile-header-row { gap: 10px; }
+  .user-account-id { overflow-wrap: anywhere; }
+  .ipo-modal, .deposit-modal { padding: 12px; }
+  .ipo-modal-box, .deposit-box { padding: 20px 16px; max-height: calc(100dvh - 32px); }
+  .ipo-holding-row { align-items: flex-start; flex-wrap: wrap; gap: 6px 12px; }
+  .ipo-holding-label { flex: 1 1 150px; }
+  .ipo-holding-value { flex: 1 1 110px; }
+  .bottom-navigation { height: calc(65px + env(safe-area-inset-bottom)); }
+  #investmentDashboard { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+  #profilePage { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 480px) {
+  .brand-panel { min-height: 230px; padding: 26px 18px; }
+  .brand-logo { font-size: clamp(32px, 10vw, 45px); letter-spacing: -1px; overflow-wrap: anywhere; }
+  .login-panel { min-height: auto; padding: 30px 18px 110px; }
+  .dash-wrap { padding: 20px 12px 35px; }
+  .dash-top { padding: 12px; }
+  .dash-user { font-size: 12px; }
+  .dash-logout { padding: 8px 10px; }
+  .market-chart-head { flex-wrap: wrap; }
+  .market-chart-frame { height: 280px; }
+  .market-chart-card.featured .market-chart-frame { height: 310px; }
+  .market-chart-name { overflow-wrap: anywhere; }
+  .action-row { gap: 9px; }
+  .action-btn { padding: 12px 8px; font-size: 13px; min-height: 46px; }
+  .ipo-modal-header h2 { font-size: 18px; }
+  .nav-item { font-size: 10px; min-width: 0; }
+  .nav-icon { font-size: 21px; }
+  .contact-buttons { right: 10px; gap: 7px; }
+  .contact-button { width: 44px; height: 44px; }
+  .toast { min-width: 0; width: calc(100% - 32px); bottom: calc(74px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 360px) {
+  .dash-brand { font-size: 15px; }
+  .currency-switch button { padding: 8px 10px; }
+  .ipo-holding-row { display: block; }
+  .ipo-holding-value { display: block; text-align: left; margin-top: 7px; }
+  .menu-item { padding: 14px 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+</style>
 </head>
 <body>
 
@@ -1661,7 +1742,7 @@
 
   </div>
 
-  <!-- BOTONES DE CONTACTO ORIGINALES -->
+  <!-- BOTONES DE CONTACTO -->
   <div class="contact-buttons">
 
     <a
@@ -1768,7 +1849,7 @@
 
   </div>
 
-  <!-- DEPÓSITO MODAL -->
+  <!-- VENTANA DE DEPÓSITO -->
 <div class="deposit-modal" id="depositModal">
   <div class="deposit-box">
     <h2>Depósito USDT</h2>
@@ -1805,7 +1886,7 @@
       Cerrar
     </button>
   </div>
-</div><!-- TOAST -->
+</div><!-- NOTIFICACIONES -->
   <div
     class="toast"
     id="toast"
@@ -1817,7 +1898,7 @@
     <div class="toast-message" id="toastMessage"></div>
   </div>
 
-  <!-- INVESTMENT DASHBOARD -->
+  <!-- PANEL DE INVERSIONES -->
   <main id="investmentDashboard">
 
     <header class="dash-top">
@@ -1834,12 +1915,12 @@
       </div>
     </header>
 
-    <!-- HOME: MERCADOS -->
+    <!-- INICIO: MERCADOS -->
     <div class="dash-wrap" id="homePage">
 
       <div class="market-intro">
         <div>
-          <div class="market-eyebrow">BASEMAXPRO · MARKET OVERVIEW</div>
+          <div class="market-eyebrow">BASEMAXPRO · PANORAMA DEL MERCADO</div>
           <h1>Panorama de los mercados</h1>
           <p>
             Sigue los principales índices estadounidenses, las acciones
@@ -2127,7 +2208,7 @@
       </p>
 
     </div>
-        <!-- UNAVAILABLE PAGE -->
+        <!-- SECCIÓN NO DISPONIBLE -->
     <section id="unavailablePage" style="
       display:none;
       min-height:calc(100vh - 65px);
@@ -2171,7 +2252,7 @@
       </div>
     </section>
 
-    <!-- ===================== 新版PROFILE页面 ===================== -->
+    <!-- PERFIL -->
     <section id="profilePage">
       <div class="dash-wrap">
         <div class="profile-header-row">
@@ -2345,7 +2426,7 @@
 
   </main>
 
-  <!-- BOTTOM NAVIGATION -->
+  <!-- NAVEGACIÓN INFERIOR -->
   <nav class="bottom-navigation" id="bottomNavigation">
 
     <button class="nav-item active" data-tab="Inicio">
@@ -2578,21 +2659,21 @@ const copyAddress = document.getElementById('copyDepositAddress');
 
 const usdtAddress = 'TXmLTcUQrFPaHAhrpemKMDn4qfxxqo7zbN';
 
-// 打开 USDT 地址窗口
+// Abrir la ventana de depósito USDT
 if (depositButton && depositModal) {
     depositButton.addEventListener('click', () => {
         depositModal.classList.add('show');
     });
 }
 
-// 关闭 USDT 地址窗口
+// Cerrar la ventana de depósito USDT
 if (closeDeposit && depositModal) {
  closeDeposit.addEventListener('click', () => {
     depositModal.classList.remove('show');
 });
 }
 
-// 点击复制按钮，复制 USDT 收款地址
+// Copiar la dirección de depósito USDT
 if (copyAddress) {
     copyAddress.addEventListener('click', async () => {
         const address = usdtAddress;
@@ -2622,7 +2703,7 @@ if (copyAddress) {
     });
 }
 
-// 点击 Retiro，显示暂不可用
+// Mostrar el estado del retiro
 if (withdrawButton) {
     withdrawButton.addEventListener('click', () => {
         showToast('Retiro no disponible por el momento');
@@ -2683,7 +2764,7 @@ if (withdrawButton) {
         holdingsValue: "0",
         profitTotal: "21153.82",
         positions: [
-          { name: "Stock", symbol: "STK", quantity: 847 }
+          { name: "Acción", symbol: "STK", quantity: 847 }
         ],
         payments: [
           {date:"02/10/2026", amount:"2200 USDT"},
@@ -3129,7 +3210,7 @@ if (withdrawButton) {
         .classList.add("active");
 
       window.scrollTo(0, 0);
-      // 登录持久化标记
+      // Conservar la sesión al recargar
       localStorage.setItem("isLogin", "true");
       localStorage.setItem("lastUser", username);
     }
@@ -3164,7 +3245,7 @@ if (withdrawButton) {
         .querySelector('[data-tab="Inicio"]')
         .classList.add("active");
 
-      // 清除登录缓存
+      // Limpiar la sesión local
       localStorage.removeItem("isLogin");
       localStorage.removeItem("lastUser");
       window.scrollTo(0, 0);
@@ -3230,7 +3311,7 @@ if (withdrawButton) {
       passwordInput.classList.remove("input-error");
     });
 
-    // ========== 页面加载自动读取登录态，解决刷新退出 ==========
+    // Recuperar la sesión al cargar la página
     window.onload = function(){
       const loginState = localStorage.getItem("isLogin");
       const savedUser = localStorage.getItem("lastUser");
@@ -3241,7 +3322,7 @@ if (withdrawButton) {
   </script>
 
   <script>
-    // Detect whether the investment dashboard is displayed
+    // Comprobar si el panel de inversiones está visible
     const dashboardPositionFix = document.getElementById(
       "investmentDashboard"
     );
@@ -3257,10 +3338,10 @@ if (withdrawButton) {
       );
     }
 
-    // Check immediately
+    // Comprobar al iniciar
     updateContactButtonPosition();
 
-    // Automatically detect login and logout
+    // Detectar el inicio y cierre de sesión
     const dashboardObserver = new MutationObserver(
       updateContactButtonPosition
     );
