@@ -849,16 +849,6 @@
       background:#f4f6fb;
     }
 
-    /* 不可访问页面 */
-    #unavailablePage {
-      display:none;
-      min-height:calc(100vh - 65px);
-      padding:30px 22px 100px;
-      background:#f4f6fb;
-      align-items:center;
-      justify-content:center;
-    }
-
     @media(max-width:900px) {
       .page { display:block; }
 
@@ -1264,65 +1254,58 @@
 
       <div class="dash-welcome">
         <div>
-          <h1>Resumen de inversión</h1>
-          <p>Consulta el saldo y las posiciones de tu cuenta.</p>
+          <h1>Tendencias del mercado</h1>
+          <p>Consulta la evolución del mercado bursátil estadounidense y de USDT.</p>
         </div>
-        <span class="dash-demo">CUENTA DE DEMOSTRACIÓN</span>
       </div>
 
-      <section class="dash-summary">
+      <section class="dash-section">
+        <div class="dash-section-head">
+          <h2>Índice S&P 500 — Mercado estadounidense</h2>
+          <span>SP:SPX</span>
+        </div>
 
-        <article class="dash-card">
-          <div class="dash-card-label">Activos totales</div>
-          <div class="dash-card-value" id="dashTotal">¥0.00</div>
-          <div class="dash-card-note">Valor total estimado de la cuenta</div>
-        </article>
-
-        <article class="dash-card">
-          <div class="dash-card-label">Efectivo disponible</div>
-          <div class="dash-card-value" id="dashCash">¥0.00</div>
-          <div class="dash-card-note">Saldo en efectivo</div>
-        </article>
-
-        <article class="dash-card">
-          <div class="dash-card-label">Valor de posiciones</div>
-          <div class="dash-card-value" id="dashHoldings">¥0.00</div>
-          <div class="dash-card-note">Valor total indicado para las posiciones</div>
-        </article>
-
+        <div style="width:100%;height:460px;overflow:hidden;border-radius:10px;">
+          <iframe
+            title="Tendencia del índice S&P 500"
+            src="https://s.tradingview.com/widgetembed/?symbol=SP%3ASPX&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=f1f3f6&theme=light&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
+            style="width:100%;height:100%;border:0;"
+            allowtransparency="true"
+            scrolling="no"
+            allowfullscreen>
+          </iframe>
+        </div>
       </section>
 
       <section class="dash-section">
         <div class="dash-section-head">
-          <h2>Mis posiciones</h2>
-          <span>Datos preestablecidos de demostración</span>
+          <h2>Tendencia de USDT</h2>
+          <span>Capitalización de mercado de Tether</span>
         </div>
 
-        <div class="dash-table-wrap">
-          <table class="dash-table">
-            <thead>
-              <tr>
-                <th>Activo</th>
-                <th>Símbolo</th>
-                <th>Cantidad</th>
-                <th>Mercado</th>
-              </tr>
-            </thead>
-            <tbody id="dashPositions"></tbody>
-          </table>
+        <div style="width:100%;height:460px;overflow:hidden;border-radius:10px;">
+          <iframe
+            title="Tendencia de mercado de USDT"
+            src="https://s.tradingview.com/widgetembed/?symbol=CRYPTOCAP%3AUSDT&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=f1f3f6&theme=light&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
+            style="width:100%;height:100%;border:0;"
+            allowtransparency="true"
+            scrolling="no"
+            allowfullscreen>
+          </iframe>
         </div>
       </section>
-
-      <p class="dash-account-foot">
-        Esta interfaz es una demostración. Los saldos y las posiciones son
-        datos ficticios preestablecidos y no representan activos reales ni
-        una cuenta de corretaje.
-      </p>
 
     </div>
 
     <!-- UNAVAILABLE PAGE -->
-    <section id="unavailablePage">
+    <section id="unavailablePage" style="
+      display:none;
+      min-height:calc(100vh - 65px);
+      padding:30px 22px 100px;
+      background:#f4f6fb;
+      align-items:center;
+      justify-content:center;
+    ">
       <div style="
         width:100%;
         max-width:520px;
@@ -1457,7 +1440,8 @@
     </button>
 
   </nav>
-    <script>
+
+  <script>
     const loginForm = document.getElementById("loginForm");
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
@@ -1480,10 +1464,6 @@
     const navItems = document.querySelectorAll(".nav-item");
 
     const dashAccount = document.getElementById("dashAccount");
-    const dashTotal = document.getElementById("dashTotal");
-    const dashCash = document.getElementById("dashCash");
-    const dashHoldings = document.getElementById("dashHoldings");
-    const dashPositions = document.getElementById("dashPositions");
     const dashLogout = document.getElementById("dashLogout");
 
     let toastTimer;
@@ -1660,17 +1640,6 @@
       return row;
     }
 
-    /* SHOW HOME POSITIONS */
-    function renderHomePositions(account) {
-      dashPositions.replaceChildren();
-
-      account.positions.forEach((position) => {
-        dashPositions.appendChild(
-          createPositionRow(position, true)
-        );
-      });
-    }
-
     /* SHOW PROFILE */
     function openProfilePage() {
       if (!currentAccountData) return;
@@ -1726,6 +1695,11 @@
           return;
         }
 
+        if (tab === "Inicio") {
+          openHomePage();
+          return;
+        }
+
         homePage.style.display = "none";
         profilePage.style.display = "none";
         unavailablePage.style.display = "flex";
@@ -1738,12 +1712,6 @@
       currentAccountNumber = username;
 
       dashAccount.textContent = username;
-
-      dashTotal.textContent = formatCNY(account.total);
-      dashCash.textContent = formatCNY(account.cash);
-      dashHoldings.textContent = formatCNY(account.holdingsValue);
-
-      renderHomePositions(account);
 
       loginPage.style.display = "none";
       investmentDashboard.style.display = "block";
@@ -1771,8 +1739,8 @@
       bottomNavigation.classList.remove("visible");
 
       profilePage.style.display = "none";
-      unavailablePage.style.display = "none";
       homePage.style.display = "block";
+      unavailablePage.style.display = "none";
 
       loginPage.style.display = "flex";
 
