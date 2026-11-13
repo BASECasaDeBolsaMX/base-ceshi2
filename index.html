@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" translate="no">
 <head>
   <meta charset="UTF-8" />
+  <meta name="google" content="notranslate" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="BASEMAXPRO - Gestión Patrimonial y administración profesional de patrimonio." />
   <title>BASEMAXPRO | Gestión Patrimonial</title>
@@ -596,7 +597,7 @@
       line-height:1.5;
     }
 
-    /* DASHBOARD */
+    /* PANEL DE INVERSIONES */
     #investmentDashboard {
       display:none;
       min-height:100vh;
@@ -797,7 +798,7 @@
       text-align:center;
     }
 
-    /* MARKET HOME */
+    /* INICIO DE LOS MERCADOS */
     #homePage {
       background:
         radial-gradient(ellipse at 12% 0%,rgba(37,99,235,.10),transparent 34%),
@@ -964,7 +965,7 @@
       text-align:center;
     }
 
-    /* BOTTOM NAVIGATION */
+    /* NAVEGACIÓN INFERIOR */
     .bottom-navigation {
       display:none;
       position:fixed;
@@ -1613,7 +1614,34 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
-</style>
+
+    /* VALIDACIÓN DEL FORMULARIO EN ESPAÑOL */
+    .field-error {
+      margin: 8px 0 0;
+      color: #b91c1c;
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+    .field-error[hidden] { display: none; }
+    .login-button:disabled:not(.loading) { cursor: not-allowed; }
+    @media (max-width: 700px) {
+      /* En el acceso móvil, los enlaces no deben tapar el formulario. */
+      body:not(.dashboard-active) .contact-buttons {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 18px 18px calc(24px + env(safe-area-inset-bottom));
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+      body:not(.dashboard-active) .login-panel { padding-bottom: 32px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -1661,7 +1689,7 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
           </p>
         </div>
 
-        <form id="loginForm">
+        <form id="loginForm" lang="es" novalidate>
 
           <div class="form-group">
             <label class="form-label" for="username">
@@ -1672,6 +1700,8 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
               <input
                 id="username"
                 name="username"
+                aria-describedby="usernameError"
+                aria-invalid="false"
                 type="text"
                 class="form-input"
                 placeholder="Introduce tu teléfono o cuenta"
@@ -1681,6 +1711,7 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
                 required
               />
             </div>
+            <p class="field-error" id="usernameError" role="alert" hidden></p>
           </div>
 
           <div class="form-group">
@@ -1692,6 +1723,8 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
               <input
                 id="password"
                 name="password"
+                aria-describedby="passwordError"
+                aria-invalid="false"
                 type="password"
                 class="form-input password-input"
                 placeholder="Introduce tu contraseña"
@@ -1710,6 +1743,7 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
                 👁
               </button>
             </div>
+            <p class="field-error" id="passwordError" role="alert" hidden></p>
           </div>
 
           <div class="forgot-row">
@@ -1726,11 +1760,16 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             type="submit"
             class="login-button"
             id="loginButton"
+            aria-label="Iniciar sesión"
+            disabled
           >
             <span class="button-text">Iniciar sesión</span>
             <span class="spinner" aria-hidden="true"></span>
           </button>
 
+          <noscript>
+            <p class="field-error">Activa JavaScript en tu navegador para iniciar sesión.</p>
+          </noscript>
         </form>
 
         <div class="login-footer">
@@ -1985,7 +2024,7 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
         <section class="market-chart-card">
           <div class="market-chart-head">
             <div>
-              <div class="market-chart-name">Dow Jones Industrial Average</div>
+              <div class="market-chart-name">Índice industrial Dow Jones</div>
               <div class="market-chart-symbol">DJ:DJI</div>
             </div>
             <span class="market-chart-tag">ÍNDICE</span>
@@ -2467,6 +2506,102 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
     const emailCopyButton = document.getElementById("emailCopyButton");
     const profileLogoutBtn = document.getElementById("profileLogoutBtn");
 
+    // Mensajes propios: no dependen del idioma del navegador ni del sistema.
+    const loginFields = [usernameInput, passwordInput];
+    const loginMessagesEs = {
+      usernameRequired: "Introduce tu teléfono o número de cuenta.",
+      passwordRequired: "Introduce tu contraseña.",
+      usernameTooShort: (minimum) =>
+        `Introduce al menos ${minimum} caracteres en el teléfono o número de cuenta.`,
+      passwordTooShort: (minimum) =>
+        `La contraseña debe contener al menos ${minimum} caracteres.`,
+      accountNotFound: "Verifica tu número de cuenta e intenta nuevamente.",
+      incorrectPassword: "La contraseña ingresada no es válida.",
+      invalidField: "Revisa este campo e inténtalo de nuevo."
+    };
+
+    function getLoginFieldError(input) {
+      const value = input === usernameInput ? input.value.trim() : input.value;
+      if (value.length === 0) {
+        return input === usernameInput
+          ? loginMessagesEs.usernameRequired
+          : loginMessagesEs.passwordRequired;
+      }
+      const minimum = input.minLength;
+      if (minimum > 0 && value.length < minimum) {
+        return input === usernameInput
+          ? loginMessagesEs.usernameTooShort(minimum)
+          : loginMessagesEs.passwordTooShort(minimum);
+      }
+      return "";
+    }
+
+    function clearLoginFieldError(input) {
+      input.classList.remove("input-error");
+      input.setAttribute("aria-invalid", "false");
+      const error = document.getElementById(input.id + "Error");
+      error.textContent = "";
+      error.hidden = true;
+      input.setCustomValidity("");
+    }
+
+    function showLoginFieldError(input, message) {
+      const error = document.getElementById(input.id + "Error");
+      input.classList.add("input-error");
+      input.setAttribute("aria-invalid", "true");
+      input.setCustomValidity(message);
+      error.textContent = message;
+      error.hidden = false;
+    }
+
+    function resetLoginValidation() {
+      loginFields.forEach((input) => {
+        clearLoginFieldError(input);
+        input.setCustomValidity(getLoginFieldError(input));
+      });
+    }
+
+    function validateLoginForm() {
+      let firstInvalidInput = null;
+      loginFields.forEach((input) => {
+        clearLoginFieldError(input);
+        const message = getLoginFieldError(input);
+        if (message) {
+          showLoginFieldError(input, message);
+          if (!firstInvalidInput) firstInvalidInput = input;
+        }
+      });
+      if (firstInvalidInput) {
+        firstInvalidInput.focus();
+        return false;
+      }
+      return true;
+    }
+
+    // Evitar los globos nativos, incluso si otro código solicita la validación.
+    loginForm.noValidate = true;
+    loginForm.addEventListener("invalid", (event) => {
+      event.preventDefault();
+      if (loginFields.includes(event.target)) {
+        showLoginFieldError(
+          event.target,
+          getLoginFieldError(event.target) || loginMessagesEs.invalidField
+        );
+      }
+    }, true);
+    loginFields.forEach((input) => {
+      input.addEventListener("input", () => {
+        clearLoginFieldError(input);
+        input.setCustomValidity(getLoginFieldError(input));
+      });
+      input.addEventListener("change", () => {
+        clearLoginFieldError(input);
+        input.setCustomValidity(getLoginFieldError(input));
+      });
+    });
+    resetLoginValidation();
+
+
     // HISTORIAL DE PAGOS DE IPO
     const ipoPaymentsMenuItem = document.getElementById("ipoPaymentsMenuItem");
     const ipoPaymentsModal = document.getElementById("ipoPaymentsModal");
@@ -2693,7 +2828,7 @@ if (copyAddress) {
             textarea.remove();
 
             if (!copied) {
-                throw new Error('Copy failed');
+                throw new Error('No se pudo copiar el contenido');
             }
 
             showToast('Dirección copiada', 'La dirección USDT se ha copiado correctamente.');
@@ -2743,7 +2878,7 @@ if (withdrawButton) {
         positions: [
           { name: "Amazon", symbol: "AMZN", quantity: 800 },
           { name: "Tesla", symbol: "TSLA", quantity: 400 },
-          { name: "Alphabet Class A", symbol: "GOOGL", quantity: 1000 }
+          { name: "Alphabet, clase A", symbol: "GOOGL", quantity: 1000 }
         ],
         payments: [],
         ipoPayments: [],
@@ -2876,8 +3011,8 @@ if (withdrawButton) {
       if (event.key === "Escape" && fundsRecordModal.classList.contains("show")) closeFundsRecordWindow();
     });
 
-    /* SHOW TOAST */
-    function showToast(title, message) {
+    /* MOSTRAR NOTIFICACIÓN */
+    function showToast(title = "", message = "") {
       toastTitle.textContent = title;
       toastMessage.textContent = message;
 
@@ -2905,7 +3040,7 @@ if (withdrawButton) {
       });
     }
 
-    /* PASSWORD VISIBILITY */
+    /* VISIBILIDAD DE LA CONTRASEÑA */
     togglePassword.addEventListener("click", () => {
       const isPassword = passwordInput.type === "password";
 
@@ -2924,7 +3059,7 @@ if (withdrawButton) {
       );
     });
 
-    /* FORGOT PASSWORD */
+    /* RECUPERACIÓN DE LA CONTRASEÑA */
     forgotPassword.addEventListener("click", (event) => {
       event.preventDefault();
 
@@ -2942,7 +3077,7 @@ if (withdrawButton) {
       );
     });
 
-    /* COPY EMAIL */
+    /* COPIAR CORREO ELECTRÓNICO */
     emailCopyButton.addEventListener("click", async (event) => {
       event.preventDefault();
 
@@ -2964,7 +3099,7 @@ if (withdrawButton) {
           temporaryInput.remove();
 
           if (!copied) {
-            throw new Error("Copy failed");
+            throw new Error("No se pudo copiar el contenido");
           }
         }
 
@@ -2978,7 +3113,7 @@ if (withdrawButton) {
       }
     });
 
-    /* CREATE STOCK ROW */
+    /* CREAR FILA DE ACCIONES */
     function createPositionRow(position, includeMarketLink) {
       const row = document.createElement("tr");
 
@@ -3129,7 +3264,7 @@ if (withdrawButton) {
     refreshExchangeRate();
     setInterval(refreshExchangeRate, 30 * 60 * 1000);
 
-    /* SHOW PROFILE */
+    /* MOSTRAR PERFIL */
     function openProfilePage() {
       if (!currentAccountData) return;
 
@@ -3151,14 +3286,14 @@ if (withdrawButton) {
         currentAccountData.profitTotal;
     }
 
-    /* SHOW HOME PAGE */
+    /* MOSTRAR LA PÁGINA DE INICIO */
     function openHomePage() {
       profilePage.style.display = "none";
       unavailablePage.style.display = "none";
       homePage.style.display = "block";
     }
 
-    /* NAVIGATION */
+    /* NAVEGACIÓN */
     navItems.forEach((item) => {
       item.addEventListener("click", () => {
         const tab = item.dataset.tab;
@@ -3185,7 +3320,7 @@ if (withdrawButton) {
       });
     });
 
-    /* SHOW INVESTMENT DASHBOARD */
+    /* MOSTRAR PANEL DE INVERSIONES */
     function showInvestmentDashboard(username, account) {
       currentAccountData = account;
       currentAccountNumber = username;
@@ -3215,7 +3350,7 @@ if (withdrawButton) {
       localStorage.setItem("lastUser", username);
     }
 
-    /* RETURN TO LOGIN */
+    /* VOLVER AL INICIO DE SESIÓN */
     function returnToLogin() {
       investmentDashboard.style.display = "none";
       bottomNavigation.classList.remove("visible");
@@ -3224,18 +3359,18 @@ if (withdrawButton) {
       homePage.style.display = "block";
       unavailablePage.style.display = "none";
 
-      loginPage.style.display = "flex";
+      loginPage.style.display = "";
 
       currentAccountData = null;
       currentAccountNumber = null;
 
       loginForm.reset();
-
-      usernameInput.classList.remove("input-error");
-      passwordInput.classList.remove("input-error");
+      resetLoginValidation();
 
       passwordInput.type = "password";
       togglePassword.textContent = "👁";
+      togglePassword.setAttribute("aria-label", "Mostrar contraseña");
+      togglePassword.setAttribute("title", "Mostrar contraseña");
 
       navItems.forEach((nav) => {
         nav.classList.remove("active");
@@ -3254,62 +3389,43 @@ if (withdrawButton) {
     dashLogout.addEventListener("click", returnToLogin);
     profileLogoutBtn.addEventListener("click", returnToLogin);
 
-    /* LOGIN */
+    /* INICIO DE SESIÓN */
     loginForm.addEventListener("submit", (event) => {
       event.preventDefault();
+      if (loginButton.disabled) return;
+      if (!validateLoginForm()) return;
 
       const username = usernameInput.value.trim();
       const password = passwordInput.value;
-
-      usernameInput.classList.remove("input-error");
-      passwordInput.classList.remove("input-error");
-
-      if (!username || !accountData[username]) {
-        usernameInput.classList.add("input-error");
+      if (!Object.prototype.hasOwnProperty.call(accountData, username)) {
+        showLoginFieldError(usernameInput, loginMessagesEs.accountNotFound);
         usernameInput.focus();
-
-        showToast(
-          "Cuenta no encontrada",
-          "Verifica tu número de cuenta e intenta nuevamente."
-        );
-
+        showToast("Cuenta no encontrada", loginMessagesEs.accountNotFound);
         return;
       }
-
       if (password !== accountData[username].password) {
-        passwordInput.classList.add("input-error");
+        showLoginFieldError(passwordInput, loginMessagesEs.incorrectPassword);
         passwordInput.focus();
-
-        showToast(
-          "Contraseña incorrecta",
-          "La contraseña ingresada no es válida."
-        );
-
+        showToast("Contraseña incorrecta", loginMessagesEs.incorrectPassword);
         return;
       }
 
+      toast.classList.remove("show");
       loginButton.classList.add("loading");
       loginButton.disabled = true;
+      loginButton.setAttribute("aria-busy", "true");
+      loginButton.setAttribute("aria-label", "Iniciando sesión...");
 
       setTimeout(() => {
         loginButton.classList.remove("loading");
         loginButton.disabled = false;
-
-        showInvestmentDashboard(
-          username,
-          accountData[username]
-        );
+        loginButton.removeAttribute("aria-busy");
+        loginButton.setAttribute("aria-label", "Iniciar sesión");
+        showInvestmentDashboard(username, accountData[username]);
       }, 650);
     });
-
-    /* CLEAR INPUT ERRORS */
-    usernameInput.addEventListener("input", () => {
-      usernameInput.classList.remove("input-error");
-    });
-
-    passwordInput.addEventListener("input", () => {
-      passwordInput.classList.remove("input-error");
-    });
+    // El botón solo se habilita después de instalar la validación en español.
+    loginButton.disabled = false;
 
     // Recuperar la sesión al cargar la página
     window.onload = function(){
