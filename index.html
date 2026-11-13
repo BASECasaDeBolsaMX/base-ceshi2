@@ -2222,11 +2222,28 @@ if (closeDeposit && depositModal) {
 
 if (copyAddress) {
     copyAddress.addEventListener('click', async () => {
+        const address = 'TXmLTcUQrFPaHAhrpemKMDn4qfxxqo7zbN';
+
         try {
-            await navigator.clipboard.writeText('TXmLTcUQrFPaHAhrpemKMDn4qfxxqo7zbN');
-            showToast('Dirección copiada');
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(address);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = address;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+
+                const copied = document.execCommand('copy');
+                textarea.remove();
+
+                if (!copied) throw new Error('Copy failed');
+            }
+
+            showToast('USDT地址已复制！');
         } catch (error) {
-            showToast('No se pudo copiar la dirección');
+            showToast('复制失败，请长按地址手动复制');
         }
     });
 }
