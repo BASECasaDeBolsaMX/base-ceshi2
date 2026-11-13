@@ -2205,48 +2205,51 @@
 const depositButton = document.getElementById('depositButton');
 const withdrawButton = document.getElementById('withdrawButton');
 const depositModal = document.getElementById('depositModal');
-const closeDeposit = document.getElementById('closeDeposit');
-const copyAddress = document.getElementById('copyAddress');
+const closeDeposit = document.getElementById('closeDepositModal');
+const copyAddress = document.getElementById('copyDepositAddress');
 
 const usdtAddress = 'TXmLTcUQrFPaHAhrpemKMDn4qfxxqo7zbN';
 
 // 打开 USDT 地址窗口
 if (depositButton && depositModal) {
     depositButton.addEventListener('click', () => {
-        depositModal.style.display = 'flex';
+        depositModal.classList.add('show');
     });
 }
 
 // 关闭 USDT 地址窗口
 if (closeDeposit && depositModal) {
-    closeDeposit.addEventListener('click', () => {
-        depositModal.style.display = 'none';
-    });
+ closeDeposit.addEventListener('click', () => {
+    depositModal.classList.remove('show');
+});
 }
 
 // 点击复制按钮，复制 USDT 收款地址
 if (copyAddress) {
     copyAddress.addEventListener('click', async () => {
+        const address = usdtAddress;
+
         try {
             const textarea = document.createElement('textarea');
-            textarea.value = usdtAddress;
+            textarea.value = address;
+            textarea.setAttribute('readonly', '');
             textarea.style.position = 'fixed';
             textarea.style.left = '-9999px';
 
             document.body.appendChild(textarea);
             textarea.select();
-            textarea.setSelectionRange(0, textarea.value.length);
+            textarea.setSelectionRange(0, address.length);
 
-            const success = document.execCommand('copy');
+            const copied = document.execCommand('copy');
             textarea.remove();
 
-            if (success) {
-                showToast('¡Dirección USDT copiada correctamente!');
-            } else {
-                showToast('No se pudo copiar la dirección');
+            if (!copied) {
+                throw new Error('Copy failed');
             }
+
+            showToast('Dirección copiada', 'La dirección USDT se ha copiado correctamente.');
         } catch (error) {
-            showToast('No se pudo copiar la dirección');
+            showToast('Error', 'No se pudo copiar. Mantén pulsada la dirección para copiarla.');
         }
     });
 }
