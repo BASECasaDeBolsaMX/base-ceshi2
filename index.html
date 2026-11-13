@@ -343,6 +343,7 @@
       flex-direction: column;
       gap: 12px;
       z-index: 9999;
+      transition: bottom .25s ease;
     }
 
     .contact-button {
@@ -1029,6 +1030,10 @@
     }
     #profilePage .dash-section h2 { color:#172033; }
 
+    body.dashboard-active .contact-buttons {
+      bottom: 85px;
+    }
+
     @media(max-width:900px) {
       .page { display:block; }
 
@@ -1183,6 +1188,10 @@
       .market-chart-head { padding:13px 12px; }
       .market-chart-frame { height:300px; }
       .market-chart-card.featured .market-chart-frame { height:330px; }
+
+      body.dashboard-active .contact-buttons {
+        bottom: 80px;
+      }
     }
   </style>
 </head>
@@ -1773,7 +1782,7 @@
           font-size:22px;
           margin-bottom:14px;
         ">
-          Acceso temporalmente no disponible
+          Función temporalmente no disponible
         </h2>
 
         <p style="
@@ -1781,8 +1790,7 @@
           font-size:14px;
           line-height:1.8;
         ">
-          Tu cuenta no puede acceder temporalmente a esta función.
-          Por favor, contacta con tu gerente de cuenta para obtener asistencia.
+          Esta sección se encuentra en mantenimiento. Por favor vuelve más tarde o contacta a tu asesor de cuenta.
         </p>
       </div>
     </section>
@@ -1853,7 +1861,7 @@
 
         <section class="dash-section">
           <div class="dash-section-head">
-            <h2>Registro de pagos</h2>
+            <h2>Historial de pagos</h2>
           </div>
           <div id="paymentRecords"></div>
         </section>
@@ -1926,9 +1934,9 @@
     const demoAccounts = {
       "13800138000": {
         password: "123456",
-        total: 1258600,
-        cash: 568600,
-        holdingsValue: 690000,
+        total: "1,258,600 MXN",
+        cash: "568,600 MXN",
+        holdingsValue: "690,000 MXN",
         positions: [
           { name: "Apple", symbol: "AAPL", quantity: 1000 },
           { name: "Microsoft", symbol: "MSFT", quantity: 500 },
@@ -1939,9 +1947,9 @@
 
       "13900139000": {
         password: "654321",
-        total: 856300,
-        cash: 356300,
-        holdingsValue: 500000,
+        total: "856,300 MXN",
+        cash: "356,300 MXN",
+        holdingsValue: "500,000 MXN",
         positions: [
           { name: "Amazon", symbol: "AMZN", quantity: 800 },
           { name: "Tesla", symbol: "TSLA", quantity: 400 },
@@ -1952,15 +1960,15 @@
 
       "6671885463": {
         password: "base123456",
-        total: "-75000 pesos",
-        cash: "-75000 pesos",
-        holdingsValue: "0 pesos",
+        total: "-75,000 MXN",
+        cash: "-75,000 MXN",
+        holdingsValue: "0 MXN",
         positions: [
           { name: "Stock", symbol: "STK", quantity: 847 }
         ],
         payments: [
-          {date:"2026.10.2", amount:"2200 usdt"},
-          {date:"2026.10.2", amount:"3888 usdt"}
+          {date:"02/10/2026", amount:"2200 USDT"},
+          {date:"02/10/2026", amount:"3888 USDT"}
         ]
       }
     };
@@ -1977,11 +1985,6 @@
       toastTimer = setTimeout(() => {
         toast.classList.remove("show");
       }, 3500);
-    }
-
-    /* FORMAT CURRENCY */
-    function formatCNY(value) {
-      return value;
     }
 
     /* PASSWORD VISIBILITY */
@@ -2009,7 +2012,7 @@
 
       showToast(
         "Información",
-        "Por favor, contacte con el personal oficial para gestionar su solicitud."
+        "Contacta a nuestro equipo de soporte para restablecer tu contraseña."
       );
     });
 
@@ -2017,7 +2020,7 @@
     whatsappButton.addEventListener("click", () => {
       showToast(
         "WhatsApp",
-        "El servicio de WhatsApp está temporalmente suspendido."
+        "El servicio de WhatsApp se encuentra suspendido temporalmente."
       );
     });
 
@@ -2047,11 +2050,11 @@
           }
         }
 
-        showToast("Correo electrónico copiado", email);
+        showToast("Correo copiado", email);
 
       } catch (error) {
         showToast(
-          "No se pudo copiar el correo",
+          "No se pudo copiar",
           "Copia manualmente: " + email
         );
       }
@@ -2070,7 +2073,7 @@
       symbolCell.className = "dash-symbol";
 
       quantityCell.textContent =
-        Number(position.quantity).toLocaleString("zh-CN");
+        Number(position.quantity).toLocaleString("es-MX");
 
       if (includeMarketLink) {
         const marketCell = document.createElement("td");
@@ -2084,7 +2087,7 @@
 
         link.target = "_blank";
         link.rel = "noopener noreferrer";
-        link.textContent = "TradingView ↗️";
+        link.textContent = "Ver en TradingView ↗️";
 
         marketCell.appendChild(link);
 
@@ -2117,13 +2120,13 @@
         currentAccountNumber;
 
       document.getElementById("profileTotal").textContent =
-        formatCNY(currentAccountData.total);
+        currentAccountData.total;
 
       document.getElementById("profileCash").textContent =
-        formatCNY(currentAccountData.cash);
+        currentAccountData.cash;
 
       document.getElementById("profileHoldings").textContent =
-        formatCNY(currentAccountData.holdingsValue);
+        currentAccountData.holdingsValue;
 
       const profilePositions =
         document.getElementById("profilePositions");
@@ -2265,7 +2268,7 @@
 
         showToast(
           "Cuenta no encontrada",
-          "Comprueba el número de cuenta e inténtalo de nuevo."
+          "Verifica tu número de cuenta e intenta nuevamente."
         );
 
         return;
@@ -2277,7 +2280,7 @@
 
         showToast(
           "Contraseña incorrecta",
-          "La contraseña introducida no es válida."
+          "La contraseña ingresada no es válida."
         );
 
         return;
@@ -2308,54 +2311,36 @@
 
   </script>
 
-</body>
-  
-<!-- CONTACT BUTTON POSITION FIX -->
-<style>
-  .contact-buttons {
-    transition: bottom .25s ease;
-  }
-
-  body.dashboard-active .contact-buttons {
-    bottom: 85px;
-  }
-
-  @media (max-width: 480px) {
-    body.dashboard-active .contact-buttons {
-      bottom: 80px;
-    }
-  }
-</style>
-
-<script>
-  // Detect whether the investment dashboard is displayed
-  const dashboardPositionFix = document.getElementById(
-    "investmentDashboard"
-  );
-
-  function updateContactButtonPosition() {
-    const dashboardVisible =
-      dashboardPositionFix &&
-      getComputedStyle(dashboardPositionFix).display !== "none";
-
-    document.body.classList.toggle(
-      "dashboard-active",
-      dashboardVisible
+  <script>
+    // Detect whether the investment dashboard is displayed
+    const dashboardPositionFix = document.getElementById(
+      "investmentDashboard"
     );
-  }
 
-  // Check immediately
-  updateContactButtonPosition();
+    function updateContactButtonPosition() {
+      const dashboardVisible =
+        dashboardPositionFix &&
+        getComputedStyle(dashboardPositionFix).display !== "none";
 
-  // Automatically detect login and logout
-  const dashboardObserver = new MutationObserver(
-    updateContactButtonPosition
-  );
+      document.body.classList.toggle(
+        "dashboard-active",
+        dashboardVisible
+      );
+    }
 
-  dashboardObserver.observe(dashboardPositionFix, {
-    attributes: true,
-    attributeFilter: ["style"]
-  });
-</script>
+    // Check immediately
+    updateContactButtonPosition();
 
+    // Automatically detect login and logout
+    const dashboardObserver = new MutationObserver(
+      updateContactButtonPosition
+    );
+
+    dashboardObserver.observe(dashboardPositionFix, {
+      attributes: true,
+      attributeFilter: ["style"]
+    });
+  </script>
+
+</body>
 </html>
