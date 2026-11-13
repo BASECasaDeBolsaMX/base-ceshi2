@@ -1345,7 +1345,85 @@
         bottom: 80px;
       }
     }
-  </style>
+  
+/* DEPÓSITO MODAL */
+.deposit-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  background: rgba(0,0,0,.78);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.deposit-modal.show {
+  display: flex;
+}
+
+.deposit-box {
+  width: 100%;
+  max-width: 430px;
+  padding: 26px 22px;
+  border-radius: 18px;
+  background: linear-gradient(145deg,#14223a,#0b1220);
+  border: 1px solid rgba(212,175,55,.4);
+  box-shadow: 0 15px 45px rgba(0,0,0,.5);
+  color: #fff;
+  text-align: center;
+}
+
+.deposit-box h2 {
+  color: #f3d675;
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+
+.deposit-network {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.deposit-address {
+  padding: 14px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(212,175,55,.25);
+  border-radius: 10px;
+  color: #f3d675;
+  font-size: 13px;
+  line-height: 1.7;
+  word-break: break-all;
+  margin-bottom: 15px;
+  user-select: all;
+}
+
+.deposit-warning {
+  color: #fbbf24;
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 12px 0 18px;
+}
+
+.deposit-modal-btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg,#d4af37,#f3d675);
+  color: #111827;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.deposit-close-btn {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.15);
+}</style>
 </head>
 <body>
 
@@ -1581,7 +1659,44 @@
 
   </div>
 
-  <!-- TOAST -->
+  <!-- DEPÓSITO MODAL -->
+<div class="deposit-modal" id="depositModal">
+  <div class="deposit-box">
+    <h2>Depósito USDT</h2>
+
+    <div class="deposit-network">
+      Red de transferencia: <strong>TRC20</strong>
+    </div>
+
+    <div class="deposit-address" id="depositAddress">
+      TXmLTcUQrFPaHAhrpemKMDn4qfxxqo7zbN
+    </div>
+
+    <p class="deposit-warning">
+      Verifica cuidadosamente la dirección y la red antes de realizar
+      cualquier transferencia. Envía únicamente USDT mediante TRC20.
+      Las transferencias incorrectas pueden ser irreversibles.
+      Confirma por separado que esta dirección pertenece al destinatario
+      previsto antes de enviar fondos.
+    </p>
+
+    <button
+      type="button"
+      class="deposit-modal-btn"
+      id="copyDepositAddress"
+    >
+      Copiar dirección
+    </button>
+
+    <button
+      type="button"
+      class="deposit-modal-btn deposit-close-btn"
+      id="closeDepositModal"
+    >
+      Cerrar
+    </button>
+  </div>
+</div><!-- TOAST -->
   <div
     class="toast"
     id="toast"
@@ -1978,13 +2093,13 @@
           </div>
 
           <div class="action-row">
-            <button class="action-btn">
-              📥 Depósito
-            </button>
-            <button class="action-btn secondary">
-              💳 Retiro
-            </button>
-          </div>
+  <button class="action-btn" type="button" id="depositButton">
+    📥 Depósito
+  </button>
+  <button class="action-btn secondary" type="button" id="withdrawButton">
+    💳 Retiro
+  </button>
+</div>
 
           <div class="stat-row">
             <div class="stat-item">
@@ -2086,6 +2201,41 @@
     let currentAccountData = null;
     let currentAccountNumber = null;
 
+    // ===== DEPÓSITO / RETIRO =====
+const depositButton = document.getElementById('depositButton');
+const withdrawButton = document.getElementById('withdrawButton');
+const depositModal = document.getElementById('depositModal');
+const closeDeposit = document.getElementById('closeDeposit');
+const copyAddress = document.getElementById('copyAddress');
+
+if (depositButton && depositModal) {
+    depositButton.addEventListener('click', () => {
+        depositModal.style.display = 'flex';
+    });
+}
+
+if (closeDeposit && depositModal) {
+    closeDeposit.addEventListener('click', () => {
+        depositModal.style.display = 'none';
+    });
+}
+
+if (copyAddress) {
+    copyAddress.addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText('TXmLTcUQrFPaHAhrpemKMDn4qfxxqo7zbN');
+            showToast('Dirección copiada');
+        } catch (error) {
+            showToast('No se pudo copiar la dirección');
+        }
+    });
+}
+
+if (withdrawButton) {
+    withdrawButton.addEventListener('click', () => {
+        showToast('Retiro no disponible por el momento');
+    });
+}
     /* DEMO ACCOUNTS */
     const demoAccounts = {
       "13800138000": {
