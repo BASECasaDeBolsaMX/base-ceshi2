@@ -2242,7 +2242,7 @@
             <span>Moneda</span>
             <i>›</i>
           </div>
-          <div class="menu-item">
+          <div class="menu-item" id="bankCardMenuItem" role="button" tabindex="0" aria-label="Tarjeta bancaria">
             <span>Tarjeta bancaria</span>
             <i>›</i>
           </div>
@@ -2677,6 +2677,21 @@ if (withdrawButton) {
         }
       }
     };
+
+    /* MENSAJE DEMOSTRATIVO DE TARJETA BANCARIA */
+    const bankCardMenuItem = document.getElementById("bankCardMenuItem");
+    function showBankCardNotice() {
+      showToast("Tarjeta bancaria vinculada correctamente", "Mensaje de demostración. No se ha verificado ninguna vinculación bancaria real.");
+    }
+    if (bankCardMenuItem) {
+      bankCardMenuItem.addEventListener("click", showBankCardNotice);
+      bankCardMenuItem.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          showBankCardNotice();
+        }
+      });
+    }
 
     /* SHOW TOAST */
     function showToast(title, message) {
