@@ -1513,6 +1513,34 @@
       cursor: pointer;
     }
 
+  
+    /* PARTICIPACIÓN EN IPO */
+    .ipo-holdings-list {
+      display: grid;
+      gap: 0;
+      border: 1px solid rgba(212,175,55,.22);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .ipo-holding-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 15px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.09);
+      font-size: 13px;
+    }
+    .ipo-holding-row:last-child { border-bottom: 0; }
+    .ipo-holding-label { color: #aab6c8; }
+    .ipo-holding-value {
+      color: #f3d675;
+      font-weight: 800;
+      text-align: right;
+      letter-spacing: 1px;
+      overflow-wrap: anywhere;
+    }
+
   </style>
 </head>
 <body>
@@ -2226,6 +2254,10 @@
             <span>Registro de pagos de IPO</span>
             <i>›</i>
           </div>
+          <div class="menu-item" id="ipoHoldingsMenuItem" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="ipoHoldingsModal">
+            <span>Participaciones de IPO</span>
+            <i>›</i>
+          </div>
           <div class="menu-item">
             <span>Contraseña de entrada</span>
             <i>›</i>
@@ -2249,6 +2281,41 @@
         </div>
         <div class="ipo-modal-footer">
           <button type="button" id="closeIpoPaymentsButton">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VENTANA DE PARTICIPACIONES DE IPO -->
+    <div class="ipo-modal" id="ipoHoldingsModal" role="dialog" aria-modal="true" aria-labelledby="ipoHoldingsTitle">
+      <div class="ipo-modal-box">
+        <div class="ipo-modal-header">
+          <h2 id="ipoHoldingsTitle">Participaciones de IPO</h2>
+          <button type="button" class="ipo-modal-close" id="closeIpoHoldingsModal" aria-label="Cerrar">×</button>
+        </div>
+        <div class="ipo-holdings-list" id="ipoHoldingsContent">
+          <div class="ipo-holding-row">
+            <span class="ipo-holding-label">Nombre de la nueva acción</span>
+            <strong class="ipo-holding-value">****</strong>
+          </div>
+          <div class="ipo-holding-row">
+            <span class="ipo-holding-label">Código de la acción</span>
+            <strong class="ipo-holding-value">****</strong>
+          </div>
+          <div class="ipo-holding-row">
+            <span class="ipo-holding-label">Cantidad comprada</span>
+            <strong class="ipo-holding-value">****</strong>
+          </div>
+          <div class="ipo-holding-row">
+            <span class="ipo-holding-label">Precio de compra</span>
+            <strong class="ipo-holding-value">****</strong>
+          </div>
+          <div class="ipo-holding-row">
+            <span class="ipo-holding-label">Cantidad adjudicada</span>
+            <strong class="ipo-holding-value">****</strong>
+          </div>
+        </div>
+        <div class="ipo-modal-footer">
+          <button type="button" id="closeIpoHoldingsButton">Cerrar</button>
         </div>
       </div>
     </div>
@@ -2377,6 +2444,88 @@
       }
     });
 
+    // ===================================
+    // PARTICIPACIONES DE IPO
+    // ===================================
+    const ipoHoldingsMenuItem = document.getElementById("ipoHoldingsMenuItem");
+    const ipoHoldingsModal = document.getElementById("ipoHoldingsModal");
+    const closeIpoHoldingsModal = document.getElementById("closeIpoHoldingsModal");
+    const closeIpoHoldingsButton = document.getElementById("closeIpoHoldingsButton");
+    const ipoHoldingsContent = document.getElementById("ipoHoldingsContent");
+
+    function renderIpoHoldings() {
+      const data = currentAccountData && currentAccountData.ipoHoldings
+        ? currentAccountData.ipoHoldings
+        : {};
+
+      const fields = [
+        ["Nombre de la nueva acción", "stockName"],
+        ["Código de la acción", "stockCode"],
+        ["Cantidad comprada", "purchaseQuantity"],
+        ["Precio de compra", "purchasePrice"],
+        ["Cantidad adjudicada", "allocatedQuantity"]
+      ];
+
+      ipoHoldingsContent.replaceChildren();
+
+      fields.forEach(([label, key]) => {
+        const row = document.createElement("div");
+        row.className = "ipo-holding-row";
+
+        const labelElement = document.createElement("span");
+        labelElement.className = "ipo-holding-label";
+        labelElement.textContent = label;
+
+        const valueElement = document.createElement("strong");
+        valueElement.className = "ipo-holding-value";
+        const value = data[key];
+        valueElement.textContent =
+          value !== undefined && value !== null && String(value).trim() !== ""
+            ? String(value)
+            : "****";
+
+        row.append(labelElement, valueElement);
+        ipoHoldingsContent.appendChild(row);
+      });
+    }
+
+    function openIpoHoldingsModal() {
+      renderIpoHoldings();
+      ipoHoldingsModal.classList.add("show");
+    }
+
+    function closeIpoHoldingsWindow() {
+      ipoHoldingsModal.classList.remove("show");
+    }
+
+    if (ipoHoldingsMenuItem) {
+      ipoHoldingsMenuItem.addEventListener("click", openIpoHoldingsModal);
+      ipoHoldingsMenuItem.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openIpoHoldingsModal();
+        }
+      });
+    }
+
+    if (closeIpoHoldingsModal) {
+      closeIpoHoldingsModal.addEventListener("click", closeIpoHoldingsWindow);
+    }
+    if (closeIpoHoldingsButton) {
+      closeIpoHoldingsButton.addEventListener("click", closeIpoHoldingsWindow);
+    }
+    if (ipoHoldingsModal) {
+      ipoHoldingsModal.addEventListener("click", (event) => {
+        if (event.target === ipoHoldingsModal) closeIpoHoldingsWindow();
+      });
+    }
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && ipoHoldingsModal.classList.contains("show")) {
+        closeIpoHoldingsWindow();
+      }
+    });
+
+
 
     const toast = document.getElementById("toast");
     const toastTitle = document.getElementById("toastTitle");
@@ -2470,7 +2619,15 @@ if (withdrawButton) {
           { name: "NVIDIA", symbol: "NVDA", quantity: 1500 }
         ],
         payments: [],
-        ipoPayments: []
+        ipoPayments: [],
+        // Sustituye los valores vacíos cuando quieras editar los datos de participación en IPO.
+        ipoHoldings: {
+          stockName: "",
+          stockCode: "",
+          purchaseQuantity: "",
+          purchasePrice: "",
+          allocatedQuantity: ""
+        }
       },
 
       "13900139000": {
@@ -2485,7 +2642,15 @@ if (withdrawButton) {
           { name: "Alphabet Class A", symbol: "GOOGL", quantity: 1000 }
         ],
         payments: [],
-        ipoPayments: []
+        ipoPayments: [],
+        // Sustituye los valores vacíos cuando quieras editar los datos de participación en IPO.
+        ipoHoldings: {
+          stockName: "",
+          stockCode: "",
+          purchaseQuantity: "",
+          purchasePrice: "",
+          allocatedQuantity: ""
+        }
       },
 
       "6671885463": {
@@ -2501,7 +2666,15 @@ if (withdrawButton) {
           {date:"02/10/2026", amount:"2200 USDT"},
           {date:"02/10/2026", amount:"3888 USDT"}
         ],
-        ipoPayments: []
+        ipoPayments: [],
+        // Sustituye los valores vacíos cuando quieras editar los datos de participación en IPO.
+        ipoHoldings: {
+          stockName: "",
+          stockCode: "",
+          purchaseQuantity: "",
+          purchasePrice: "",
+          allocatedQuantity: ""
+        }
       }
     };
 
