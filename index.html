@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Basemaxpro</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
             margin: 0;
@@ -14,6 +15,7 @@
         body {
             background-color: #0f172a;
             color: #fff;
+            padding-bottom: 70px;
         }
         header {
             background: #1e293b;
@@ -21,6 +23,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top:0;
+            z-index:90;
         }
         .logo {
             font-size: 20px;
@@ -75,6 +80,25 @@
             background:#334155;
             color:#fff;
         }
+        .chart-wrap{
+            width:100%;
+            height:260px;
+            margin:10px 0;
+        }
+        .market-title{
+            font-size:17px;
+            margin:24px 0 12px;
+        }
+        .market-item{
+            display:flex;
+            justify-content:space-between;
+            padding:14px 16px;
+            background:#1e293b;
+            border-radius:10px;
+            margin-bottom:10px;
+        }
+        .up{color:#22c55e;}
+        .down{color:#ef4444;}
         .more-services-title {
             font-size:17px;
             margin:24px 0 12px;
@@ -104,18 +128,21 @@
             left:0;
             width:100%;
             height:100%;
-            background:rgba(0,0,0,0.7);
+            background:rgba(0,0,0,0.75);
             display:none;
             align-items:center;
             justify-content:center;
             z-index:999;
+            padding:15px;
         }
         .modal-box {
-            width:90%;
+            width:100%;
             max-width:420px;
             background:#1e293b;
             border-radius:12px;
             padding:20px;
+            max-height:85vh;
+            overflow-y:auto;
         }
         .modal-header {
             display:flex;
@@ -133,17 +160,46 @@
             background:none;
             border:none;
             color:#fff;
-            font-size:22px;
+            font-size:24px;
             cursor:pointer;
         }
         .empty-tip {
             text-align:center;
-            padding:40px 0;
+            padding:45px 0;
             color:#94a3b8;
+            font-size:15px;
         }
         .record-item {
             padding:12px 0;
             border-bottom:1px solid #334155;
+        }
+        .form-item{
+            margin-bottom:16px;
+        }
+        .form-item label{
+            display:block;
+            font-size:14px;
+            color:#94a3b8;
+            margin-bottom:6px;
+        }
+        .form-item input{
+            width:100%;
+            padding:12px;
+            border-radius:8px;
+            border:1px solid #334155;
+            background:#0f172a;
+            color:#fff;
+            outline:none;
+        }
+        .submit-btn{
+            width:100%;
+            padding:13px;
+            border:none;
+            border-radius:8px;
+            background:#ffc107;
+            color:#000;
+            font-weight:bold;
+            cursor:pointer;
         }
         .bottom-nav {
             position:fixed;
@@ -153,6 +209,7 @@
             background:#1e293b;
             display:flex;
             padding:10px 0;
+            z-index:90;
         }
         .nav-item {
             flex:1;
@@ -163,23 +220,39 @@
         .nav-item.active {
             color:#ffc107;
         }
-        .space-bottom {
-            height:70px;
-        }
     </style>
 </head>
 <body>
 <header>
     <div class="logo">Basemaxpro</div>
-    <button class="menu-btn">Menu</button>
+    <button class="menu-btn" onclick="openModal('loginModal')">Iniciar Sesión</button>
 </header>
 <div class="container">
     <div class="card">
         <div class="balance-text">Saldo disponible</div>
         <div class="balance-num">USD 0.00</div>
+        <div class="chart-wrap">
+            <canvas id="klineChart"></canvas>
+        </div>
         <div class="action-row">
-            <button class="action-btn btn-deposit">Depositar</button>
-            <button class="action-btn btn-withdraw">Retirar</button>
+            <button class="action-btn btn-deposit" onclick="openModal('depositModal')">Depositar</button>
+            <button class="action-btn btn-withdraw" onclick="openModal('withdrawModal')">Retirar</button>
+        </div>
+    </div>
+
+    <div class="market-title">Mercado</div>
+    <div class="market-list">
+        <div class="market-item">
+            <div>BTC/USD</div>
+            <div class="up">+2.34%</div>
+        </div>
+        <div class="market-item">
+            <div>ETH/USD</div>
+            <div class="down">-0.87%</div>
+        </div>
+        <div class="market-item">
+            <div>BNB/USD</div>
+            <div class="up">+1.12%</div>
         </div>
     </div>
 
@@ -189,7 +262,7 @@
             <span>Registro de fondos</span>
             <span>></span>
         </div>
-        <!-- 新增 IPO缴纳记录 入口 -->
+        <!-- 新增IPO缴纳记录入口 -->
         <div class="service-item" onclick="openModal('ipoRecord')">
             <span>IPO缴纳记录</span>
             <span>></span>
@@ -199,11 +272,66 @@
             <span>></span>
         </div>
     </div>
-
-    <div class="space-bottom"></div>
 </div>
 
-<!-- IPO缴纳记录弹窗 -->
+<!-- 登录弹窗 -->
+<div class="modal-mask" id="loginModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <div class="modal-title">Iniciar Sesión</div>
+            <button class="close-modal" onclick="closeModal('loginModal')">×</button>
+        </div>
+        <div class="form-item">
+            <label>Usuario</label>
+            <input type="text" placeholder="Ingrese usuario">
+        </div>
+        <div class="form-item">
+            <label>Contraseña</label>
+            <input type="password" placeholder="Ingrese contraseña">
+        </div>
+        <button class="submit-btn">Ingresar</button>
+    </div>
+</div>
+
+<!-- 充值弹窗 -->
+<div class="modal-mask" id="depositModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <div class="modal-title">Depositar</div>
+            <button class="close-modal" onclick="closeModal('depositModal')">×</button>
+        </div>
+        <div class="form-item">
+            <label>Monto USD</label>
+            <input type="number" placeholder="Ingrese monto">
+        </div>
+        <div class="form-item">
+            <label>Red de pago</label>
+            <input type="text" placeholder="TRC20 / ERC20">
+        </div>
+        <button class="submit-btn">Confirmar Depósito</button>
+    </div>
+</div>
+
+<!-- 提现弹窗 -->
+<div class="modal-mask" id="withdrawModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <div class="modal-title">Retirar</div>
+            <button class="close-modal" onclick="closeModal('withdrawModal')">×</button>
+        </div>
+        <div class="form-item">
+            <label>Monto USD</label>
+            <input type="number" placeholder="Ingrese monto">
+        </div>
+        <div class="form-item">
+            <label>Dirección de billetera</label>
+            <input type="text" placeholder="Dirección USDT">
+        </div>
+        <button class="submit-btn">Solicitar Retiro</button>
+    </div>
+</div>
+
+<!-- IPO缴纳记录弹窗（新增） -->
 <div class="modal-mask" id="ipoModal">
     <div class="modal-box">
         <div class="modal-header">
@@ -216,7 +344,7 @@
     </div>
 </div>
 
-<!-- 其他原有弹窗占位 -->
+<!-- 资金记录弹窗 -->
 <div class="modal-mask" id="fundModal">
     <div class="modal-box">
         <div class="modal-header">
@@ -226,6 +354,8 @@
         <div class="empty-tip">Sin registros</div>
     </div>
 </div>
+
+<!-- 交易记录弹窗 -->
 <div class="modal-mask" id="tradeModal">
     <div class="modal-box">
         <div class="modal-header">
@@ -244,8 +374,34 @@
 </div>
 
 <script>
-// 模拟IPO数据，后续在这里加记录
+// 模拟IPO数据数组，在这里添加记录
 const ipoRecords = [];
+
+// 初始化K线图表
+const ctx = document.getElementById('klineChart').getContext('2d');
+new Chart(ctx,{
+    type:'line',
+    data:{
+        labels:['09:00','10:00','11:00','12:00','13:00','14:00'],
+        datasets:[{
+            label:'BTC',
+            data:[42100,42350,42280,42500,42610,42750],
+            borderColor:'#ffc107',
+            backgroundColor:'rgba(255,193,7,0.1)',
+            fill:true,
+            tension:0.3
+        }]
+    },
+    options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{legend:{display:false}},
+        scales:{
+            x:{grid:{color:'#334155'},ticks:{color:'#94a3b8'}},
+            y:{grid:{color:'#334155'},ticks:{color:'#94a3b8'}}
+        }
+    }
+});
 
 function openModal(type){
     if(type === 'ipoRecord'){
@@ -260,7 +416,7 @@ function openModal(type){
                 <div class="record-item">
                     <div>${item.name}</div>
                     <div style="color:#ffc107">${item.amount}</div>
-                    <div style="font-size:13px;color:#94a3b8">${item.date}</div>
+                    <div style="font-size:13px;color:#94a3b8;margin-top:4px">${item.date}</div>
                 </div>
                 `
             })
@@ -271,6 +427,12 @@ function openModal(type){
         document.getElementById('fundModal').style.display = 'flex';
     }else if(type === 'tradeRecord'){
         document.getElementById('tradeModal').style.display = 'flex';
+    }else if(type === 'loginModal'){
+        document.getElementById('loginModal').style.display = 'flex';
+    }else if(type === 'depositModal'){
+        document.getElementById('depositModal').style.display = 'flex';
+    }else if(type === 'withdrawModal'){
+        document.getElementById('withdrawModal').style.display = 'flex';
     }
 }
 
