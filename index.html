@@ -3,10 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="BASEMAXPRO - Gestión Patrimonial y administración profesional de patrimonio."
-  />
+  <meta name="description" content="BASEMAXPRO - Gestión Patrimonial y administración profesional de patrimonio." />
   <title>BASEMAXPRO | Gestión Patrimonial</title>
 
   <style>
@@ -41,27 +38,13 @@
       position: relative;
     }
 
-    /* PANEL DE MARCA */
     .brand-panel {
       width: 52%;
       min-height: 100vh;
       background:
-        radial-gradient(
-          circle at 20% 15%,
-          rgba(212, 175, 55, 0.10),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 85% 80%,
-          rgba(37, 99, 235, 0.12),
-          transparent 32%
-        ),
-        linear-gradient(
-          135deg,
-          #060a13 0%,
-          #0c1425 52%,
-          #080e1b 100%
-        );
+        radial-gradient(circle at 20% 15%, rgba(212,175,55,.10), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(37,99,235,.12), transparent 32%),
+        linear-gradient(135deg,#060a13 0%,#0c1425 52%,#080e1b 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -75,7 +58,7 @@
       position: absolute;
       width: 600px;
       height: 600px;
-      border: 1px solid rgba(212, 175, 55, 0.07);
+      border: 1px solid rgba(212,175,55,.07);
       border-radius: 50%;
       top: -280px;
       left: -250px;
@@ -86,7 +69,7 @@
       position: absolute;
       width: 760px;
       height: 760px;
-      border: 1px solid rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255,255,255,.035);
       border-radius: 50%;
       right: -380px;
       bottom: -380px;
@@ -99,7 +82,6 @@
       z-index: 2;
     }
 
-    /* LOGOTIPO PREMIUM DE BASE */
     .premium-logo {
       width: 112px;
       height: 112px;
@@ -115,10 +97,8 @@
       width: 82px;
       height: 82px;
       transform: rotate(45deg);
-      border: 1px solid rgba(212, 175, 55, 0.72);
-      box-shadow:
-        0 0 18px rgba(212, 175, 55, 0.08),
-        inset 0 0 18px rgba(212, 175, 55, 0.03);
+      border: 1px solid rgba(212,175,55,.72);
+      box-shadow: 0 0 18px rgba(212,175,55,.08), inset 0 0 18px rgba(212,175,55,.03);
     }
 
     .logo-diamond-inner {
@@ -126,7 +106,7 @@
       width: 62px;
       height: 62px;
       transform: rotate(45deg);
-      border: 1px solid rgba(243, 214, 117, 0.45);
+      border: 1px solid rgba(243,214,117,.45);
     }
 
     .base-monogram {
@@ -138,10 +118,8 @@
       font-weight: 700;
       letter-spacing: -5px;
       color: var(--gold-light);
-      text-shadow:
-        0 0 8px rgba(212, 175, 55, 0.25),
-        0 2px 10px rgba(0, 0, 0, 0.55);
-      transform: scaleX(0.95);
+      text-shadow: 0 0 8px rgba(212,175,55,.25), 0 2px 10px rgba(0,0,0,.55);
+      transform: scaleX(.95);
     }
 
     .base-monogram::after {
@@ -149,12 +127,7 @@
       position: absolute;
       width: 48px;
       height: 1px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        var(--gold),
-        transparent
-      );
+      background: linear-gradient(90deg,transparent,var(--gold),transparent);
       left: 4px;
       bottom: -11px;
     }
@@ -165,56 +138,29 @@
       height: 7px;
       border-color: var(--gold);
       border-style: solid;
-      opacity: 0.85;
+      opacity: .85;
     }
 
-    .logo-corner.tl {
-      top: 11px;
-      left: 11px;
-      border-width: 1px 0 0 1px;
-    }
+    .logo-corner.tl { top:11px; left:11px; border-width:1px 0 0 1px; }
+    .logo-corner.tr { top:11px; right:11px; border-width:1px 1px 0 0; }
+    .logo-corner.bl { bottom:11px; left:11px; border-width:0 0 1px 1px; }
+    .logo-corner.br { bottom:11px; right:11px; border-width:0 1px 1px 0; }
 
-    .logo-corner.tr {
-      top: 11px;
-      right: 11px;
-      border-width: 1px 1px 0 0;
-    }
-
-    .logo-corner.bl {
-      bottom: 11px;
-      left: 11px;
-      border-width: 0 0 1px 1px;
-    }
-
-    .logo-corner.br {
-      bottom: 11px;
-      right: 11px;
-      border-width: 0 1px 1px 0;
-    }
-
-    /* TEXTO DE MARCA */
     .brand-logo {
-      font-size: clamp(46px, 7vw, 88px);
+      font-size: clamp(46px,7vw,88px);
       font-weight: 900;
       letter-spacing: -5px;
-      line-height: 0.95;
-      color: #ffffff;
+      line-height: .95;
+      color: #fff;
       margin-bottom: 22px;
     }
 
-    .brand-logo span {
-      color: var(--gold-light);
-    }
+    .brand-logo span { color: var(--gold-light); }
 
     .brand-line {
       width: 92px;
       height: 3px;
-      background: linear-gradient(
-        90deg,
-        var(--gold-dark),
-        var(--gold-light),
-        transparent
-      );
+      background: linear-gradient(90deg,var(--gold-dark),var(--gold-light),transparent);
       border-radius: 20px;
       margin-bottom: 28px;
     }
@@ -235,7 +181,6 @@
       color: #cbd5e1;
     }
 
-    /* PANEL DE INICIO DE SESIÓN */
     .login-panel {
       width: 48%;
       min-height: 100vh;
@@ -252,9 +197,7 @@
       max-width: 430px;
     }
 
-    .login-header {
-      margin-bottom: 34px;
-    }
+    .login-header { margin-bottom: 34px; }
 
     .login-header h1 {
       font-size: 34px;
@@ -269,10 +212,7 @@
       line-height: 1.6;
     }
 
-    /* FORMULARIO */
-    .form-group {
-      margin-bottom: 20px;
-    }
+    .form-group { margin-bottom: 20px; }
 
     .form-label {
       display: block;
@@ -282,9 +222,7 @@
       color: #334155;
     }
 
-    .input-wrapper {
-      position: relative;
-    }
+    .input-wrapper { position: relative; }
 
     .form-input {
       width: 100%;
@@ -294,30 +232,25 @@
       padding: 0 16px;
       font-size: 15px;
       outline: none;
-      background: #ffffff;
+      background: #fff;
       color: #0f172a;
-      transition: all 0.2s ease;
+      transition: all .2s ease;
     }
 
-    .form-input::placeholder {
-      color: #94a3b8;
-    }
+    .form-input::placeholder { color: #94a3b8; }
 
     .form-input:focus {
       border-color: #3b82f6;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.10);
+      box-shadow: 0 0 0 4px rgba(59,130,246,.10);
     }
 
     .form-input.input-error {
       border-color: #ef4444;
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+      box-shadow: 0 0 0 3px rgba(239,68,68,.08);
     }
 
-    .password-input {
-      padding-right: 54px;
-    }
+    .password-input { padding-right: 54px; }
 
-    /* MOSTRAR Y OCULTAR CONTRASEÑA */
     .toggle-password {
       position: absolute;
       right: 14px;
@@ -333,12 +266,8 @@
       border-radius: 8px;
     }
 
-    .toggle-password:hover {
-      background: #f1f5f9;
-      color: #334155;
-    }
+    .toggle-password:hover { background: #f1f5f9; color: #334155; }
 
-    /* CONTRASEÑA OLVIDADA */
     .forgot-row {
       display: flex;
       justify-content: flex-end;
@@ -355,22 +284,19 @@
       font-weight: 600;
     }
 
-    .forgot-password:hover {
-      text-decoration: underline;
-    }
+    .forgot-password:hover { text-decoration: underline; }
 
-    /* BOTÓN DE INICIO DE SESIÓN */
     .login-button {
       width: 100%;
       height: 56px;
       border: none;
       border-radius: 12px;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: #ffffff;
+      background: linear-gradient(135deg,#2563eb,#1d4ed8);
+      color: #fff;
       font-size: 16px;
       font-weight: 800;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all .2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -379,47 +305,28 @@
 
     .login-button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25);
+      box-shadow: 0 10px 24px rgba(37,99,235,.25);
     }
 
-    .login-button:active {
-      transform: translateY(0);
-    }
-
-    .login-button.loading {
-      cursor: wait;
-      opacity: 0.85;
-    }
-
-    .login-button:disabled {
-      cursor: wait;
-    }
+    .login-button:active { transform: translateY(0); }
+    .login-button.loading { cursor: wait; opacity: .85; }
+    .login-button:disabled { cursor: wait; }
 
     .spinner {
       width: 18px;
       height: 18px;
-      border: 2px solid rgba(255, 255, 255, 0.35);
-      border-top-color: #ffffff;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff;
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      animation: spin .8s linear infinite;
       display: none;
     }
 
-    .login-button.loading .spinner {
-      display: block;
-    }
+    .login-button.loading .spinner { display: block; }
+    .login-button.loading .button-text { display: none; }
 
-    .login-button.loading .button-text {
-      display: none;
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* PIE DE PÁGINA */
     .login-footer {
       text-align: center;
       margin-top: 24px;
@@ -428,7 +335,6 @@
       line-height: 1.6;
     }
 
-    /* BOTONES FLOTANTES */
     .contact-buttons {
       position: fixed;
       right: 22px;
@@ -449,602 +355,651 @@
       justify-content: center;
       cursor: pointer;
       text-decoration: none;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
 
     .contact-button:hover {
       transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.30);
+      box-shadow: 0 12px 30px rgba(0,0,0,.30);
     }
 
     .contact-button:focus-visible {
-      outline: 3px solid rgba(37, 99, 235, 0.45);
+      outline: 3px solid rgba(37,99,235,.45);
       outline-offset: 3px;
     }
 
-    .contact-button svg {
-      width: 29px;
-      height: 29px;
-      fill: #ffffff;
-    }
+    .contact-button svg { width:29px; height:29px; fill:#fff; }
 
-    /* CNBV */
     .cnbv-button {
-      background: linear-gradient(145deg, #f2f4f7, #d7dce3);
-      border: 2px solid rgba(255, 255, 255, 0.9);
-      box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.28),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    }
-
-    .cnbv-button:hover {
-      box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.34),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      background: linear-gradient(145deg,#f2f4f7,#d7dce3);
+      border: 2px solid rgba(255,255,255,.9);
     }
 
     .cnbv-logo {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      width:40px;
+      height:40px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
     }
 
     .cnbv-emblem {
-      width: 31px;
-      height: 31px;
-      border: 2px solid #183b68;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      width:31px;
+      height:31px;
+      border:2px solid #183b68;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
     }
 
     .cnbv-emblem::before {
-      content: "";
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      border: 2px solid #183b68;
-      transform: rotate(45deg);
-      border-radius: 2px;
+      content:"";
+      position:absolute;
+      width:16px;
+      height:16px;
+      border:2px solid #183b68;
+      transform:rotate(45deg);
+      border-radius:2px;
     }
 
     .cnbv-emblem::after {
-      content: "MX";
-      position: absolute;
-      font-size: 6px;
-      font-weight: 900;
-      color: #183b68;
-      background: #e7ebf0;
-      padding: 1px 2px;
-      letter-spacing: 0.5px;
+      content:"MX";
+      position:absolute;
+      font-size:6px;
+      font-weight:900;
+      color:#183b68;
+      background:#e7ebf0;
+      padding:1px 2px;
     }
 
     .cnbv-text {
-      position: absolute;
-      bottom: -1px;
-      font-size: 5px;
-      line-height: 1;
-      font-weight: 900;
-      color: #183b68;
-      letter-spacing: 0.3px;
-      background: #e7ebf0;
-      padding: 0 2px;
-    }
-    .binance-button {
-      background: linear-gradient(145deg, #f8d33a, #f0b90b);
-      color: #111111;
-      border: 2px solid rgba(255, 255, 255, 0.75);
-      box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.28),
-        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+      position:absolute;
+      bottom:-1px;
+      font-size:5px;
+      line-height:1;
+      font-weight:900;
+      color:#183b68;
+      letter-spacing:.3px;
+      background:#e7ebf0;
+      padding:0 2px;
     }
 
-    .binance-button:hover {
-      box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.34),
-        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    .binance-button {
+      background:linear-gradient(145deg,#f8d33a,#f0b90b);
+      color:#111;
     }
 
     .binance-logo {
-      width: 32px;
-      height: 32px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width:32px;
+      height:32px;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     .binance-diamond {
-      position: absolute;
-      width: 9px;
-      height: 9px;
-      background: #111111;
-      transform: rotate(45deg);
+      position:absolute;
+      width:9px;
+      height:9px;
+      background:#111;
+      transform:rotate(45deg);
     }
 
-    .binance-diamond.top {
-      top: 1px;
-    }
+    .binance-diamond.top { top:1px; }
+    .binance-diamond.left { left:1px; }
+    .binance-diamond.right { right:1px; }
+    .binance-diamond.bottom { bottom:1px; }
+    .binance-diamond.center { width:8px; height:8px; }
 
-    .binance-diamond.left {
-      left: 1px;
-    }
-
-    .binance-diamond.right {
-      right: 1px;
-    }
-
-    .binance-diamond.bottom {
-      bottom: 1px;
-    }
-
-    .binance-diamond.center {
-      width: 8px;
-      height: 8px;
-      background: #111111;
-    }
-
-    /* NASDAQ */
     .nasdaq-button {
-      background: linear-gradient(
-        145deg,
-        #ffffff 0%,
-        #e7edf5 48%,
-        #cbd5e1 100%
-      );
-      border: 2px solid rgba(255, 255, 255, 0.95);
-      box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.30),
-        inset 0 1px 0 rgba(255, 255, 255, 1);
-    }
-
-    .nasdaq-button:hover {
-      box-shadow:
-        0 12px 32px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 1);
+      background:linear-gradient(145deg,#fff 0%,#e7edf5 48%,#cbd5e1 100%);
     }
 
     .nasdaq-logo {
-      width: 47px;
-      height: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      width:47px;
+      height:40px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      position:relative;
     }
 
     .nasdaq-mark {
-      position: relative;
-      width: 31px;
-      height: 19px;
-      margin-bottom: 2px;
+      position:relative;
+      width:31px;
+      height:19px;
+      margin-bottom:2px;
     }
 
     .nasdaq-mark span {
-      position: absolute;
-      bottom: 0;
-      width: 4px;
-      border-radius: 3px 3px 1px 1px;
-      background: linear-gradient(180deg, #0072ce, #003b73);
+      position:absolute;
+      bottom:0;
+      width:4px;
+      border-radius:3px 3px 1px 1px;
+      background:linear-gradient(180deg,#0072ce,#003b73);
     }
 
-    .nasdaq-mark .bar1 {
-      height: 9px;
-      left: 1px;
-    }
-
-    .nasdaq-mark .bar2 {
-      height: 14px;
-      left: 7px;
-    }
-
-    .nasdaq-mark .bar3 {
-      height: 19px;
-      left: 13px;
-    }
-
-    .nasdaq-mark .bar4 {
-      height: 14px;
-      left: 19px;
-    }
-
-    .nasdaq-mark .bar5 {
-      height: 9px;
-      left: 25px;
-    }
+    .nasdaq-mark .bar1 { height:9px; left:1px; }
+    .nasdaq-mark .bar2 { height:14px; left:7px; }
+    .nasdaq-mark .bar3 { height:19px; left:13px; }
+    .nasdaq-mark .bar4 { height:14px; left:19px; }
+    .nasdaq-mark .bar5 { height:9px; left:25px; }
 
     .nasdaq-word {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 7px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      color: #123c68;
-      line-height: 1;
+      font-family:Arial,Helvetica,sans-serif;
+      font-size:7px;
+      font-weight:900;
+      letter-spacing:1px;
+      color:#123c68;
+      line-height:1;
     }
 
-    /* TRADINGVIEW */
     .tradingview-button {
-      background: linear-gradient(
-        145deg,
-        #1f2937 0%,
-        #111827 55%,
-        #030712 100%
-      );
-      border: 2px solid rgba(255, 255, 255, 0.18);
-      box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.38),
-        inset 0 1px 0 rgba(255, 255, 255, 0.10);
-    }
-
-    .tradingview-button:hover {
-      box-shadow:
-        0 12px 32px rgba(0, 0, 0, 0.46),
-        0 0 18px rgba(41, 98, 255, 0.16),
-        inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      background:linear-gradient(145deg,#1f2937 0%,#111827 55%,#030712 100%);
+      border:2px solid rgba(255,255,255,.18);
     }
 
     .tradingview-logo {
-      width: 48px;
-      height: 42px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      width:48px;
+      height:42px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      position:relative;
     }
 
     .tv-chart {
-      width: 35px;
-      height: 22px;
-      position: relative;
-      margin-bottom: 1px;
+      width:35px;
+      height:22px;
+      position:relative;
+      margin-bottom:1px;
     }
 
     .tv-chart::before {
-      content: "";
-      position: absolute;
-      left: 1px;
-      bottom: 3px;
-      width: 29px;
-      height: 13px;
-      border-left: 3px solid #42a5ff;
-      border-bottom: 3px solid #42a5ff;
-      transform: skewY(-24deg) rotate(-1deg);
-      opacity: 0.95;
+      content:"";
+      position:absolute;
+      left:1px;
+      bottom:3px;
+      width:29px;
+      height:13px;
+      border-left:3px solid #42a5ff;
+      border-bottom:3px solid #42a5ff;
+      transform:skewY(-24deg) rotate(-1deg);
     }
 
     .tv-chart::after {
-      content: "";
-      position: absolute;
-      left: 9px;
-      top: 5px;
-      width: 20px;
-      height: 10px;
-      border-top: 3px solid #7dc4ff;
-      border-right: 3px solid #7dc4ff;
-      transform: skewY(-27deg) rotate(-8deg);
+      content:"";
+      position:absolute;
+      left:9px;
+      top:5px;
+      width:20px;
+      height:10px;
+      border-top:3px solid #7dc4ff;
+      border-right:3px solid #7dc4ff;
+      transform:skewY(-27deg) rotate(-8deg);
     }
 
     .tv-word {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 6px;
-      font-weight: 900;
-      letter-spacing: 0.7px;
-      color: #ffffff;
-      line-height: 1;
+      font-family:Arial,Helvetica,sans-serif;
+      font-size:6px;
+      font-weight:900;
+      letter-spacing:.7px;
+      color:#fff;
+      line-height:1;
     }
 
-    /* TELEGRAM */
-    .telegram-button {
-      background: #229ed9;
-    }
+    .telegram-button { background:#229ed9; }
+    .email-button { background:#2563eb; }
+    .whatsapp-button { background:#25d366; }
 
-    /* CORREO ELECTRÓNICO */
-    .email-button {
-      background: #2563eb;
-    }
-
-    /* WHATSAPP */
-    .whatsapp-button {
-      background: #25d366;
-    }
-
-    /* NOTIFICACIÓN */
     .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 32px;
-      transform: translateX(-50%) translateY(30px);
-      min-width: 300px;
-      max-width: calc(100vw - 40px);
-      background: rgba(15, 23, 42, 0.96);
-      color: #ffffff;
-      padding: 16px 20px;
-      border-radius: 12px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.30);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s ease;
-      z-index: 10000;
-      text-align: center;
+      position:fixed;
+      left:50%;
+      bottom:32px;
+      transform:translateX(-50%) translateY(30px);
+      min-width:300px;
+      max-width:calc(100vw - 40px);
+      background:rgba(15,23,42,.96);
+      color:#fff;
+      padding:16px 20px;
+      border-radius:12px;
+      box-shadow:0 12px 35px rgba(0,0,0,.30);
+      opacity:0;
+      pointer-events:none;
+      transition:all .3s ease;
+      z-index:10000;
+      text-align:center;
     }
 
     .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
     }
 
     .toast-title {
-      font-size: 14px;
-      font-weight: 800;
-      margin-bottom: 4px;
+      font-size:14px;
+      font-weight:800;
+      margin-bottom:4px;
     }
 
     .toast-message {
-      font-size: 13px;
-      color: #cbd5e1;
-      line-height: 1.5;
+      font-size:13px;
+      color:#cbd5e1;
+      line-height:1.5;
     }
 
-    /* DISEÑO RESPONSIVO */
-    @media (max-width: 900px) {
-      .page {
-        display: block;
-      }
-
-      .brand-panel {
-        width: 100%;
-        min-height: 340px;
-        padding: 45px 30px;
-      }
-
-      .brand-content {
-        max-width: 700px;
-      }
-
-      .premium-logo {
-        width: 90px;
-        height: 90px;
-        margin-bottom: 25px;
-      }
-
-      .logo-diamond {
-        width: 68px;
-        height: 68px;
-      }
-
-      .logo-diamond-inner {
-        width: 52px;
-        height: 52px;
-      }
-
-      .base-monogram {
-        font-size: 39px;
-      }
-
-      .brand-logo {
-        font-size: 58px;
-      }
-
-      .brand-subtitle {
-        margin-bottom: 20px;
-      }
-
-      .brand-description {
-        display: none;
-      }
-
-      .login-panel {
-        width: 100%;
-        min-height: calc(100vh - 340px);
-        padding: 45px 25px 120px;
-      }
+    /* 仪表盘样式 */
+    #investmentDashboard {
+      display:none;
+      min-height:100vh;
+      width:100%;
+      background:#f4f6fb;
+      color:#172033;
+      font-family:Arial,Helvetica,sans-serif;
+      padding-bottom:80px;
     }
 
-    @media (max-width: 480px) {
-      .brand-panel {
-        min-height: 285px;
-        padding: 30px 22px;
-      }
-
-      .premium-logo {
-        width: 78px;
-        height: 78px;
-        margin-bottom: 22px;
-      }
-
-      .logo-diamond {
-        width: 58px;
-        height: 58px;
-      }
-
-      .logo-diamond-inner {
-        width: 44px;
-        height: 44px;
-      }
-
-      .base-monogram {
-        font-size: 33px;
-        letter-spacing: -4px;
-      }
-
-      .logo-corner {
-        width: 5px;
-        height: 5px;
-      }
-
-      .brand-logo {
-        font-size: 45px;
-        letter-spacing: -2px;
-      }
-
-      .brand-subtitle {
-        font-size: 11px;
-        letter-spacing: 3px;
-      }
-
-      .login-panel {
-        min-height: calc(100vh - 285px);
-        padding: 35px 20px 120px;
-      }
-
-      .login-header h1 {
-        font-size: 29px;
-      }
-
-      .contact-buttons {
-        right: 14px;
-        bottom: 14px;
-        gap: 9px;
-      }
-
-      .contact-button {
-        width: 50px;
-        height: 50px;
-      }
-
-      .contact-button svg {
-        width: 25px;
-        height: 25px;
-      }
-
-      .cnbv-logo {
-        width: 35px;
-        height: 35px;
-      }
-
-      .cnbv-emblem {
-        width: 27px;
-        height: 27px;
-      }
-
-      .cnbv-emblem::before {
-        width: 14px;
-        height: 14px;
-      }
-
-      .binance-logo {
-        width: 29px;
-        height: 29px;
-      }
-
-      .binance-diamond {
-        width: 8px;
-        height: 8px;
-      }
-
-      .binance-diamond.center {
-        width: 7px;
-        height: 7px;
-      }
-
-      .nasdaq-logo {
-        width: 42px;
-        height: 36px;
-      }
-
-      .nasdaq-mark {
-        transform: scale(0.88);
-        margin-bottom: 0;
-      }
-
-      .nasdaq-word {
-        font-size: 6px;
-      }
-
-      .tradingview-logo {
-        width: 43px;
-        height: 37px;
-      }
-
-      .tv-chart {
-        transform: scale(0.88);
-        margin-bottom: 0;
-      }
-
-      .tv-word {
-        font-size: 5px;
-      }
-
-      .toast {
-        bottom: 20px;
-      }
-    }
-
-
-    /* PANEL DE CUENTA: se muestra únicamente después del acceso */
-    #investmentDashboard { display:none; min-height:100vh; width:100%; background:#f4f6fb; color:#172033; font-family:Arial,Helvetica,sans-serif; }
     #investmentDashboard * { box-sizing:border-box; }
-    .dash-top { background:#080d18; color:#fff; padding:18px 5%; display:flex; justify-content:space-between; align-items:center; gap:16px; border-bottom:2px solid #d4af37; }
-    .dash-brand { color:#f3d675; font-size:20px; font-weight:800; letter-spacing:2px; }
-    .dash-subbrand { color:#aab4c5; font-size:11px; margin-top:4px; letter-spacing:1px; }
-    .dash-user { display:flex; align-items:center; gap:14px; font-size:13px; }
-    .dash-logout { border:1px solid #d4af37; color:#f3d675; background:transparent; border-radius:7px; padding:9px 15px; cursor:pointer; font-weight:700; }
-    .dash-wrap { max-width:1180px; margin:0 auto; padding:30px 22px 50px; }
-    .dash-welcome { display:flex; justify-content:space-between; align-items:end; gap:16px; margin-bottom:22px; }
-    .dash-welcome h1 { color:#101a2d; font-size:25px; margin-bottom:7px; }
-    .dash-welcome p { color:#64748b; font-size:13px; }
-    .dash-demo { background:#fff7df; color:#87640c; border:1px solid #f0d98c; border-radius:20px; padding:7px 12px; font-size:11px; font-weight:700; white-space:nowrap; }
-    .dash-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-bottom:22px; }
-    .dash-card { background:#fff; border:1px solid #e7eaf1; border-radius:13px; padding:21px; box-shadow:0 5px 18px rgba(15,23,42,.045); }
-    .dash-card-label { color:#64748b; font-size:12px; margin-bottom:12px; }
-    .dash-card-value { color:#111827; font-size:27px; font-weight:800; letter-spacing:-.5px; }
-    .dash-card-note { color:#94a3b8; font-size:11px; margin-top:9px; }
-    .dash-section { background:#fff; border:1px solid #e7eaf1; border-radius:13px; padding:22px; margin-top:18px; box-shadow:0 5px 18px rgba(15,23,42,.035); }
-    .dash-section-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; }
-    .dash-section h2 { color:#172033; font-size:17px; }
-    .dash-section-head span { color:#94a3b8; font-size:11px; }
+
+    .dash-top {
+      background:#080d18;
+      color:#fff;
+      padding:18px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      border-bottom:2px solid #d4af37;
+    }
+
+    .dash-brand {
+      color:#f3d675;
+      font-size:20px;
+      font-weight:800;
+      letter-spacing:2px;
+    }
+
+    .dash-subbrand {
+      color:#aab4c5;
+      font-size:11px;
+      margin-top:4px;
+      letter-spacing:1px;
+    }
+
+    .dash-user {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      font-size:13px;
+    }
+
+    .dash-logout {
+      border:1px solid #d4af37;
+      color:#f3d675;
+      background:transparent;
+      border-radius:7px;
+      padding:9px 15px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .dash-wrap {
+      max-width:1180px;
+      margin:0 auto;
+      padding:30px 22px 50px;
+    }
+
+    .dash-welcome {
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:16px;
+      margin-bottom:22px;
+    }
+
+    .dash-welcome h1 {
+      color:#101a2d;
+      font-size:25px;
+      margin-bottom:7px;
+    }
+
+    .dash-welcome p {
+      color:#64748b;
+      font-size:13px;
+    }
+
+    .dash-demo {
+      background:#fff7df;
+      color:#87640c;
+      border:1px solid #f0d98c;
+      border-radius:20px;
+      padding:7px 12px;
+      font-size:11px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .dash-summary {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin-bottom:22px;
+    }
+
+    .dash-card {
+      background:#fff;
+      border:1px solid #e7eaf1;
+      border-radius:13px;
+      padding:21px;
+      box-shadow:0 5px 18px rgba(15,23,42,.045);
+    }
+
+    .dash-card-label {
+      color:#64748b;
+      font-size:12px;
+      margin-bottom:12px;
+    }
+
+    .dash-card-value {
+      color:#111827;
+      font-size:27px;
+      font-weight:800;
+      letter-spacing:-.5px;
+    }
+
+    .dash-card-note {
+      color:#94a3b8;
+      font-size:11px;
+      margin-top:9px;
+    }
+
+    .dash-section {
+      background:#fff;
+      border:1px solid #e7eaf1;
+      border-radius:13px;
+      padding:22px;
+      margin-top:18px;
+      box-shadow:0 5px 18px rgba(15,23,42,.035);
+    }
+
+    .dash-section-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .dash-section h2 {
+      color:#172033;
+      font-size:17px;
+    }
+
+    .dash-section-head span {
+      color:#94a3b8;
+      font-size:11px;
+    }
+
     .dash-table-wrap { overflow-x:auto; }
-    .dash-table { width:100%; border-collapse:collapse; min-width:500px; }
-    .dash-table th { text-align:left; color:#8290a5; font-size:11px; font-weight:700; padding:12px 10px; border-bottom:1px solid #edf0f5; }
-    .dash-table td { padding:15px 10px; border-bottom:1px solid #f0f2f6; color:#253047; font-size:13px; }
+
+    .dash-table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:500px;
+    }
+
+    .dash-table th {
+      text-align:left;
+      color:#8290a5;
+      font-size:11px;
+      font-weight:700;
+      padding:12px 10px;
+      border-bottom:1px solid #edf0f5;
+    }
+
+    .dash-table td {
+      padding:15px 10px;
+      border-bottom:1px solid #f0f2f6;
+      color:#253047;
+      font-size:13px;
+    }
+
     .dash-table tr:last-child td { border-bottom:0; }
-    .dash-symbol { font-weight:800; color:#172033; }
-    .dash-company { display:block; color:#94a3b8; font-size:11px; margin-top:4px; }
-    .dash-market-link { color:#b18a1c; text-decoration:none; font-weight:700; }
+
+    .dash-symbol {
+      font-weight:800;
+      color:#172033;
+    }
+
+    .dash-company {
+      display:block;
+      color:#94a3b8;
+      font-size:11px;
+      margin-top:4px;
+    }
+
+    .dash-market-link {
+      color:#b18a1c;
+      text-decoration:none;
+      font-weight:700;
+    }
+
     .dash-market-link:hover { text-decoration:underline; }
-    .dash-account-foot { color:#94a3b8; font-size:11px; line-height:1.7; margin-top:20px; text-align:center; }
+
+    .dash-account-foot {
+      color:#94a3b8;
+      font-size:11px;
+      line-height:1.7;
+      margin-top:20px;
+      text-align:center;
+    }
+
+    /* 底部五个导航 */
+    .bottom-navigation {
+      display:none;
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      height:65px;
+      background:#fff;
+      border-top:1px solid #e5e7eb;
+      box-shadow:0 -3px 15px rgba(0,0,0,.04);
+      z-index:9998;
+      grid-template-columns:repeat(5,1fr);
+      padding-bottom:env(safe-area-inset-bottom);
+    }
+
+    .bottom-navigation.visible { display:grid; }
+
+    .nav-item {
+      border:0;
+      background:transparent;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      gap:3px;
+      color:#94a3b8;
+      font-size:10px;
+      cursor:pointer;
+      font-family:Arial,sans-serif;
+      font-weight:600;
+    }
+
+    .nav-icon {
+      font-size:22px;
+      line-height:25px;
+    }
+
+    .nav-item.active { color:#2674e8; }
+
+    /* 个人中心 */
+    #profilePage {
+      display:none;
+      min-height:calc(100vh - 65px);
+      padding-bottom:80px;
+      background:#f4f6fb;
+    }
+
+    @media(max-width:900px) {
+      .page { display:block; }
+
+      .brand-panel {
+        width:100%;
+        min-height:340px;
+        padding:45px 30px;
+      }
+
+      .brand-content { max-width:700px; }
+
+      .premium-logo {
+        width:90px;
+        height:90px;
+        margin-bottom:25px;
+      }
+
+      .logo-diamond { width:68px; height:68px; }
+      .logo-diamond-inner { width:52px; height:52px; }
+      .base-monogram { font-size:39px; }
+      .brand-logo { font-size:58px; }
+      .brand-subtitle { margin-bottom:20px; }
+      .brand-description { display:none; }
+
+      .login-panel {
+        width:100%;
+        min-height:calc(100vh - 340px);
+        padding:45px 25px 120px;
+      }
+    }
+
     @media(max-width:700px) {
-      .dash-top { padding:16px 18px; align-items:flex-start; }
+      .dash-top {
+        padding:16px 18px;
+        align-items:flex-start;
+      }
+
       .dash-brand { font-size:17px; }
-      .dash-user { flex-direction:column; align-items:flex-end; gap:8px; }
+
+      .dash-user {
+        flex-direction:column;
+        align-items:flex-end;
+        gap:8px;
+      }
+
       .dash-wrap { padding:23px 14px 35px; }
-      .dash-welcome { align-items:flex-start; flex-direction:column; }
-      .dash-summary { grid-template-columns:1fr; gap:11px; }
+
+      .dash-welcome {
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .dash-summary {
+        grid-template-columns:1fr;
+        gap:11px;
+      }
+
       .dash-card { padding:17px; }
       .dash-card-value { font-size:24px; }
       .dash-section { padding:16px 12px; }
     }
 
+    @media(max-width:480px) {
+      .brand-panel {
+        min-height:285px;
+        padding:30px 22px;
+      }
+
+      .premium-logo {
+        width:78px;
+        height:78px;
+        margin-bottom:22px;
+      }
+
+      .logo-diamond { width:58px; height:58px; }
+      .logo-diamond-inner { width:44px; height:44px; }
+
+      .base-monogram {
+        font-size:33px;
+        letter-spacing:-4px;
+      }
+
+      .logo-corner { width:5px; height:5px; }
+
+      .brand-logo {
+        font-size:45px;
+        letter-spacing:-2px;
+      }
+
+      .brand-subtitle {
+        font-size:11px;
+        letter-spacing:3px;
+      }
+
+      .login-panel {
+        min-height:calc(100vh - 285px);
+        padding:35px 20px 120px;
+      }
+
+      .login-header h1 { font-size:29px; }
+
+      .contact-buttons {
+        right:14px;
+        bottom:14px;
+        gap:9px;
+      }
+
+      .contact-button {
+        width:50px;
+        height:50px;
+      }
+
+      .contact-button svg {
+        width:25px;
+        height:25px;
+      }
+
+      .cnbv-logo { width:35px; height:35px; }
+      .cnbv-emblem { width:27px; height:27px; }
+      .cnbv-emblem::before { width:14px; height:14px; }
+      .binance-logo { width:29px; height:29px; }
+
+      .binance-diamond { width:8px; height:8px; }
+      .binance-diamond.center { width:7px; height:7px; }
+
+      .nasdaq-logo { width:42px; height:36px; }
+      .nasdaq-mark { transform:scale(.88); margin-bottom:0; }
+      .nasdaq-word { font-size:6px; }
+
+      .tradingview-logo { width:43px; height:37px; }
+      .tv-chart { transform:scale(.88); margin-bottom:0; }
+      .tv-word { font-size:5px; }
+
+      .toast { bottom:20px; }
+    }
   </style>
 </head>
 <body>
 
   <div class="page">
 
-    <!-- PANEL DE MARCA -->
     <section class="brand-panel">
       <div class="brand-content">
 
-        <!-- LOGOTIPO PREMIUM DE BASE -->
         <div class="premium-logo">
           <div class="logo-diamond"></div>
           <div class="logo-diamond-inner"></div>
-
           <div class="logo-corner tl"></div>
           <div class="logo-corner tr"></div>
           <div class="logo-corner bl"></div>
           <div class="logo-corner br"></div>
-
           <div class="base-monogram">BASE</div>
         </div>
 
@@ -1066,13 +1021,11 @@
       </div>
     </section>
 
-    <!-- PANEL DE INICIO DE SESIÓN -->
     <section class="login-panel">
       <div class="login-card">
 
         <div class="login-header">
           <h1>Iniciar sesión</h1>
-
           <p>
             Introduce tu teléfono o número de cuenta y tu contraseña
             para acceder.
@@ -1081,12 +1034,8 @@
 
         <form id="loginForm">
 
-          <!-- TELÉFONO O NÚMERO DE CUENTA -->
           <div class="form-group">
-            <label
-              class="form-label"
-              for="username"
-            >
+            <label class="form-label" for="username">
               Teléfono / Número de cuenta
             </label>
 
@@ -1100,16 +1049,13 @@
                 minlength="9"
                 autocomplete="username"
                 inputmode="tel"
+                required
               />
             </div>
           </div>
 
-          <!-- CONTRASEÑA -->
           <div class="form-group">
-            <label
-              class="form-label"
-              for="password"
-            >
+            <label class="form-label" for="password">
               Contraseña
             </label>
 
@@ -1122,6 +1068,7 @@
                 placeholder="Introduce tu contraseña"
                 minlength="3"
                 autocomplete="current-password"
+                required
               />
 
               <button
@@ -1136,7 +1083,6 @@
             </div>
           </div>
 
-          <!-- CONTRASEÑA OLVIDADA -->
           <div class="forgot-row">
             <button
               type="button"
@@ -1147,25 +1093,17 @@
             </button>
           </div>
 
-          <!-- BOTÓN DE INICIO DE SESIÓN -->
           <button
             type="submit"
             class="login-button"
             id="loginButton"
           >
-            <span class="button-text">
-              Iniciar sesión
-            </span>
-
-            <span
-              class="spinner"
-              aria-hidden="true"
-            ></span>
+            <span class="button-text">Iniciar sesión</span>
+            <span class="spinner" aria-hidden="true"></span>
           </button>
 
         </form>
 
-        <!-- PIE DE PÁGINA -->
         <div class="login-footer">
           ©️ 2026 BASEMAXPRO. Todos los derechos reservados.
         </div>
@@ -1175,10 +1113,9 @@
 
   </div>
 
-  <!-- BOTONES DE CONTACTO FLOTANTES -->
+  <!-- BOTONES DE CONTACTO ORIGINALES -->
   <div class="contact-buttons">
 
-    <!-- CNBV -->
     <a
       href="https://www.cnbv.gob.mx/paginas/busquedaentidades.aspx"
       class="contact-button cnbv-button"
@@ -1193,7 +1130,6 @@
       </div>
     </a>
 
-    <!-- BINANCE -->
     <a
       href="https://accounts.binance.bh/es-MX/register?ref=48488446&gad_source=1&gad_campaignid=22139133298&gclid=EAIaIQobChMIoZqrkI-qlwMVpVwPAh325CaqEAAYASAAEgLnZvD_BwE"
       class="contact-button binance-button"
@@ -1211,7 +1147,6 @@
       </div>
     </a>
 
-    <!-- NASDAQ -->
     <a
       href="https://www.nasdaq.com/market-activity"
       class="contact-button nasdaq-button"
@@ -1221,7 +1156,6 @@
       title="Nasdaq - Actividad del mercado"
     >
       <div class="nasdaq-logo">
-
         <div class="nasdaq-mark">
           <span class="bar1"></span>
           <span class="bar2"></span>
@@ -1229,15 +1163,10 @@
           <span class="bar4"></span>
           <span class="bar5"></span>
         </div>
-
-        <div class="nasdaq-word">
-          NASDAQ
-        </div>
-
+        <div class="nasdaq-word">NASDAQ</div>
       </div>
     </a>
 
-    <!-- TRADINGVIEW -->
     <a
       href="https://www.tradingview.com/markets/stocks-mexico/?utm_source=chatgpt.com"
       class="contact-button tradingview-button"
@@ -1247,17 +1176,11 @@
       title="TradingView - Acciones de México"
     >
       <div class="tradingview-logo">
-
         <div class="tv-chart"></div>
-
-        <div class="tv-word">
-          TRADINGVIEW
-        </div>
-
+        <div class="tv-word">TRADINGVIEW</div>
       </div>
     </a>
 
-    <!-- TELEGRAM -->
     <a
       href="https://t.me/BASE_CasaDeBolsaMX"
       class="contact-button telegram-button"
@@ -1266,15 +1189,11 @@
       aria-label="Contactar por Telegram"
       title="Telegram"
     >
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M21.5 3.5 2.7 10.8c-1.28.51-1.27 1.22-.23 1.53l4.83 1.51 1.85 5.79c.23.65.12.91.78.91.52 0 .75-.24 1.03-.52l2.49-2.42 5.18 3.82c.95.53 1.63.27 1.87-.88l3.31-15.58c.36-1.42-.54-2.06-1.48-1.46zM8.06 13.48l10.99-6.93c.55-.33 1.05-.15.64.21l-8.94 8.07-.35 3.72-1.42-4.42-3.43-1.08c-.75-.23-.77-.74.51-1.57z"/>
       </svg>
     </a>
 
-    <!-- CORREO ELECTRÓNICO -->
     <a
       href="#"
       class="contact-button email-button"
@@ -1282,15 +1201,11 @@
       aria-label="Copiar correo electrónico"
       title="Copiar correo electrónico"
     >
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
       </svg>
     </a>
 
-    <!-- WHATSAPP -->
     <button
       type="button"
       class="contact-button whatsapp-button"
@@ -1298,17 +1213,14 @@
       aria-label="WhatsApp"
       title="WhatsApp"
     >
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12.04 2C6.5 2 2 6.5 2 12.03c0 1.77.46 3.5 1.33 5.03L2 22l5.08-1.3a10 10 0 0 0 4.96 1.27h.01C17.58 21.97 22 17.47 22 12.03 22 6.5 17.58 2 12.04 2zm0 18.3c-1.55 0-3.07-.42-4.4-1.22l-.31-.18-3.02.77.81-2.94-.2-.32a8.3 8.3 0 1 1 7.12 3.89zm4.55-6.23c-.25-.12-1.47-.73-1.7-.81-.23-.08-.4-.12-.57.12-.17.25-.65.81-.8.98-.15.17-.3.19-.55.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.22-1.45-1.36-1.7-.14-.25-.02-.38.1-.5.11-.11.25-.3.37-.45.12-.15.16-.25.25-.42.08-.17.04-.32-.02-.45-.06-.12-.57-1.37-.78-1.87-.2-.48-.41-.41-.57-.42h-.49c-.17 0-.45.06-.69.32-.24.25-.9.88-.9 2.14 0 1.26.92 2.47 1.05 2.64.12.17 1.8 2.76 4.37 3.87.61.26 1.09.42 1.46.54.61.19 1.16.16 1.59.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.28z"/>
       </svg>
     </button>
 
   </div>
 
-  <!-- NOTIFICACIÓN -->
+  <!-- TOAST -->
   <div
     class="toast"
     id="toast"
@@ -1316,32 +1228,30 @@
     aria-live="polite"
     aria-atomic="true"
   >
-    <div
-      class="toast-title"
-      id="toastTitle"
-    ></div>
-
-    <div
-      class="toast-message"
-      id="toastMessage"
-    ></div>
+    <div class="toast-title" id="toastTitle"></div>
+    <div class="toast-message" id="toastMessage"></div>
   </div>
 
+  <!-- INVESTMENT DASHBOARD -->
+  <main id="investmentDashboard">
 
-  <!-- PANEL DE CUENTA DE INVERSIÓN -->
-  <main id="investmentDashboard" aria-live="polite">
     <header class="dash-top">
       <div>
         <div class="dash-brand">BASEMAXPRO</div>
         <div class="dash-subbrand">GESTIÓN PATRIMONIAL</div>
       </div>
+
       <div class="dash-user">
         <span>Cuenta: <strong id="dashAccount"></strong></span>
-        <button type="button" class="dash-logout" id="dashLogout">Cerrar sesión</button>
+        <button type="button" class="dash-logout" id="dashLogout">
+          Cerrar sesión
+        </button>
       </div>
     </header>
 
-    <div class="dash-wrap">
+    <!-- HOME -->
+    <div class="dash-wrap" id="homePage">
+
       <div class="dash-welcome">
         <div>
           <h1>Resumen de inversión</h1>
@@ -1350,7 +1260,8 @@
         <span class="dash-demo">CUENTA DE DEMOSTRACIÓN</span>
       </div>
 
-      <section class="dash-summary" aria-label="Resumen de cuenta">
+      <section class="dash-summary">
+
         <article class="dash-card">
           <div class="dash-card-label">Activos totales</div>
           <div class="dash-card-value" id="dashTotal">¥0.00</div>
@@ -1368,6 +1279,7 @@
           <div class="dash-card-value" id="dashHoldings">¥0.00</div>
           <div class="dash-card-note">Valor total indicado para las posiciones</div>
         </article>
+
       </section>
 
       <section class="dash-section">
@@ -1394,13 +1306,110 @@
       <p class="dash-account-foot">
         Esta interfaz es una demostración. Los saldos y las posiciones son
         datos ficticios preestablecidos y no representan activos reales ni
-        una cuenta de corretaje. Los enlaces de mercado abren información
-        pública de TradingView.
+        una cuenta de corretaje.
       </p>
+
     </div>
+
+    <!-- PROFILE PAGE -->
+    <section id="profilePage">
+
+      <div class="dash-wrap">
+
+        <div class="dash-welcome">
+          <div>
+            <h1>Mi perfil</h1>
+            <p>Información y resumen de tu cuenta</p>
+          </div>
+          <span class="dash-demo">CUENTA PERSONAL</span>
+        </div>
+
+        <section class="dash-section">
+          <h2>Información de cuenta</h2>
+
+          <p style="margin-top:15px;color:#64748b;font-size:13px;">
+            Número de cuenta
+          </p>
+
+          <strong
+            id="profileAccount"
+            style="display:block;margin-top:6px;font-size:18px;"
+          ></strong>
+        </section>
+
+        <section class="dash-section">
+          <h2>Resumen de patrimonio</h2>
+
+          <div style="margin-top:20px;">
+            <p style="color:#64748b;font-size:13px;">Activos totales</p>
+            <h2 id="profileTotal" style="font-size:27px;margin-top:8px;"></h2>
+          </div>
+
+          <div style="margin-top:22px;">
+            <p style="color:#64748b;font-size:13px;">Efectivo disponible</p>
+            <h2 id="profileCash" style="font-size:23px;margin-top:8px;"></h2>
+          </div>
+
+          <div style="margin-top:22px;">
+            <p style="color:#64748b;font-size:13px;">Valor de posiciones</p>
+            <h2 id="profileHoldings" style="font-size:23px;margin-top:8px;"></h2>
+          </div>
+        </section>
+
+        <section class="dash-section">
+          <div class="dash-section-head">
+            <h2>Detalles de mis posiciones</h2>
+          </div>
+
+          <div class="dash-table-wrap">
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Activo</th>
+                  <th>Símbolo</th>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody id="profilePositions"></tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+    </section>
+
   </main>
 
-  <script>
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-navigation" id="bottomNavigation">
+
+    <button class="nav-item active" data-tab="Inicio">
+      <span class="nav-icon">⌂</span>
+      <span>Inicio</span>
+    </button>
+
+    <button class="nav-item" data-tab="Mercados">
+      <span class="nav-icon">▥</span>
+      <span>Mercados</span>
+    </button>
+
+    <button class="nav-item" data-tab="Transacción">
+      <span class="nav-icon">⇄</span>
+      <span>Transacción</span>
+    </button>
+
+    <button class="nav-item" data-tab="Mensajes">
+      <span class="nav-icon">▤</span>
+      <span>Mensajes</span>
+    </button>
+
+    <button class="nav-item" data-tab="Perfil">
+      <span class="nav-icon">♟</span>
+      <span>Perfil</span>
+    </button>
+
+  </nav>
+    <script>
     const loginForm = document.getElementById("loginForm");
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
@@ -1409,113 +1418,30 @@
     const forgotPassword = document.getElementById("forgotPassword");
     const whatsappButton = document.getElementById("whatsappButton");
     const emailCopyButton = document.getElementById("emailCopyButton");
+
     const toast = document.getElementById("toast");
     const toastTitle = document.getElementById("toastTitle");
     const toastMessage = document.getElementById("toastMessage");
 
+    const loginPage = document.querySelector(".page");
+    const investmentDashboard = document.getElementById("investmentDashboard");
+    const homePage = document.getElementById("homePage");
+    const profilePage = document.getElementById("profilePage");
+    const bottomNavigation = document.getElementById("bottomNavigation");
+    const navItems = document.querySelectorAll(".nav-item");
+
+    const dashAccount = document.getElementById("dashAccount");
+    const dashTotal = document.getElementById("dashTotal");
+    const dashCash = document.getElementById("dashCash");
+    const dashHoldings = document.getElementById("dashHoldings");
+    const dashPositions = document.getElementById("dashPositions");
+    const dashLogout = document.getElementById("dashLogout");
+
     let toastTimer;
+    let currentAccountData = null;
+    let currentAccountNumber = null;
 
-    /* Mostrar una notificación */
-    function showToast(title, message) {
-      toastTitle.textContent = title;
-      toastMessage.textContent = message;
-
-      toast.classList.add("show");
-
-      clearTimeout(toastTimer);
-
-      toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-      }, 3500);
-    }
-
-    /* Copiar correo electrónico */
-    emailCopyButton.addEventListener("click", async (event) => {
-      event.preventDefault();
-
-      const email = "info@basemaxpro.com";
-
-      try {
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(email);
-        } else {
-          const temporaryInput = document.createElement("textarea");
-          temporaryInput.value = email;
-          temporaryInput.setAttribute("readonly", "");
-          temporaryInput.style.position = "fixed";
-          temporaryInput.style.opacity = "0";
-          temporaryInput.style.pointerEvents = "none";
-
-          document.body.appendChild(temporaryInput);
-          temporaryInput.select();
-          temporaryInput.setSelectionRange(0, email.length);
-
-          const copied = document.execCommand("copy");
-          temporaryInput.remove();
-
-          if (!copied) {
-            throw new Error("No se pudo copiar el correo electrónico.");
-          }
-        }
-
-        showToast(
-          "¡Correo electrónico copiado correctamente!",
-          email
-        );
-      } catch (error) {
-        showToast(
-          "No se pudo copiar el correo electrónico",
-          "Copia manualmente esta dirección: " + email
-        );
-      }
-    });
-
-    /* Mostrar y ocultar la contraseña */
-    togglePassword.addEventListener("click", () => {
-      const isPassword = passwordInput.type === "password";
-
-      passwordInput.type = isPassword
-        ? "text"
-        : "password";
-
-      togglePassword.textContent = isPassword
-        ? "🙈"
-        : "👁";
-
-      togglePassword.setAttribute(
-        "aria-label",
-        isPassword
-          ? "Ocultar contraseña"
-          : "Mostrar contraseña"
-      );
-
-      togglePassword.setAttribute(
-        "title",
-        isPassword
-          ? "Ocultar contraseña"
-          : "Mostrar contraseña"
-      );
-    });
-
-    /* Solicitud de recuperación de contraseña */
-    forgotPassword.addEventListener("click", (event) => {
-      event.preventDefault();
-
-      showToast(
-        "Información",
-        "Por favor, contacte con el personal oficial para gestionar su solicitud."
-      );
-    });
-
-    /* Aviso de WhatsApp */
-    whatsappButton.addEventListener("click", () => {
-      showToast(
-        "WhatsApp",
-        "El servicio de WhatsApp está temporalmente suspendido."
-      );
-    });
-
-    /* Cuentas de demostración: credenciales y saldos ficticios en el navegador. */
+    /* DEMO ACCOUNTS */
     const demoAccounts = {
       "13800138000": {
         password: "123456",
@@ -1542,15 +1468,21 @@
       }
     };
 
-    const loginPage = document.querySelector(".page");
-    const investmentDashboard = document.getElementById("investmentDashboard");
-    const dashAccount = document.getElementById("dashAccount");
-    const dashTotal = document.getElementById("dashTotal");
-    const dashCash = document.getElementById("dashCash");
-    const dashHoldings = document.getElementById("dashHoldings");
-    const dashPositions = document.getElementById("dashPositions");
-    const dashLogout = document.getElementById("dashLogout");
+    /* SHOW TOAST */
+    function showToast(title, message) {
+      toastTitle.textContent = title;
+      toastMessage.textContent = message;
 
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3500);
+    }
+
+    /* FORMAT CURRENCY */
     function formatCNY(value) {
       return "¥" + Number(value).toLocaleString("zh-CN", {
         minimumFractionDigits: 2,
@@ -1558,51 +1490,248 @@
       });
     }
 
-    function showInvestmentDashboard(username, account) {
-      dashAccount.textContent = username;
-      dashTotal.textContent = formatCNY(account.total);
-      dashCash.textContent = formatCNY(account.cash);
-      dashHoldings.textContent = formatCNY(account.holdingsValue);
-      dashPositions.replaceChildren();
+    /* PASSWORD VISIBILITY */
+    togglePassword.addEventListener("click", () => {
+      const isPassword = passwordInput.type === "password";
 
-      account.positions.forEach((position) => {
-        const row = document.createElement("tr");
-        const assetCell = document.createElement("td");
-        const symbolCell = document.createElement("td");
-        const quantityCell = document.createElement("td");
+      passwordInput.type = isPassword ? "text" : "password";
+
+      togglePassword.textContent = isPassword ? "🙈" : "👁";
+
+      togglePassword.setAttribute(
+        "aria-label",
+        isPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+      );
+
+      togglePassword.setAttribute(
+        "title",
+        isPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+      );
+    });
+
+    /* FORGOT PASSWORD */
+    forgotPassword.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      showToast(
+        "Información",
+        "Por favor, contacte con el personal oficial para gestionar su solicitud."
+      );
+    });
+
+    /* WHATSAPP */
+    whatsappButton.addEventListener("click", () => {
+      showToast(
+        "WhatsApp",
+        "El servicio de WhatsApp está temporalmente suspendido."
+      );
+    });
+
+    /* COPY EMAIL */
+    emailCopyButton.addEventListener("click", async (event) => {
+      event.preventDefault();
+
+      const email = "info@basemaxpro.com";
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(email);
+        } else {
+          const temporaryInput = document.createElement("textarea");
+          temporaryInput.value = email;
+          temporaryInput.style.position = "fixed";
+          temporaryInput.style.opacity = "0";
+
+          document.body.appendChild(temporaryInput);
+          temporaryInput.select();
+
+          const copied = document.execCommand("copy");
+          temporaryInput.remove();
+
+          if (!copied) {
+            throw new Error("Copy failed");
+          }
+        }
+
+        showToast("Correo electrónico copiado", email);
+
+      } catch (error) {
+        showToast(
+          "No se pudo copiar el correo",
+          "Copia manualmente: " + email
+        );
+      }
+    });
+
+    /* CREATE STOCK ROW */
+    function createPositionRow(position, includeMarketLink) {
+      const row = document.createElement("tr");
+
+      const nameCell = document.createElement("td");
+      const symbolCell = document.createElement("td");
+      const quantityCell = document.createElement("td");
+
+      nameCell.textContent = position.name;
+      symbolCell.textContent = position.symbol;
+      symbolCell.className = "dash-symbol";
+
+      quantityCell.textContent =
+        Number(position.quantity).toLocaleString("zh-CN");
+
+      if (includeMarketLink) {
         const marketCell = document.createElement("td");
-        const company = document.createElement("span");
         const link = document.createElement("a");
 
-        assetCell.textContent = position.name;
-        company.className = "dash-company";
-        company.textContent = "Acción";
-        assetCell.appendChild(company);
-
-        symbolCell.textContent = position.symbol;
-        symbolCell.className = "dash-symbol";
-
-        quantityCell.textContent = Number(position.quantity).toLocaleString("zh-CN");
-
         link.className = "dash-market-link";
-        link.href = "https://www.tradingview.com/symbols/" + encodeURIComponent(position.symbol) + "/";
+        link.href =
+          "https://www.tradingview.com/symbols/" +
+          encodeURIComponent(position.symbol) +
+          "/";
+
         link.target = "_blank";
         link.rel = "noopener noreferrer";
         link.textContent = "TradingView ↗";
 
         marketCell.appendChild(link);
-        row.append(assetCell, symbolCell, quantityCell, marketCell);
-        dashPositions.appendChild(row);
+
+        row.append(
+          nameCell,
+          symbolCell,
+          quantityCell,
+          marketCell
+        );
+      } else {
+        row.append(
+          nameCell,
+          symbolCell,
+          quantityCell
+        );
+      }
+
+      return row;
+    }
+
+    /* SHOW HOME POSITIONS */
+    function renderHomePositions(account) {
+      dashPositions.replaceChildren();
+
+      account.positions.forEach((position) => {
+        dashPositions.appendChild(
+          createPositionRow(position, true)
+        );
       });
+    }
+
+    /* SHOW PROFILE */
+    function openProfilePage() {
+      if (!currentAccountData) return;
+
+      homePage.style.display = "none";
+      profilePage.style.display = "block";
+
+      document.getElementById("profileAccount").textContent =
+        currentAccountNumber;
+
+      document.getElementById("profileTotal").textContent =
+        formatCNY(currentAccountData.total);
+
+      document.getElementById("profileCash").textContent =
+        formatCNY(currentAccountData.cash);
+
+      document.getElementById("profileHoldings").textContent =
+        formatCNY(currentAccountData.holdingsValue);
+
+      const profilePositions =
+        document.getElementById("profilePositions");
+
+      profilePositions.replaceChildren();
+
+      currentAccountData.positions.forEach((position) => {
+        profilePositions.appendChild(
+          createPositionRow(position, false)
+        );
+      });
+    }
+
+    /* SHOW HOME PAGE */
+    function openHomePage() {
+      profilePage.style.display = "none";
+      homePage.style.display = "block";
+    }
+
+    /* NAVIGATION */
+    navItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        const tab = item.dataset.tab;
+
+        navItems.forEach((nav) => {
+          nav.classList.remove("active");
+        });
+
+        item.classList.add("active");
+
+        if (tab === "Perfil") {
+          openProfilePage();
+          return;
+        }
+
+        openHomePage();
+
+        if (tab === "Inicio") {
+          return;
+        }
+
+        showToast(
+          "Función temporalmente no disponible",
+          "Tu cuenta no puede acceder temporalmente a esta función. Por favor, contacta con tu gerente de cuenta para obtener asistencia."
+        );
+      });
+    });
+
+    /* SHOW INVESTMENT DASHBOARD */
+    function showInvestmentDashboard(username, account) {
+      currentAccountData = account;
+      currentAccountNumber = username;
+
+      dashAccount.textContent = username;
+
+      dashTotal.textContent = formatCNY(account.total);
+      dashCash.textContent = formatCNY(account.cash);
+      dashHoldings.textContent = formatCNY(account.holdingsValue);
+
+      renderHomePositions(account);
 
       loginPage.style.display = "none";
       investmentDashboard.style.display = "block";
-      window.scrollTo({ top: 0, behavior: "instant" });
+
+      homePage.style.display = "block";
+      profilePage.style.display = "none";
+
+      bottomNavigation.classList.add("visible");
+
+      navItems.forEach((nav) => {
+        nav.classList.remove("active");
+      });
+
+      document
+        .querySelector('[data-tab="Inicio"]')
+        .classList.add("active");
+
+      window.scrollTo(0, 0);
     }
 
+    /* LOGOUT */
     function returnToLogin() {
       investmentDashboard.style.display = "none";
+      bottomNavigation.classList.remove("visible");
+
+      profilePage.style.display = "none";
+      homePage.style.display = "block";
+
       loginPage.style.display = "flex";
+
+      currentAccountData = null;
+      currentAccountNumber = null;
 
       loginForm.reset();
 
@@ -1612,15 +1741,20 @@
       passwordInput.type = "password";
       togglePassword.textContent = "👁";
 
-      togglePassword.setAttribute("aria-label", "Mostrar contraseña");
-      togglePassword.setAttribute("title", "Mostrar contraseña");
+      navItems.forEach((nav) => {
+        nav.classList.remove("active");
+      });
 
-      window.scrollTo({ top: 0, behavior: "instant" });
+      document
+        .querySelector('[data-tab="Inicio"]')
+        .classList.add("active");
+
+      window.scrollTo(0, 0);
     }
 
     dashLogout.addEventListener("click", returnToLogin);
 
-    /* Procesar el inicio de sesión */
+    /* LOGIN */
     loginForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
@@ -1661,11 +1795,14 @@
         loginButton.classList.remove("loading");
         loginButton.disabled = false;
 
-        showInvestmentDashboard(username, demoAccounts[username]);
+        showInvestmentDashboard(
+          username,
+          demoAccounts[username]
+        );
       }, 650);
     });
 
-    /* Eliminar el estado de error al escribir */
+    /* CLEAR INPUT ERRORS */
     usernameInput.addEventListener("input", () => {
       usernameInput.classList.remove("input-error");
     });
@@ -1673,6 +1810,7 @@
     passwordInput.addEventListener("input", () => {
       passwordInput.classList.remove("input-error");
     });
+
   </script>
 
 </body>
