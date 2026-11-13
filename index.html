@@ -1688,12 +1688,6 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
     }
   
     /* CARGA AUTOMÁTICA DE LOS GRÁFICOS */
-    .market-autoload-note {
-      margin: 0 2px 18px;
-      color: #a8b4c7;
-      font-size: 12px;
-      line-height: 1.7;
-    }
     .market-chart-frame { position: relative; }
     .market-chart-loading {
       position: absolute;
@@ -1743,13 +1737,6 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
       color: #f3d675;
       font-size: 12px;
       cursor: pointer;
-    }
-    .market-chart-source-note {
-      margin: 0;
-      padding: 0 14px 14px;
-      color: #a8b4c7;
-      font-size: 12px;
-      line-height: 1.6;
     }
     @media (max-width: 480px) {
       .market-chart-source-link { min-height: 44px; display: inline-flex; align-items: center; }
@@ -2077,7 +2064,7 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
           <div class="market-eyebrow">BASEMAXPRO · PANORAMA DEL MERCADO</div>
           <h1>Panorama de los mercados</h1>
           <p>
-            Sigue los principales índices estadounidenses, las acciones
+            Sigue los ETF de los principales índices estadounidenses, las acciones
             de grandes compañías y la evolución del mercado de USDT.
           </p>
         </div>
@@ -2088,31 +2075,26 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
         </div>
       </div>
 
-      <p class="market-autoload-note">
-        Los gráficos se cargan automáticamente al abrir esta página, sin pulsarlos uno por uno.
-        La disponibilidad de cada símbolo depende del proveedor de datos.
-      </p>
-
       <div class="market-section-title">
-        <h2>Índices principales</h2>
+        <h2>ETF de índices estadounidenses</h2>
         <span>Estados Unidos</span>
       </div>
 
       <div class="market-grid">
 
-        <!-- S&P 500 -->
+        <!-- ETF DEL S&P 500: SPY -->
         <section class="market-chart-card featured">
           <div class="market-chart-head">
             <div>
-              <div class="market-chart-name">S&P 500</div>
-              <div class="market-chart-symbol">SP:SPX · Índice bursátil estadounidense</div>
+              <div class="market-chart-name">ETF del S&amp;P 500 · SPY</div>
+              <div class="market-chart-symbol">AMEX:SPY · Cotización en USD</div>
             </div>
-            <span class="market-chart-tag">ÍNDICE</span>
+            <span class="market-chart-tag">ETF</span>
           </div>
           <div class="market-chart-frame" id="marketChartFrame1"
-               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=SP%3ASPX&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
-               data-chart-title="Gráfico del índice S&amp;P 500"
-               data-chart-symbol="SP:SPX"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=AMEX%3ASPY&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Gráfico del ETF SPY · S&amp;P 500"
+               data-chart-symbol="AMEX:SPY"
                data-chart-state="idle">
             <div class="market-chart-loading" aria-hidden="true">
               <span class="market-chart-loading-dot"></span>
@@ -2122,23 +2104,23 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
           <div class="market-chart-tools">
             <span class="market-chart-feedback" hidden></span>
             <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame1" hidden>Reintentar</button>
-            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=SP%3ASPX" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=AMEX%3ASPY" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
-        <!-- NASDAQ 100 -->
+        <!-- ETF DEL NASDAQ-100: QQQ -->
         <section class="market-chart-card">
           <div class="market-chart-head">
             <div>
-              <div class="market-chart-name">NASDAQ 100</div>
-              <div class="market-chart-symbol">NASDAQ:NDX</div>
+              <div class="market-chart-name">ETF del Nasdaq-100 · QQQ</div>
+              <div class="market-chart-symbol">NASDAQ:QQQ · Cotización en USD</div>
             </div>
-            <span class="market-chart-tag">ÍNDICE</span>
+            <span class="market-chart-tag">ETF</span>
           </div>
           <div class="market-chart-frame" id="marketChartFrame2"
-               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3ANDX&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
-               data-chart-title="Gráfico del índice Nasdaq 100"
-               data-chart-symbol="NASDAQ:NDX"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AQQQ&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Gráfico del ETF QQQ · Nasdaq-100"
+               data-chart-symbol="NASDAQ:QQQ"
                data-chart-state="idle">
             <div class="market-chart-loading" aria-hidden="true">
               <span class="market-chart-loading-dot"></span>
@@ -2148,23 +2130,23 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
           <div class="market-chart-tools">
             <span class="market-chart-feedback" hidden></span>
             <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame2" hidden>Reintentar</button>
-            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NASDAQ%3ANDX" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NASDAQ%3AQQQ" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
-        <!-- DOW JONES -->
+        <!-- ETF DEL DOW JONES: DIA -->
         <section class="market-chart-card">
           <div class="market-chart-head">
             <div>
-              <div class="market-chart-name">Índice industrial Dow Jones</div>
-              <div class="market-chart-symbol">DJ:DJI</div>
+              <div class="market-chart-name">ETF del Dow Jones · DIA</div>
+              <div class="market-chart-symbol">AMEX:DIA · Cotización en USD</div>
             </div>
-            <span class="market-chart-tag">ÍNDICE</span>
+            <span class="market-chart-tag">ETF</span>
           </div>
           <div class="market-chart-frame" id="marketChartFrame3"
-               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=DJ%3ADJI&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
-               data-chart-title="Gráfico del índice Dow Jones"
-               data-chart-symbol="DJ:DJI"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=AMEX%3ADIA&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Gráfico del ETF DIA · Dow Jones"
+               data-chart-symbol="AMEX:DIA"
                data-chart-state="idle">
             <div class="market-chart-loading" aria-hidden="true">
               <span class="market-chart-loading-dot"></span>
@@ -2174,12 +2156,8 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
           <div class="market-chart-tools">
             <span class="market-chart-feedback" hidden></span>
             <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame3" hidden>Reintentar</button>
-            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=DJ%3ADJI" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=AMEX%3ADIA" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
-          <p class="market-chart-source-note">
-            Si aparece «Símbolo solo disponible en TradingView», la fuente no permite
-            mostrar este símbolo aquí. La carga automática no elimina esta limitación.
-          </p>
         </section>
 
       </div>
