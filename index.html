@@ -2237,7 +2237,7 @@
             <span>Tarjeta bancaria</span>
             <i>›</i>
           </div>
-          <div class="menu-item">
+          <div class="menu-item" id="fundsRecordMenuItem" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="fundsRecordModal">
             <span>Registro de fondos</span>
             <i>›</i>
           </div>
@@ -2256,6 +2256,20 @@
         </div>
       </div>
     </section>
+
+
+    <!-- HISTORIAL DE MOVIMIENTOS DE FONDOS -->
+    <div class="ipo-modal" id="fundsRecordModal" role="dialog" aria-modal="true" aria-labelledby="fundsRecordTitle">
+      <div class="ipo-modal-box">
+        <div class="ipo-modal-header">
+          <h2 id="fundsRecordTitle">Registro de fondos</h2>
+          <button type="button" class="ipo-modal-close" id="closeFundsRecordModal" aria-label="Cerrar">×</button>
+        </div>
+        <div id="fundsRecordContent" aria-live="polite"></div>
+        <p style="color:#94a3b8;font-size:12px;line-height:1.6;margin-top:16px;text-align:center;">Los registros se muestran durante un máximo de 30 días.</p>
+        <div class="ipo-modal-footer"><button type="button" id="closeFundsRecordButton">Cerrar</button></div>
+      </div>
+    </div>
 
     <!-- VENTANA DEL HISTORIAL DE PAGOS DE IPO -->
     <div class="ipo-modal" id="ipoPaymentsModal" role="dialog" aria-modal="true" aria-labelledby="ipoPaymentsTitle">
@@ -2683,6 +2697,85 @@ if (withdrawButton) {
         }
       });
     }
+
+
+    // REGISTRO DE FONDOS: SOLO MOVIMIENTOS DE LOS ÚLTIMOS 30 DÍAS
+    const fundsRecordMenuItem = document.getElementById("fundsRecordMenuItem");
+    const fundsRecordModal = document.getElementById("fundsRecordModal");
+    const fundsRecordContent = document.getElementById("fundsRecordContent");
+    const closeFundsRecordModal = document.getElementById("closeFundsRecordModal");
+    const closeFundsRecordButton = document.getElementById("closeFundsRecordButton");
+
+    function parseFundsDate(value) {
+      if (typeof value !== "string") return null;
+      const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+      if (!match) return null;
+      const day = Number(match[1]);
+      const month = Number(match[2]);
+      const year = Number(match[3]);
+      const date = new Date(year, month - 1, day);
+      return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day ? date : null;
+    }
+
+    function renderFundsRecords() {
+      fundsRecordContent.replaceChildren();
+      const payments = currentAccountData && Array.isArray(currentAccountData.payments)
+        ? currentAccountData.payments : [];
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const cutoff = new Date(today);
+      cutoff.setDate(cutoff.getDate() - 30);
+      const recent = payments.filter((record) => {
+        const date = parseFundsDate(record.date);
+        return date && date >= cutoff && date <= today;
+      });
+      if (!recent.length) {
+        const empty = document.createElement("div");
+        empty.className = "ipo-empty-state";
+        empty.textContent = "No hay registros disponibles";
+        fundsRecordContent.appendChild(empty);
+        return;
+      }
+      const list = document.createElement("div");
+      list.className = "ipo-record-list";
+      recent.forEach((record) => {
+        const item = document.createElement("div");
+        item.className = "ipo-record";
+        [["Fecha", record.date], ["Importe", record.amount]].forEach(([label, value]) => {
+          const line = document.createElement("div");
+          line.className = "ipo-record-line";
+          const name = document.createElement("span");
+          name.textContent = label;
+          const text = document.createElement("strong");
+          text.textContent = String(value ?? "—");
+          line.append(name, text);
+          item.appendChild(line);
+        });
+        list.appendChild(item);
+      });
+      fundsRecordContent.appendChild(list);
+    }
+
+    function openFundsRecordModal() {
+      renderFundsRecords();
+      fundsRecordModal.classList.add("show");
+    }
+    function closeFundsRecordWindow() { fundsRecordModal.classList.remove("show"); }
+    fundsRecordMenuItem.addEventListener("click", openFundsRecordModal);
+    fundsRecordMenuItem.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openFundsRecordModal();
+      }
+    });
+    closeFundsRecordModal.addEventListener("click", closeFundsRecordWindow);
+    closeFundsRecordButton.addEventListener("click", closeFundsRecordWindow);
+    fundsRecordModal.addEventListener("click", (event) => {
+      if (event.target === fundsRecordModal) closeFundsRecordWindow();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && fundsRecordModal.classList.contains("show")) closeFundsRecordWindow();
+    });
 
     /* SHOW TOAST */
     function showToast(title, message) {
