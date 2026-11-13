@@ -1641,6 +1641,19 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
       }
       body:not(.dashboard-active) .login-panel { padding-bottom: 32px; }
     }
+
+    /* DETALLES DE LOS PAGOS DE IPO */
+    #ipoPaymentsContent .ipo-record-line { align-items: flex-start; line-height: 1.5; }
+    #ipoPaymentsContent .ipo-record-line + .ipo-record-line { margin-top: 10px; }
+    #ipoPaymentsContent .ipo-record-line > span { flex: 1 1 44%; min-width: 0; }
+    #ipoPaymentsContent .ipo-record-line > strong {
+      flex: 1 1 56%; min-width: 0; text-align: right; overflow-wrap: anywhere;
+    }
+    @media (max-width: 480px) {
+      #ipoPaymentsContent .ipo-record-line { flex-direction: column; gap: 3px; }
+      #ipoPaymentsContent .ipo-record-line > span { color: #aab6c8; font-size: 12px; }
+      #ipoPaymentsContent .ipo-record-line > strong { text-align: left; font-size: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -2629,24 +2642,25 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
         const item = document.createElement("div");
         item.className = "ipo-record";
 
-        const dateLine = document.createElement("div");
-        dateLine.className = "ipo-record-line";
-        const dateLabel = document.createElement("span");
-        dateLabel.textContent = "Fecha";
-        const dateValue = document.createElement("strong");
-        dateValue.textContent = record.date || "—";
-        dateLine.append(dateLabel, dateValue);
+        const fields = [["Fecha", record.date || "—"]];
+        if (record.time) fields.push(["Hora", record.time]);
+        fields.push(["Importe pagado", record.amount || "—"]);
+        // Este valor pertenece al registro y no se recalcula con la tasa actual.
+        if (record.exchangeRate) {
+          fields.push(["Tipo de cambio del pago", record.exchangeRate]);
+        }
 
-        const amountLine = document.createElement("div");
-        amountLine.className = "ipo-record-line";
-        amountLine.style.marginTop = "8px";
-        const amountLabel = document.createElement("span");
-        amountLabel.textContent = "Importe";
-        const amountValue = document.createElement("strong");
-        amountValue.textContent = record.amount || "—";
-        amountLine.append(amountLabel, amountValue);
+        fields.forEach(([label, value]) => {
+          const line = document.createElement("div");
+          line.className = "ipo-record-line";
+          const labelElement = document.createElement("span");
+          labelElement.textContent = label;
+          const valueElement = document.createElement("strong");
+          valueElement.textContent = value;
+          line.append(labelElement, valueElement);
+          item.appendChild(line);
+        });
 
-        item.append(dateLine, amountLine);
         list.appendChild(item);
       });
       ipoPaymentsContent.replaceChildren(list);
@@ -2905,7 +2919,22 @@ if (withdrawButton) {
           {date:"02/10/2026", amount:"2200 USDT"},
           {date:"02/10/2026", amount:"3888 USDT"}
         ],
-        ipoPayments: [],
+        // Registros introducidos manualmente, sin verificación automática de transferencias.
+        // Las fechas y horas se conservan tal como se facilitaron, sin conversión de zona horaria.
+        ipoPayments: [
+          {
+            date: "25/09/2026",
+            time: "11:12:09",
+            amount: "2253.45 USDT",
+            exchangeRate: "1 USDT ≈ 17.7 MXN"
+          },
+          {
+            date: "25/09/2026",
+            time: "11:30:15",
+            amount: "3888.88 USDT",
+            exchangeRate: "1 USDT ≈ 18 MXN"
+          }
+        ],
         // Sustituye los valores vacíos cuando quieras editar los datos de participación en IPO.
         ipoHoldings: {
           stockName: "INDUSTRIAS PEÑOLES. S.A.B. DEC. V",
