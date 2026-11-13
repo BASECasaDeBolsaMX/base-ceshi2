@@ -2908,7 +2908,9 @@ if (withdrawButton) {
 
       "6671885463": {
         password: "base123456",
-        total: "2217.93 USD",
+        total: "-65026.7835 MXN",
+        // Precisión de los activos totales por moneda; no modifica el saldo original.
+        totalFractionDigits: { MXN: 4, USD: 2 },
         cash: "0 USD",
         holdingsValue: "0",
         profitTotal: "21153.82",
@@ -3221,13 +3223,19 @@ if (withdrawButton) {
         ? amountInMXN / exchangeRateMXNPerUSD
         : amountInMXN;
 
-      const formatted = amount.toLocaleString("es-MX", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
+      // Conserva los decimales configurados para cada cuenta y moneda.
+      const configuredDigits = currentAccountData.totalFractionDigits &&
+        currentAccountData.totalFractionDigits[selectedProfileCurrency];
+      const fractionDigits = Number.isInteger(configuredDigits) &&
+        configuredDigits >= 0 && configuredDigits <= 8 ? configuredDigits : 2;
+      const formatted = Math.abs(amount).toLocaleString("es-MX", {
+        minimumFractionDigits: fractionDigits,
+        maximumFractionDigits: fractionDigits
       });
 
+      // El signo negativo se mantiene tanto en MXN como en USD.
       document.getElementById("profileTotal").textContent =
-        "$ " + formatted + " " + selectedProfileCurrency;
+        (amount < 0 ? "-$ " : "$ ") + formatted + " " + selectedProfileCurrency;
 
       currencyMXNButton.classList.toggle("active", selectedProfileCurrency === "MXN");
       currencyUSDButton.classList.toggle("active", selectedProfileCurrency === "USD");
