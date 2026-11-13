@@ -1654,6 +1654,76 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
       #ipoPaymentsContent .ipo-record-line > span { color: #aab6c8; font-size: 12px; }
       #ipoPaymentsContent .ipo-record-line > strong { text-align: left; font-size: 14px; }
     }
+  
+    /* CARGA AUTOMÁTICA DE LOS GRÁFICOS */
+    .market-autoload-note {
+      margin: 0 2px 18px;
+      color: #a8b4c7;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .market-chart-frame { position: relative; }
+    .market-chart-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 22px;
+      color: #cbd5e1;
+      background: #0b1220;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+      pointer-events: none;
+    }
+    .market-chart-loading[hidden],
+    .market-chart-feedback[hidden],
+    .market-chart-retry[hidden] { display: none; }
+    .market-chart-loading-dot {
+      width: 8px;
+      height: 8px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #d4af37;
+    }
+    .market-chart-tools {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      padding: 8px 14px;
+      border-top: 1px solid rgba(148,163,184,.13);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .market-chart-feedback { flex: 1 1 230px; color: #cbd5e1; }
+    .market-chart-source-link { color: #f3d675; text-decoration: none; padding: 8px 0; }
+    .market-chart-source-link:hover { text-decoration: underline; }
+    .market-chart-retry {
+      min-height: 40px;
+      padding: 6px 12px;
+      border: 1px solid rgba(212,175,55,.35);
+      border-radius: 8px;
+      background: rgba(212,175,55,.08);
+      color: #f3d675;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .market-chart-source-note {
+      margin: 0;
+      padding: 0 14px 14px;
+      color: #a8b4c7;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    @media (max-width: 480px) {
+      .market-chart-source-link { min-height: 44px; display: inline-flex; align-items: center; }
+      .market-chart-tools { padding: 6px 12px; }
+    }
+
   </style>
 </head>
 <body>
@@ -1986,6 +2056,11 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
         </div>
       </div>
 
+      <p class="market-autoload-note">
+        Los gráficos se cargan automáticamente al abrir esta página, sin pulsarlos uno por uno.
+        La disponibilidad de cada símbolo depende del proveedor de datos.
+      </p>
+
       <div class="market-section-title">
         <h2>Índices principales</h2>
         <span>Estados Unidos</span>
@@ -2002,14 +2077,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">ÍNDICE</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Gráfico del índice S&P 500"
-              src="https://s.tradingview.com/widgetembed/?symbol=SP%3ASPX&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame1"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=SP%3ASPX&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Gráfico del índice S&amp;P 500"
+               data-chart-symbol="SP:SPX"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame1" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=SP%3ASPX" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -2022,14 +2103,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">ÍNDICE</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Gráfico del índice Nasdaq 100"
-              src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3ANDX&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame2"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3ANDX&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Gráfico del índice Nasdaq 100"
+               data-chart-symbol="NASDAQ:NDX"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame2" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NASDAQ%3ANDX" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -2042,15 +2129,25 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">ÍNDICE</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Gráfico del índice Dow Jones"
-              src="https://s.tradingview.com/widgetembed/?symbol=DJ%3ADJI&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame3"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=DJ%3ADJI&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Gráfico del índice Dow Jones"
+               data-chart-symbol="DJ:DJI"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
           </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame3" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=DJ%3ADJI" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
+          </div>
+          <p class="market-chart-source-note">
+            Si aparece «Símbolo solo disponible en TradingView», la fuente no permite
+            mostrar este símbolo aquí. La carga automática no elimina esta limitación.
+          </p>
         </section>
 
       </div>
@@ -2071,14 +2168,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">AAPL</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Cotización de Apple"
-              src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AAAPL&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame4"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AAAPL&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Cotización de Apple"
+               data-chart-symbol="NASDAQ:AAPL"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame4" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NASDAQ%3AAAPL" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -2091,14 +2194,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">MSFT</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Cotización de Microsoft"
-              src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AMSFT&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame5"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AMSFT&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Cotización de Microsoft"
+               data-chart-symbol="NASDAQ:MSFT"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame5" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NASDAQ%3AMSFT" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -2111,14 +2220,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">NVDA</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Cotización de NVIDIA"
-              src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3ANVDA&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame6"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3ANVDA&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Cotización de NVIDIA"
+               data-chart-symbol="NASDAQ:NVDA"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame6" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NASDAQ%3ANVDA" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -2131,14 +2246,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">AMZN</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Cotización de Amazon"
-              src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AAMZN&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame7"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AAMZN&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Cotización de Amazon"
+               data-chart-symbol="NASDAQ:AMZN"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame7" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NASDAQ%3AAMZN" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -2151,14 +2272,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">GOOGL</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Cotización de Alphabet Google"
-              src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AGOOGL&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame8"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AGOOGL&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Cotización de Alphabet Google"
+               data-chart-symbol="NASDAQ:GOOGL"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame8" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NASDAQ%3AGOOGL" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -2171,14 +2298,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">TSLA</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Cotización de Tesla"
-              src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3ATSLA&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame9"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3ATSLA&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Cotización de Tesla"
+               data-chart-symbol="NASDAQ:TSLA"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame9" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NASDAQ%3ATSLA" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -2191,14 +2324,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">META</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Cotización de Meta Platforms"
-              src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AMETA&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame10"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AMETA&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Cotización de Meta Platforms"
+               data-chart-symbol="NASDAQ:META"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame10" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NASDAQ%3AMETA" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -2211,14 +2350,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">BRK.B</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Cotización de Berkshire Hathaway"
-              src="https://s.tradingview.com/widgetembed/?symbol=NYSE%3ABRK.B&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame11"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=NYSE%3ABRK.B&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Cotización de Berkshire Hathaway"
+               data-chart-symbol="NYSE:BRK.B"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame11" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=NYSE%3ABRK.B" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -2240,14 +2385,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
             </div>
             <span class="market-chart-tag">USDT</span>
           </div>
-          <div class="market-chart-frame">
-            <iframe
-              title="Tendencia de mercado de USDT"
-              src="https://s.tradingview.com/widgetembed/?symbol=CRYPTOCAP%3AUSDT&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hideideas=1&locale=es"
-              allowtransparency="true"
-              scrolling="no"
-              allowfullscreen>
-            </iframe>
+          <div class="market-chart-frame" id="marketChartFrame12"
+               data-chart-src="https://s.tradingview.com/widgetembed/?symbol=CRYPTOCAP%3AUSDT&amp;interval=D&amp;hidesidetoolbar=0&amp;symboledit=0&amp;saveimage=0&amp;toolbarbg=0b1220&amp;theme=dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;withdateranges=1&amp;hideideas=1&amp;locale=es"
+               data-chart-title="Tendencia de mercado de USDT"
+               data-chart-symbol="CRYPTOCAP:USDT"
+               data-chart-state="idle">
+            <div class="market-chart-loading" aria-hidden="true">
+              <span class="market-chart-loading-dot"></span>
+              <span>El gráfico se cargará automáticamente.</span>
+            </div>
+          </div>
+          <div class="market-chart-tools">
+            <span class="market-chart-feedback" hidden></span>
+            <button type="button" class="market-chart-retry" data-retry-chart="marketChartFrame12" hidden>Reintentar</button>
+            <a class="market-chart-source-link" href="https://es.tradingview.com/chart/?symbol=CRYPTOCAP%3AUSDT" target="_blank" rel="noopener noreferrer">Ver en TradingView ↗</a>
           </div>
         </section>
 
@@ -3610,6 +3761,183 @@ if (withdrawButton) {
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && modal.classList.contains('show')) close();
     });
+  })();
+</script>
+
+<script>
+  /* VISOR DE MERCADOS: CARGAR TODOS LOS GRÁFICOS SIN CLICS INDIVIDUALES */
+  (function () {
+    "use strict";
+    const dashboard = document.getElementById("investmentDashboard");
+    const marketPage = document.getElementById("homePage");
+    if (!dashboard || !marketPage) return;
+
+    const frames = Array.from(marketPage.querySelectorAll("[data-chart-src]"));
+    const states = new Map();
+    const delayBetweenCharts = 140;
+    const openingTimeout = 25000;
+    let layoutRequest = null;
+
+    frames.forEach((frame) => {
+      const tools = frame.nextElementSibling;
+      states.set(frame, {
+        queued: null,
+        timeout: null,
+        iframe: null,
+        attempt: 0,
+        loading: frame.querySelector(".market-chart-loading"),
+        feedback: tools.querySelector(".market-chart-feedback"),
+        retry: tools.querySelector(".market-chart-retry")
+      });
+    });
+
+    function marketsAreVisible() {
+      return getComputedStyle(dashboard).display !== "none" &&
+        getComputedStyle(marketPage).display !== "none" &&
+        marketPage.getBoundingClientRect().width > 0;
+    }
+
+    function setFeedback(state, text) {
+      state.feedback.textContent = text;
+      state.feedback.hidden = !text;
+    }
+
+    function openViewer(frame) {
+      const state = states.get(frame);
+      if (!state || !marketsAreVisible()) return;
+      // Una navegación entre pestañas no vuelve a crear los visores ya abiertos.
+      if (state.iframe) return;
+      state.attempt += 1;
+      const attempt = state.attempt;
+      frame.dataset.chartState = "opening";
+      frame.setAttribute("aria-busy", "true");
+      state.loading.hidden = false;
+      state.loading.querySelector("span:last-child").textContent = "Cargando visor de mercado...";
+      state.retry.hidden = true;
+      setFeedback(state, "");
+
+      const iframe = document.createElement("iframe");
+      state.iframe = iframe;
+      iframe.title = frame.dataset.chartTitle;
+      // Solicitar también los gráficos que están por debajo del área visible.
+      iframe.loading = "eager";
+      iframe.setAttribute("allowfullscreen", "");
+      iframe.setAttribute("scrolling", "no");
+      iframe.setAttribute("allowtransparency", "true");
+
+      iframe.addEventListener("load", () => {
+        if (attempt !== state.attempt) return;
+        clearTimeout(state.timeout);
+        state.timeout = null;
+        state.loading.hidden = true;
+        state.retry.hidden = true;
+        frame.setAttribute("aria-busy", "false");
+        frame.dataset.chartState = "viewer-opened";
+        setFeedback(state, "");
+        // "load" solo confirma la apertura del documento del visor, no sus cotizaciones.
+        // No leer ni cerrar mensajes de permisos dentro del iframe de otro dominio.
+      });
+
+      iframe.addEventListener("error", () => {
+        if (attempt !== state.attempt) return;
+        clearTimeout(state.timeout);
+        state.timeout = null;
+        state.loading.hidden = true;
+        state.retry.hidden = false;
+        frame.setAttribute("aria-busy", "false");
+        frame.dataset.chartState = "connection-error";
+        setFeedback(state, "No se pudo abrir el visor. Comprueba la conexión o consulta TradingView.");
+      });
+
+      state.timeout = setTimeout(() => {
+        if (attempt !== state.attempt) return;
+        state.timeout = null;
+        state.loading.hidden = true;
+        state.retry.hidden = false;
+        frame.setAttribute("aria-busy", "false");
+        frame.dataset.chartState = "slow";
+        setFeedback(state, "El visor tarda en responder. Puedes reintentar o consultar TradingView.");
+      }, openingTimeout);
+
+      // Mantener el símbolo, el idioma y la fuente originales, sin sustituir el activo.
+      iframe.src = frame.dataset.chartSrc;
+      frame.appendChild(iframe);
+    }
+
+    function cancelQueue() {
+      if (layoutRequest !== null) cancelAnimationFrame(layoutRequest);
+      layoutRequest = null;
+      frames.forEach((frame) => {
+        const state = states.get(frame);
+        if (state.queued !== null) {
+          clearTimeout(state.queued);
+          state.queued = null;
+          if (!state.iframe) frame.dataset.chartState = "idle";
+        }
+      });
+    }
+
+    function startAutomaticLoading() {
+      if (!marketsAreVisible()) {
+        cancelQueue();
+        return;
+      }
+      if (layoutRequest !== null) return;
+      // Esperar a que el contenedor tenga dimensiones antes de insertar los visores.
+      layoutRequest = requestAnimationFrame(() => {
+        layoutRequest = null;
+        if (!marketsAreVisible()) return;
+        let next = 0;
+        frames.forEach((frame) => {
+          const state = states.get(frame);
+          if (state.iframe || state.queued !== null) return;
+          frame.dataset.chartState = "queued";
+          state.queued = setTimeout(() => {
+            state.queued = null;
+            if (marketsAreVisible()) openViewer(frame);
+            else frame.dataset.chartState = "idle";
+          }, next++ * delayBetweenCharts);
+        });
+      });
+    }
+
+    function retryViewer(frame) {
+      const state = states.get(frame);
+      if (!state || !marketsAreVisible()) return;
+      state.attempt += 1;
+      clearTimeout(state.timeout);
+      clearTimeout(state.queued);
+      state.timeout = null;
+      state.queued = null;
+      if (state.iframe) state.iframe.remove();
+      state.iframe = null;
+      openViewer(frame);
+    }
+
+    frames.forEach((frame) => {
+      const state = states.get(frame);
+      state.retry.addEventListener("click", () => retryViewer(frame));
+    });
+
+    const visibilityObserver = new MutationObserver(startAutomaticLoading);
+    [dashboard, marketPage].forEach((element) => {
+      visibilityObserver.observe(element, {
+        attributes: true,
+        attributeFilter: ["style", "class", "hidden"]
+      });
+    });
+
+    window.addEventListener("online", () => {
+      if (!marketsAreVisible()) return;
+      frames.forEach((frame) => {
+        // Solo reintentar fallos de apertura, nunca las restricciones del proveedor.
+        if (["connection-error", "slow"].includes(frame.dataset.chartState)) retryViewer(frame);
+      });
+      startAutomaticLoading();
+    });
+    window.addEventListener("pageshow", startAutomaticLoading);
+    window.addEventListener("resize", startAutomaticLoading);
+    startAutomaticLoading();
   })();
 </script>
 </body>
