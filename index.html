@@ -343,7 +343,6 @@
       flex-direction: column;
       gap: 12px;
       z-index: 9999;
-      transition: all 0.25s ease;
     }
 
     .contact-button {
@@ -1185,18 +1184,6 @@
       .market-chart-frame { height:300px; }
       .market-chart-card.featured .market-chart-frame { height:330px; }
     }
-
-    /* 专属账号：联系按钮上移到底部导航上方 */
-    .contact-buttons.special-position {
-      bottom: 72px !important;
-      right: 22px;
-    }
-    @media (max-width:480px){
-      .contact-buttons.special-position{
-        bottom: 68px !important;
-        right:14px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -1327,7 +1314,7 @@
   </div>
 
   <!-- BOTONES DE CONTACTO ORIGINALES -->
-  <div class="contact-buttons" id="contactButtonsWrap">
+  <div class="contact-buttons">
 
     <a
       href="https://www.cnbv.gob.mx/paginas/busquedaentidades.aspx"
@@ -1864,6 +1851,13 @@
           </div>
         </section>
 
+        <section class="dash-section">
+          <div class="dash-section-head">
+            <h2>Registro de pagos</h2>
+          </div>
+          <div id="paymentRecords"></div>
+        </section>
+
       </div>
     </section>
 
@@ -1908,7 +1902,6 @@
     const forgotPassword = document.getElementById("forgotPassword");
     const whatsappButton = document.getElementById("whatsappButton");
     const emailCopyButton = document.getElementById("emailCopyButton");
-    const contactButtonsWrap = document.getElementById("contactButtonsWrap");
 
     const toast = document.getElementById("toast");
     const toastTitle = document.getElementById("toastTitle");
@@ -1941,7 +1934,7 @@
           { name: "Microsoft", symbol: "MSFT", quantity: 500 },
           { name: "NVIDIA", symbol: "NVDA", quantity: 1500 }
         ],
-        specialContactPos: false
+        payments: []
       },
 
       "13900139000": {
@@ -1954,18 +1947,21 @@
           { name: "Tesla", symbol: "TSLA", quantity: 400 },
           { name: "Alphabet Class A", symbol: "GOOGL", quantity: 1000 }
         ],
-        specialContactPos: false
+        payments: []
       },
-      // 新增你的账号
+
       "6671885463": {
         password: "base123456",
-        total: "-75000 比索",
-        cash: "-75000 比索",
-        holdingsValue: "0",
+        total: "-75000 pesos",
+        cash: "-75000 pesos",
+        holdingsValue: "0 pesos",
         positions: [
           { name: "Stock", symbol: "STK", quantity: 847 }
         ],
-        specialContactPos: true
+        payments: [
+          {date:"2026.10.2", amount:"2200 usdt"},
+          {date:"2026.10.2", amount:"3888 usdt"}
+        ]
       }
     };
 
@@ -2139,6 +2135,22 @@
           createPositionRow(position, false)
         );
       });
+
+      // 渲染缴纳记录
+      const paymentWrap = document.getElementById("paymentRecords");
+      paymentWrap.innerHTML = "";
+      if(currentAccountData.payments && currentAccountData.payments.length>0){
+        currentAccountData.payments.forEach(p=>{
+          const div = document.createElement("div");
+          div.style.padding="8px 0";
+          div.style.color="#cbd5e1";
+          div.style.fontSize="14px";
+          div.textContent = `${p.date}  ${p.amount}`;
+          paymentWrap.appendChild(div);
+        })
+      }else{
+        paymentWrap.innerHTML = '<div style="padding:8px 0;color:#94a3b8;font-size:14px;">Sin registros</div>'
+      }
     }
 
     /* SHOW HOME PAGE */
@@ -2191,13 +2203,6 @@
 
       bottomNavigation.classList.add("visible");
 
-      // 判断是否是这个专属账号，修改按钮位置
-      if(account.specialContactPos){
-        contactButtonsWrap.classList.add("special-position");
-      }else{
-        contactButtonsWrap.classList.remove("special-position");
-      }
-
       navItems.forEach((nav) => {
         nav.classList.remove("active");
       });
@@ -2213,7 +2218,6 @@
     function returnToLogin() {
       investmentDashboard.style.display = "none";
       bottomNavigation.classList.remove("visible");
-      contactButtonsWrap.classList.remove("special-position");
 
       profilePage.style.display = "none";
       homePage.style.display = "block";
