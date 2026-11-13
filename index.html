@@ -1625,21 +1625,53 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
     }
     .field-error[hidden] { display: none; }
     .login-button:disabled:not(.loading) { cursor: not-allowed; }
-    @media (max-width: 700px) {
-      /* En el acceso móvil, los enlaces no deben tapar el formulario. */
-      body:not(.dashboard-active) .contact-buttons {
-        position: relative;
-        inset: auto;
-        width: 100%;
-        max-width: 520px;
-        margin: 0 auto;
-        padding: 18px 18px calc(24px + env(safe-area-inset-bottom));
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
+    /* ENLACES FLOTANTES EN TELÉFONOS Y TABLETAS */
+    @media (max-width: 900px) {
+      .contact-buttons {
+        position: fixed;
+        top: auto;
+        left: auto;
+        right: calc(7px + env(safe-area-inset-right, 0px));
+        bottom: calc(11px + env(safe-area-inset-bottom, 0px));
+        width: 50px;
+        max-width: none;
+        max-height: calc(100vh - 28px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+        max-height: calc(100dvh - 28px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+        margin: 0;
+        padding: 3px;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 7px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        transition: none;
       }
-      body:not(.dashboard-active) .login-panel { padding-bottom: 32px; }
+      .contact-buttons::-webkit-scrollbar { display: none; }
+      .contact-buttons .contact-button {
+        width: 44px;
+        height: 44px;
+        min-height: 44px;
+        flex: 0 0 44px;
+        box-shadow: 0 2px 4px rgba(0,0,0,.18);
+      }
+      .contact-buttons .contact-button:hover { transform: none; }
+      .contact-buttons .contact-button:focus-visible { outline-offset: -3px; }
+      body.dashboard-active .contact-buttons {
+        bottom: calc(77px + env(safe-area-inset-bottom, 0px));
+        max-height: calc(100vh - 94px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+        max-height: calc(100dvh - 94px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+      }
+      /* Reservar espacio lateral para que los enlaces no tapen los controles. */
+      body:not(.dashboard-active) .page { background: #f8fafc; }
+      body:not(.dashboard-active) .login-panel {
+        padding-right: calc(76px + env(safe-area-inset-right, 0px));
+        padding-bottom: 32px;
+      }
     }
 
     /* DETALLES DE LOS PAGOS DE IPO */
