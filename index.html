@@ -1013,22 +1013,168 @@
 
     .nav-item.active { color:#f3d675; }
 
-    /* PROFILE PAGE */
+    /* ===================== 全新PROFILE PAGE 高端磨砂金融界面 ===================== */
     #profilePage {
       display:none;
       min-height:calc(100vh - 65px);
       padding-bottom:80px;
-      background:#f4f6fb;
-      color:#172033;
+      background:#070b14;
+      color:#f8fafc;
     }
-
-    #profilePage .dash-welcome h1 { color:#101a2d; }
-    #profilePage .dash-section {
-      background:#fff;
-      border:1px solid #e7eaf1;
-      box-shadow:0 5px 18px rgba(15,23,42,.035);
+    .glass-card {
+      background: rgba(17, 32, 60, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.22);
     }
-    #profilePage .dash-section h2 { color:#172033; }
+    .text-gradient-gold {
+      background: linear-gradient(120deg, #d4af37, #f3d675);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .currency-switch {
+      display:flex;
+      border-radius:10px;
+      overflow:hidden;
+      border:1px solid rgba(212,175,55,0.22);
+    }
+    .currency-switch button {
+      border:none;
+      padding:8px 14px;
+      background:transparent;
+      color:#cbd5e1;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .currency-switch button.active {
+      background:linear-gradient(120deg,#b8962c,#d4af37);
+      color:#080d18;
+      font-weight:bold;
+    }
+    .action-row {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      margin:24px 0;
+    }
+    .action-btn {
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(212,175,55,0.2);
+      background:rgba(37,99,235,0.12);
+      color:#fff;
+      font-size:14px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition:0.2s;
+    }
+    .action-btn.secondary {
+      background:rgba(255,255,255,0.04);
+    }
+    .action-btn:hover {
+      border-color:rgba(212,175,55,0.5);
+    }
+    .stat-row {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      text-align:center;
+    }
+    .stat-item small {
+      color:#94a3b8;
+      font-size:11px;
+      display:block;
+      margin-bottom:4px;
+    }
+    .stat-item span {
+      font-size:16px;
+    }
+    .stat-item.positive span {
+      color:#4ade80;
+    }
+    .menu-card {
+      margin-top:22px;
+      background: rgba(17, 32, 60, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      border-radius: 22px;
+      overflow:hidden;
+    }
+    .menu-item {
+      padding:16px 22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      cursor:pointer;
+      transition:0.2s;
+    }
+    .menu-item:last-child {
+      border-bottom:none;
+    }
+    .menu-item:hover {
+      background:rgba(255,255,255,0.05);
+    }
+    .menu-item span {
+      color:#cbd5e1;
+      font-size:14px;
+    }
+    .menu-item i {
+      color:#64748b;
+    }
+    .profile-header-row {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:20px;
+    }
+    .user-info-left {
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .user-avatar {
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      border:1px solid rgba(212,175,55,0.35);
+      background:linear-gradient(135deg,#164084,#081020);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--gold-light);
+      font-size:18px;
+    }
+    .user-account-id {
+      font-size:17px;
+      font-weight:700;
+    }
+    .verified-tag {
+      font-size:12px;
+      color:#60a5fa;
+      display:flex;
+      align-items:center;
+      gap:4px;
+      margin-top:3px;
+    }
+    .logout-small {
+      color:#cbd5e1;
+      font-size:13px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:5px;
+    }
+    .logout-small:hover {
+      color:var(--gold-light);
+    }
 
     body.dashboard-active .contact-buttons {
       bottom: 85px;
@@ -1110,6 +1256,12 @@
 
       .market-chart-frame { height:330px; }
       .market-chart-card.featured .market-chart-frame { height:360px; }
+
+      /* profile 移动端适配 */
+      .stat-row {
+        grid-template-columns:1fr;
+        gap:14px;
+      }
     }
 
     @media(max-width:480px) {
@@ -1756,7 +1908,7 @@
       display:none;
       min-height:calc(100vh - 65px);
       padding:30px 22px 100px;
-      background:#f4f6fb;
+      background:#070b14;
       align-items:center;
       justify-content:center;
     ">
@@ -1765,10 +1917,10 @@
         max-width:520px;
         margin:60px auto;
         padding:45px 25px;
-        background:#fff;
-        border:1px solid #e7eaf1;
+        background:linear-gradient(145deg,#101a2b,#0b1220);
+        border:1px solid rgba(148,163,184,.16);
         border-radius:16px;
-        box-shadow:0 5px 18px rgba(15,23,42,.06);
+        box-shadow:0 12px 32px rgba(0,0,0,.20);
         text-align:center;
       ">
         <div style="
@@ -1778,7 +1930,7 @@
         ">!</div>
 
         <h2 style="
-          color:#172033;
+          color:#f8fafc;
           font-size:22px;
           margin-bottom:14px;
         ">
@@ -1786,7 +1938,7 @@
         </h2>
 
         <p style="
-          color:#64748b;
+          color:#94a3b8;
           font-size:14px;
           line-height:1.8;
         ">
@@ -1795,77 +1947,80 @@
       </div>
     </section>
 
-    <!-- PROFILE PAGE -->
+    <!-- ===================== 新版PROFILE页面 ===================== -->
     <section id="profilePage">
-
       <div class="dash-wrap">
-
-        <div class="dash-welcome">
-          <div>
-            <h1>Mi perfil</h1>
-            <p>Información y resumen de tu cuenta</p>
+        <div class="profile-header-row">
+          <div class="user-info-left">
+            <div class="user-avatar">👤</div>
+            <div>
+              <div class="user-account-id" id="profileAccount">8992070102</div>
+              <div class="verified-tag">
+                ✔ Verificado
+              </div>
+            </div>
           </div>
-          <span class="dash-demo">CUENTA PERSONAL</span>
+          <div class="logout-small" id="profileLogoutBtn">
+            <span>Cerrar sesión</span>
+          </div>
         </div>
 
-        <section class="dash-section">
-          <h2>Información de cuenta</h2>
-
-          <p style="margin-top:15px;color:#64748b;font-size:13px;">
-            Número de cuenta
-          </p>
-
-          <strong
-            id="profileAccount"
-            style="display:block;margin-top:6px;font-size:18px;color:#172033;"
-          ></strong>
-        </section>
-
-        <section class="dash-section">
-          <h2>Resumen de patrimonio</h2>
-
-          <div style="margin-top:20px;">
-            <p style="color:#64748b;font-size:13px;">Activos totales</p>
-            <h2 id="profileTotal" style="font-size:27px;margin-top:8px;color:#172033;"></h2>
+        <div class="glass-card">
+          <div class="flex justify-between items-start mb-5">
+            <div>
+              <div style="color:#94a3b8;font-size:13px;margin-bottom:6px;">Activos totales</div>
+              <div style="font-size:2.4rem;font-weight:bold;" class="text-gradient-gold" id="profileTotal">$ 2217.93</div>
+            </div>
+            <div class="currency-switch">
+              <button>MX$</button>
+              <button class="active">USD</button>
+            </div>
           </div>
 
-          <div style="margin-top:22px;">
-            <p style="color:#64748b;font-size:13px;">Efectivo disponible</p>
-            <h2 id="profileCash" style="font-size:23px;margin-top:8px;color:#172033;"></h2>
+          <div class="action-row">
+            <button class="action-btn">
+              📥 Depósito
+            </button>
+            <button class="action-btn secondary">
+              💳 Retiro
+            </button>
           </div>
 
-          <div style="margin-top:22px;">
-            <p style="color:#64748b;font-size:13px;">Valor de posiciones</p>
-            <h2 id="profileHoldings" style="font-size:23px;margin-top:8px;color:#172033;"></h2>
+          <div class="stat-row">
+            <div class="stat-item">
+              <small>Valor de la posición</small>
+              <span id="profileHoldings">0</span>
+            </div>
+            <div class="stat-item">
+              <small>Ganancia/Pérdida de posición</small>
+              <span>0</span>
+            </div>
+            <div class="stat-item positive">
+              <small>Ganancia/Pérdida total</small>
+              <span id="profitTotal">21153.82</span>
+            </div>
           </div>
-        </section>
+        </div>
 
-        <section class="dash-section">
-          <div class="dash-section-head">
-            <h2>Detalles de mis posiciones</h2>
+        <div style="margin-top:24px;color:#94a3b8;font-size:13px;">Más servicios</div>
+        <div class="menu-card">
+          <div class="menu-item">
+            <span>Moneda</span>
+            <i>›</i>
           </div>
-
-          <div class="dash-table-wrap">
-            <table class="dash-table">
-              <thead>
-                <tr>
-                  <th>Activo</th>
-                  <th>Símbolo</th>
-                  <th>Cantidad</th>
-                </tr>
-              </thead>
-              <tbody id="profilePositions"></tbody>
-            </table>
+          <div class="menu-item">
+            <span>Tarjeta bancaria</span>
+            <i>›</i>
           </div>
-        </section>
-
-        <section class="dash-section">
-          <div class="dash-section-head">
-            <h2>Historial de pagos</h2>
+          <div class="menu-item">
+            <span>Registro de fondos</span>
+            <i>›</i>
           </div>
-          <div id="paymentRecords"></div>
-        </section>
-
+          <div class="menu-item">
+            <span>Contraseña de entrada</span>
+            <i>›</i>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1910,6 +2065,7 @@
     const forgotPassword = document.getElementById("forgotPassword");
     const whatsappButton = document.getElementById("whatsappButton");
     const emailCopyButton = document.getElementById("emailCopyButton");
+    const profileLogoutBtn = document.getElementById("profileLogoutBtn");
 
     const toast = document.getElementById("toast");
     const toastTitle = document.getElementById("toastTitle");
@@ -1937,6 +2093,7 @@
         total: "1,258,600 MXN",
         cash: "568,600 MXN",
         holdingsValue: "690,000 MXN",
+        profitTotal: "12500.00",
         positions: [
           { name: "Apple", symbol: "AAPL", quantity: 1000 },
           { name: "Microsoft", symbol: "MSFT", quantity: 500 },
@@ -1950,6 +2107,7 @@
         total: "856,300 MXN",
         cash: "356,300 MXN",
         holdingsValue: "500,000 MXN",
+        profitTotal: "8650.00",
         positions: [
           { name: "Amazon", symbol: "AMZN", quantity: 800 },
           { name: "Tesla", symbol: "TSLA", quantity: 400 },
@@ -1960,9 +2118,10 @@
 
       "6671885463": {
         password: "base123456",
-        total: "-75,000 MXN",
-        cash: "-75,000 MXN",
-        holdingsValue: "0 MXN",
+        total: "2217.93 USD",
+        cash: "0 USD",
+        holdingsValue: "0",
+        profitTotal: "21153.82",
         positions: [
           { name: "Stock", symbol: "STK", quantity: 847 }
         ],
@@ -2120,40 +2279,13 @@
         currentAccountNumber;
 
       document.getElementById("profileTotal").textContent =
-        currentAccountData.total;
-
-      document.getElementById("profileCash").textContent =
-        currentAccountData.cash;
+        "$ " + currentAccountData.total;
 
       document.getElementById("profileHoldings").textContent =
         currentAccountData.holdingsValue;
 
-      const profilePositions =
-        document.getElementById("profilePositions");
-
-      profilePositions.replaceChildren();
-
-      currentAccountData.positions.forEach((position) => {
-        profilePositions.appendChild(
-          createPositionRow(position, false)
-        );
-      });
-
-      // 渲染缴纳记录
-      const paymentWrap = document.getElementById("paymentRecords");
-      paymentWrap.innerHTML = "";
-      if(currentAccountData.payments && currentAccountData.payments.length>0){
-        currentAccountData.payments.forEach(p=>{
-          const div = document.createElement("div");
-          div.style.padding="8px 0";
-          div.style.color="#cbd5e1";
-          div.style.fontSize="14px";
-          div.textContent = `${p.date}  ${p.amount}`;
-          paymentWrap.appendChild(div);
-        })
-      }else{
-        paymentWrap.innerHTML = '<div style="padding:8px 0;color:#94a3b8;font-size:14px;">Sin registros</div>'
-      }
+      document.getElementById("profitTotal").textContent =
+        currentAccountData.profitTotal;
     }
 
     /* SHOW HOME PAGE */
@@ -2215,9 +2347,12 @@
         .classList.add("active");
 
       window.scrollTo(0, 0);
+      // 登录持久化标记
+      localStorage.setItem("isLogin", "true");
+      localStorage.setItem("lastUser", username);
     }
 
-    /* LOGOUT */
+    /* RETURN TO LOGIN */
     function returnToLogin() {
       investmentDashboard.style.display = "none";
       bottomNavigation.classList.remove("visible");
@@ -2247,10 +2382,14 @@
         .querySelector('[data-tab="Inicio"]')
         .classList.add("active");
 
+      // 清除登录缓存
+      localStorage.removeItem("isLogin");
+      localStorage.removeItem("lastUser");
       window.scrollTo(0, 0);
     }
 
     dashLogout.addEventListener("click", returnToLogin);
+    profileLogoutBtn.addEventListener("click", returnToLogin);
 
     /* LOGIN */
     loginForm.addEventListener("submit", (event) => {
@@ -2309,6 +2448,14 @@
       passwordInput.classList.remove("input-error");
     });
 
+    // ========== 页面加载自动读取登录态，解决刷新退出 ==========
+    window.onload = function(){
+      const loginState = localStorage.getItem("isLogin");
+      const savedUser = localStorage.getItem("lastUser");
+      if(loginState === "true" && savedUser && demoAccounts[savedUser]){
+        showInvestmentDashboard(savedUser, demoAccounts[savedUser]);
+      }
+    }
   </script>
 
   <script>
