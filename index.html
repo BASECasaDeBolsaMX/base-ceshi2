@@ -2249,7 +2249,7 @@
             <span>Participaciones de IPO</span>
             <i>›</i>
           </div>
-          <div class="menu-item">
+          <div class="menu-item" id="entryPasswordMenuItem" role="button" tabindex="0" aria-label="Contraseña de entrada">
             <span>Contraseña de entrada</span>
             <i>›</i>
           </div>
@@ -2789,6 +2789,21 @@ if (withdrawButton) {
       toastTimer = setTimeout(() => {
         toast.classList.remove("show");
       }, 3500);
+    }
+
+    /* ASISTENCIA PARA LA CONTRASEÑA DE ENTRADA */
+    const entryPasswordMenuItem = document.getElementById("entryPasswordMenuItem");
+    if (entryPasswordMenuItem) {
+      const showPasswordSupport = () => {
+        showToast("Contraseña de entrada", "Por favor, contacta con atención al cliente.");
+      };
+      entryPasswordMenuItem.addEventListener("click", showPasswordSupport);
+      entryPasswordMenuItem.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          showPasswordSupport();
+        }
+      });
     }
 
     /* PASSWORD VISIBILITY */
