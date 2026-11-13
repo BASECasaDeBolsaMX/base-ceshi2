@@ -1038,27 +1038,29 @@ body{
         <div>
           <h2>🇲🇽 Mercado de México</h2>
           <p class="section-description">
-            Índice S&P/BMV IPC y principales acciones mexicanas.
+            Cotización de acciones mexicanas disponibles en BIVA.
+            El índice S&P/BMV IPC se consulta directamente en TradingView.
           </p>
         </div>
 
         <span class="market-tag">TradingView</span>
       </div>
 
-      <!-- 关键修正：正确的墨西哥 IPC 代码 BMV:ME -->
+      <!-- BIVA: los widgets de TradingView admiten este proveedor para México.
+           El índice S&P/BMV IPC no está disponible en el widget incrustado. -->
       <iframe
         class="market-frame"
-        title="S&P BMV IPC México"
-        src="https://s.tradingview.com/widgetembed/?symbol=BMV%3AME&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&theme=light&style=1&timezone=America%2FMexico_City&withdateranges=1&hideideas=1&locale=es"
+        title="Grupo México — cotización BIVA"
+        src="https://s.tradingview.com/widgetembed/?symbol=BIVA%3AGMEXICO%2FB&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&theme=light&style=1&timezone=America%2FMexico_City&withdateranges=1&hideideas=1&locale=es"
         loading="lazy"
         allowtransparency="true"
         allowfullscreen
       ></iframe>
 
       <p class="market-note">
-        Índice principal de la Bolsa Mexicana de Valores.
-        Los datos pueden estar sujetos a los permisos y retrasos
-        de cotización de cada mercado.
+        Gráfico de Grupo México negociado en BIVA. Los datos de acciones
+        mexicanas de BIVA en los widgets de TradingView tienen un retraso
+        aproximado de 20 minutos. El índice S&P/BMV IPC se abre en TradingView.
       </p>
 
       <div class="market-links">
@@ -1085,8 +1087,8 @@ body{
 
       <iframe
         class="market-frame-small"
-        title="Acciones mexicanas"
-        src="https://s.tradingview.com/widgetembed/?symbol=BMV%3AGMEXICO%2FB&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&theme=light&style=1&timezone=America%2FMexico_City&withdateranges=1&hideideas=1&locale=es"
+        title="Banorte — cotización BIVA"
+        src="https://s.tradingview.com/widgetembed/?symbol=BIVA%3AGFNORTE%2FO&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&theme=light&style=1&timezone=America%2FMexico_City&withdateranges=1&hideideas=1&locale=es"
         loading="lazy"
         allowfullscreen
       ></iframe>
@@ -1104,6 +1106,11 @@ body{
         <a href="https://www.tradingview.com/symbols/BMV-WALMEX/"
            target="_blank" rel="noopener">Walmart México ↗</a>
       </div>
+
+      <p class="market-note">
+        Los gráficos mexicanos utilizan el proveedor BIVA compatible con widgets.
+        Las cotizaciones pueden tener un retraso aproximado de 20 minutos.
+      </p>
 
     </section>
 
