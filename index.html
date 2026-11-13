@@ -2326,7 +2326,7 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
           <div class="flex justify-between items-start mb-5">
             <div>
               <div style="color:#94a3b8;font-size:13px;margin-bottom:6px;">Activos totales</div>
-              <div style="font-size:2.4rem;font-weight:bold;" class="text-gradient-gold" id="profileTotal">$ 2217.93</div>
+              <div style="font-size:2.4rem;font-weight:bold;" class="text-gradient-gold" id="profileTotal">***</div>
             </div>
             <div class="currency-switch" role="group" aria-label="Moneda de los activos totales">
               <button type="button" id="currencyMXN" aria-pressed="false">MX$</button>
@@ -2863,7 +2863,7 @@ if (withdrawButton) {
     const accountData = {
       "13800138000": {
         password: "123456",
-        total: "1,258,600 MXN",
+        total: "", // Sin configurar: se muestra "***" en ambas monedas.
         cash: "568,600 MXN",
         holdingsValue: "",
         profitPosition: "",
@@ -2887,7 +2887,7 @@ if (withdrawButton) {
 
       "13900139000": {
         password: "654321",
-        total: "856,300 MXN",
+        total: "", // Sin configurar: se muestra "***" en ambas monedas.
         cash: "356,300 MXN",
         holdingsValue: "",
         profitPosition: "",
@@ -3207,12 +3207,22 @@ if (withdrawButton) {
     const exchangeRateNote = document.getElementById("exchangeRateNote");
 
     function getAccountTotalInMXN() {
-      if (!currentAccountData) return 0;
+      if (!currentAccountData) return null;
 
-      const raw = String(currentAccountData.total || "");
-      const amount = Number(raw.replace(/[^0-9.,-]/g, "").replace(/,/g, ""));
+      const value = currentAccountData.total;
+      if (value === null || value === undefined) return null;
+      if (typeof value !== "string" && typeof value !== "number") return null;
 
-      if (!Number.isFinite(amount)) return 0;
+      // Un saldo sin configurar no equivale a un saldo de cero.
+      const raw = String(value).trim();
+      const numericText = raw
+        .replace(/(?:MXN|USD)\s*$/i, "")
+        .replace(/\$/g, "")
+        .replace(/[\s,]/g, "");
+      if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(numericText)) return null;
+
+      const amount = Number(numericText);
+      if (!Number.isFinite(amount)) return null;
 
       return /USD/i.test(raw)
         ? amount * exchangeRateMXNPerUSD
@@ -3220,12 +3230,26 @@ if (withdrawButton) {
     }
 
     function updateProfileCurrency() {
-      if (!currentAccountData) return;
+      // Mantiene el botón seleccionado incluso cuando no hay saldo configurado.
+      currencyMXNButton.classList.toggle("active", selectedProfileCurrency === "MXN");
+      currencyUSDButton.classList.toggle("active", selectedProfileCurrency === "USD");
+      currencyMXNButton.setAttribute("aria-pressed", String(selectedProfileCurrency === "MXN"));
+      currencyUSDButton.setAttribute("aria-pressed", String(selectedProfileCurrency === "USD"));
 
+      const totalElement = document.getElementById("profileTotal");
       const amountInMXN = getAccountTotalInMXN();
+      if (amountInMXN === null) {
+        totalElement.textContent = "***";
+        return;
+      }
+
       const amount = selectedProfileCurrency === "USD"
         ? amountInMXN / exchangeRateMXNPerUSD
         : amountInMXN;
+      if (!Number.isFinite(amount)) {
+        totalElement.textContent = "***";
+        return;
+      }
 
       // Conserva los decimales configurados para cada cuenta y moneda.
       const configuredDigits = currentAccountData.totalFractionDigits &&
@@ -3238,13 +3262,8 @@ if (withdrawButton) {
       });
 
       // El signo negativo se mantiene tanto en MXN como en USD.
-      document.getElementById("profileTotal").textContent =
+      totalElement.textContent =
         (amount < 0 ? "-$ " : "$ ") + formatted + " " + selectedProfileCurrency;
-
-      currencyMXNButton.classList.toggle("active", selectedProfileCurrency === "MXN");
-      currencyUSDButton.classList.toggle("active", selectedProfileCurrency === "USD");
-      currencyMXNButton.setAttribute("aria-pressed", String(selectedProfileCurrency === "MXN"));
-      currencyUSDButton.setAttribute("aria-pressed", String(selectedProfileCurrency === "USD"));
     }
 
     async function refreshExchangeRate() {
@@ -3419,6 +3438,7 @@ if (withdrawButton) {
 
       currentAccountData = null;
       currentAccountNumber = null;
+      updateProfileCurrency();
       updateProfileStatistics();
 
       loginForm.reset();
