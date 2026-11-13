@@ -2229,7 +2229,7 @@
 
         <div style="margin-top:24px;color:#94a3b8;font-size:13px;">Más servicios</div>
         <div class="menu-card">
-          <div class="menu-item">
+          <div class="menu-item" id="currencyMenuItem" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="currencyOptionsModal">
             <span>Moneda</span>
             <i>›</i>
           </div>
@@ -2322,6 +2322,24 @@
         <div class="ipo-modal-footer">
           <button type="button" id="closeIpoHoldingsButton">Cerrar</button>
         </div>
+      </div>
+    </div>
+
+
+    <!-- OPCIONES DE MONEDA -->
+    <div class="ipo-modal" id="currencyOptionsModal" role="dialog" aria-modal="true" aria-labelledby="currencyOptionsTitle">
+      <div class="ipo-modal-box">
+        <div class="ipo-modal-header">
+          <h2 id="currencyOptionsTitle">Moneda</h2>
+          <button type="button" class="ipo-modal-close" id="closeCurrencyOptions" aria-label="Cerrar">×</button>
+        </div>
+        <div class="ipo-holdings-list" aria-label="Monedas disponibles">
+          <div class="ipo-holding-row"><span class="ipo-holding-label">USDT</span></div>
+          <div class="ipo-holding-row"><span class="ipo-holding-label">USD</span></div>
+          <div class="ipo-holding-row"><span class="ipo-holding-label">MXN</span></div>
+          <div class="ipo-holding-row"><span class="ipo-holding-label">EUR</span></div>
+        </div>
+        <div class="ipo-modal-footer"><button type="button" id="closeCurrencyOptionsButton">Cerrar</button></div>
       </div>
     </div>
 
@@ -3253,5 +3271,32 @@ if (withdrawButton) {
     });
   </script>
 
+<script>
+  // Opciones informativas de moneda
+  (function () {
+    const menu = document.getElementById('currencyMenuItem');
+    const modal = document.getElementById('currencyOptionsModal');
+    const closeX = document.getElementById('closeCurrencyOptions');
+    const closeButton = document.getElementById('closeCurrencyOptionsButton');
+    if (!menu || !modal) return;
+    const open = () => modal.classList.add('show');
+    const close = () => modal.classList.remove('show');
+    menu.addEventListener('click', open);
+    menu.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        open();
+      }
+    });
+    closeX.addEventListener('click', close);
+    closeButton.addEventListener('click', close);
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) close();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('show')) close();
+    });
+  })();
+</script>
 </body>
 </html>
