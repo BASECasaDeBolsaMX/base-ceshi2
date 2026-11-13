@@ -2,18 +2,22 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="BASEMAXPRO - Gestión Patrimonial">
 <title>BASEMAXPRO | Gestión Patrimonial</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 :root{
   --navy:#080d18;
-  --navy2:#101a2d;
+  --navy-light:#101a2d;
   --gold:#d4af37;
   --gold-light:#f3d675;
+  --gold-dark:#9d7b19;
   --blue:#2563eb;
 }
+
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:var(--navy);
@@ -21,253 +25,779 @@ body{
   min-height:100vh;
   overflow-x:hidden;
 }
-.page{min-height:100vh;display:flex}
+
+/* =========================
+   原始登录页面
+========================= */
+
+.page{
+  min-height:100vh;
+  display:flex;
+  position:relative;
+}
+
 .brand-panel{
-  width:52%;min-height:100vh;
-  display:flex;align-items:center;justify-content:center;
-  padding:60px;position:relative;overflow:hidden;
+  width:52%;
+  min-height:100vh;
   background:
-    radial-gradient(circle at 20% 15%,rgba(212,175,55,.1),transparent 30%),
+    radial-gradient(circle at 20% 15%,rgba(212,175,55,.10),transparent 30%),
     radial-gradient(circle at 85% 80%,rgba(37,99,235,.12),transparent 32%),
-    linear-gradient(135deg,#060a13,#0c1425 52%,#080e1b);
+    linear-gradient(135deg,#060a13 0%,#0c1425 52%,#080e1b 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:60px;
+  position:relative;
+  overflow:hidden;
 }
-.brand-content{width:100%;max-width:620px;position:relative;z-index:2}
+
+.brand-panel::before{
+  content:"";
+  position:absolute;
+  width:600px;
+  height:600px;
+  border:1px solid rgba(212,175,55,.07);
+  border-radius:50%;
+  top:-280px;
+  left:-250px;
+}
+
+.brand-panel::after{
+  content:"";
+  position:absolute;
+  width:760px;
+  height:760px;
+  border:1px solid rgba(255,255,255,.035);
+  border-radius:50%;
+  right:-380px;
+  bottom:-380px;
+}
+
+.brand-content{
+  width:100%;
+  max-width:620px;
+  position:relative;
+  z-index:2;
+}
+
 .premium-logo{
-  width:112px;height:112px;position:relative;margin-bottom:34px;
-  display:flex;align-items:center;justify-content:center;
+  width:112px;
+  height:112px;
+  position:relative;
+  margin-bottom:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.logo-diamond,.logo-diamond-inner{
-  position:absolute;transform:rotate(45deg);
-}
+
 .logo-diamond{
-  width:82px;height:82px;border:1px solid rgba(212,175,55,.72);
+  position:absolute;
+  width:82px;
+  height:82px;
+  transform:rotate(45deg);
+  border:1px solid rgba(212,175,55,.72);
+  box-shadow:0 0 18px rgba(212,175,55,.08);
 }
+
 .logo-diamond-inner{
-  width:62px;height:62px;border:1px solid rgba(243,214,117,.45);
+  position:absolute;
+  width:62px;
+  height:62px;
+  transform:rotate(45deg);
+  border:1px solid rgba(243,214,117,.45);
 }
+
 .base-monogram{
-  position:relative;z-index:3;
-  font-family:Georgia,serif;font-size:47px;font-weight:700;
-  letter-spacing:-5px;color:var(--gold-light);
+  position:relative;
+  z-index:3;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:47px;
+  line-height:1;
+  font-weight:700;
+  letter-spacing:-5px;
+  color:var(--gold-light);
+  text-shadow:0 0 8px rgba(212,175,55,.25);
 }
+
 .logo-corner{
-  position:absolute;width:7px;height:7px;
-  border-color:var(--gold);border-style:solid;
+  position:absolute;
+  width:7px;
+  height:7px;
+  border-color:var(--gold);
+  border-style:solid;
+  opacity:.85;
 }
+
 .logo-corner.tl{top:11px;left:11px;border-width:1px 0 0 1px}
 .logo-corner.tr{top:11px;right:11px;border-width:1px 1px 0 0}
 .logo-corner.bl{bottom:11px;left:11px;border-width:0 0 1px 1px}
 .logo-corner.br{bottom:11px;right:11px;border-width:0 1px 1px 0}
+
 .brand-line{
-  width:92px;height:3px;margin-bottom:28px;
-  background:linear-gradient(90deg,#9d7b19,var(--gold-light),transparent);
+  width:92px;
+  height:3px;
+  background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),transparent);
+  border-radius:20px;
+  margin-bottom:28px;
 }
+
 .brand-logo{
-  font-size:clamp(46px,7vw,88px);font-weight:900;
-  letter-spacing:-5px;line-height:.95;margin-bottom:22px;
+  font-size:clamp(46px,7vw,88px);
+  font-weight:900;
+  letter-spacing:-5px;
+  line-height:.95;
+  color:#fff;
+  margin-bottom:22px;
 }
+
 .brand-logo span{color:var(--gold-light)}
+
 .brand-subtitle{
-  font-size:16px;color:var(--gold-light);
-  letter-spacing:5px;text-transform:uppercase;margin-bottom:32px;
+  font-size:16px;
+  color:var(--gold-light);
+  letter-spacing:5px;
+  text-transform:uppercase;
+  margin-bottom:32px;
+  font-weight:500;
 }
-.brand-description{max-width:520px;font-size:16px;line-height:1.85;color:#cbd5e1}
+
+.brand-description{
+  max-width:520px;
+  font-size:16px;
+  line-height:1.85;
+  color:#cbd5e1;
+}
+
 .login-panel{
-  width:48%;min-height:100vh;background:#f8fafc;color:#0f172a;
-  display:flex;align-items:center;justify-content:center;padding:40px;
+  width:48%;
+  min-height:100vh;
+  background:#f8fafc;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
+  color:#0f172a;
 }
-.login-card{width:100%;max-width:430px}
+
+.login-card{
+  width:100%;
+  max-width:430px;
+}
+
 .login-header{margin-bottom:34px}
-.login-header h1{font-size:34px;font-weight:800;margin-bottom:10px}
-.login-header p{color:#64748b;font-size:15px;line-height:1.6}
+
+.login-header h1{
+  font-size:34px;
+  font-weight:800;
+  color:#0f172a;
+  margin-bottom:10px;
+}
+
+.login-header p{
+  color:#64748b;
+  font-size:15px;
+  line-height:1.6;
+}
+
 .form-group{margin-bottom:20px}
-.form-label{display:block;margin-bottom:8px;font-size:14px;font-weight:700;color:#334155}
+
+.form-label{
+  display:block;
+  margin-bottom:8px;
+  font-size:14px;
+  font-weight:700;
+  color:#334155;
+}
+
 .input-wrapper{position:relative}
+
 .form-input{
-  width:100%;height:54px;border:1px solid #cbd5e1;border-radius:12px;
-  padding:0 16px;font-size:15px;outline:none;background:white;color:#0f172a;
+  width:100%;
+  height:54px;
+  border:1px solid #cbd5e1;
+  border-radius:12px;
+  padding:0 16px;
+  font-size:15px;
+  outline:none;
+  background:#fff;
+  color:#0f172a;
+  transition:all .2s ease;
 }
-.form-input:focus{border-color:#3b82f6;box-shadow:0 0 0 4px rgba(59,130,246,.1)}
+
+.form-input:focus{
+  border-color:#3b82f6;
+  box-shadow:0 0 0 4px rgba(59,130,246,.10);
+}
+
 .form-input.input-error{border-color:#ef4444}
+
 .password-input{padding-right:54px}
+
 .toggle-password{
-  position:absolute;right:14px;top:50%;transform:translateY(-50%);
-  border:0;background:transparent;cursor:pointer;font-size:18px;
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  color:#64748b;
+  font-size:18px;
+  width:32px;
+  height:32px;
+  border-radius:8px;
 }
-.forgot-row{display:flex;justify-content:flex-end;margin:-8px 0 22px}
-.forgot-password{border:0;background:transparent;color:#2563eb;font-size:14px;cursor:pointer}
+
+.forgot-row{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:-8px;
+  margin-bottom:22px;
+}
+
+.forgot-password{
+  border:none;
+  background:transparent;
+  color:#2563eb;
+  font-size:14px;
+  cursor:pointer;
+  font-weight:600;
+}
+
 .login-button{
-  width:100%;height:56px;border:0;border-radius:12px;
+  width:100%;
+  height:56px;
+  border:none;
+  border-radius:12px;
   background:linear-gradient(135deg,#2563eb,#1d4ed8);
-  color:white;font-size:16px;font-weight:800;cursor:pointer;
+  color:#fff;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
 }
-.login-button:disabled{opacity:.7}
-.login-footer{text-align:center;margin-top:24px;color:#94a3b8;font-size:12px}
+
+.login-button:disabled{opacity:.7;cursor:wait}
+
+.spinner{
+  width:18px;
+  height:18px;
+  border:2px solid rgba(255,255,255,.35);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  display:none;
+}
+
+.login-button.loading .spinner{display:block}
+.login-button.loading .button-text{display:none}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.login-footer{
+  text-align:center;
+  margin-top:24px;
+  color:#94a3b8;
+  font-size:12px;
+  line-height:1.6;
+}
+
+/* =========================
+   原有浮动联系方式
+========================= */
+
 .contact-buttons{
-  position:fixed;right:22px;bottom:22px;
-  display:flex;flex-direction:column;gap:12px;z-index:100;
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  z-index:9999;
 }
+
 .contact-button{
-  width:52px;height:52px;border-radius:50%;border:0;
-  display:flex;align-items:center;justify-content:center;
-  text-decoration:none;box-shadow:0 8px 24px #0004;
-  color:white;font-weight:800;font-size:13px;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  border:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  text-decoration:none;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+  transition:transform .2s ease;
+  font-weight:900;
 }
-.cnbv-button{background:#e2e8f0;color:#183b68}
-.binance-button{background:#f0b90b;color:#111}
-.nasdaq-button{background:#fff;color:#123c68}
-.tradingview-button{background:#111827}
+
+.contact-button:hover{transform:translateY(-3px) scale(1.04)}
+
+.contact-button svg{width:29px;height:29px;fill:#fff}
+
+.cnbv-button{
+  background:linear-gradient(145deg,#f2f4f7,#d7dce3);
+  border:2px solid #fff;
+  color:#183b68;
+}
+
+.binance-button{background:linear-gradient(145deg,#f8d33a,#f0b90b);color:#111}
+.nasdaq-button{background:linear-gradient(145deg,#fff,#cbd5e1);color:#123c68}
+.tradingview-button{background:linear-gradient(145deg,#1f2937,#030712)}
 .telegram-button{background:#229ed9}
 .email-button{background:#2563eb}
 .whatsapp-button{background:#25d366}
-.contact-button svg{width:25px;height:25px;fill:white}
+
+.contact-letter{font-size:15px;font-weight:900}
+
+/* =========================
+   Toast 通知
+========================= */
+
 .toast{
-  position:fixed;left:50%;bottom:30px;transform:translate(-50%,30px);
-  background:#0f172a;color:white;padding:16px 20px;border-radius:12px;
-  opacity:0;pointer-events:none;transition:.25s;z-index:10000;
-  width:max-content;max-width:calc(100vw - 40px);text-align:center;
+  position:fixed;
+  left:50%;
+  bottom:32px;
+  transform:translateX(-50%) translateY(30px);
+  min-width:300px;
+  max-width:calc(100vw - 40px);
+  background:rgba(15,23,42,.96);
+  color:#fff;
+  padding:16px 20px;
+  border-radius:12px;
+  box-shadow:0 12px 35px rgba(0,0,0,.3);
+  opacity:0;
+  pointer-events:none;
+  transition:all .3s ease;
+  z-index:10000;
+  text-align:center;
 }
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.toast-title{font-weight:800;margin-bottom:5px;font-size:14px}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.toast-title{font-size:14px;font-weight:800;margin-bottom:4px}
 .toast-message{font-size:13px;color:#cbd5e1;line-height:1.5}
 
-/* 登录后主界面 */
+/* =========================
+   登录后的主页面
+========================= */
+
 #investmentDashboard{
-  display:none;min-height:100vh;background:#f4f6fb;color:#172033;
-  padding-bottom:78px;
+  display:none;
+  min-height:100vh;
+  background:#f4f6fb;
+  color:#172033;
+  padding-bottom:80px;
 }
+
 .dash-top{
-  background:#080d18;color:white;padding:17px 5%;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:2px solid var(--gold);gap:12px;
+  min-height:75px;
+  background:#080d18;
+  color:white;
+  border-bottom:2px solid var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 5%;
+  gap:12px;
 }
-.dash-brand{font-size:20px;font-weight:900;letter-spacing:2px;color:var(--gold-light)}
-.dash-subbrand{font-size:10px;color:#aab4c5;margin-top:4px;letter-spacing:1px}
-.dash-user{display:flex;align-items:center;gap:12px;font-size:12px}
+
+.dash-brand{
+  color:var(--gold-light);
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.dash-subbrand{
+  color:#aab4c5;
+  font-size:10px;
+  letter-spacing:2px;
+  margin-top:5px;
+}
+
+.dash-user{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:12px;
+}
+
 .dash-logout{
-  background:transparent;border:1px solid var(--gold);
-  color:var(--gold-light);padding:8px 12px;border-radius:7px;cursor:pointer;
+  border:1px solid var(--gold);
+  background:transparent;
+  color:var(--gold-light);
+  padding:9px 13px;
+  border-radius:7px;
+  cursor:pointer;
 }
-.dash-wrap{max-width:1180px;margin:auto;padding:25px 18px 35px}
+
+.dash-wrap{
+  max-width:1180px;
+  margin:auto;
+  padding:25px 18px 35px;
+}
+
 .dash-welcome{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:12px;margin-bottom:20px;flex-wrap:wrap;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
 }
-.dash-welcome h1{font-size:24px;color:#101a2d;margin-bottom:7px}
-.dash-welcome p{font-size:13px;color:#64748b}
-.dash-demo{
-  color:#87640c;background:#fff7df;border:1px solid #f0d98c;
-  border-radius:20px;padding:7px 12px;font-size:10px;font-weight:700;
+
+.dash-welcome h1{
+  font-size:25px;
+  color:#101a2d;
+  margin-bottom:8px;
 }
-.dash-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
-.dash-card,.dash-section{
-  background:white;border:1px solid #e7eaf1;border-radius:13px;
-  padding:20px;box-shadow:0 5px 18px #0f172a08;
+
+.dash-welcome p{
+  font-size:13px;
+  color:#64748b;
 }
-.dash-card-label{font-size:12px;color:#64748b;margin-bottom:12px}
-.dash-card-value{font-size:25px;font-weight:800;color:#111827}
-.dash-section{margin-top:17px}
-.dash-section h2{font-size:17px;color:#172033}
-.dash-section-head{
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:10px;margin-bottom:16px;
+
+.dash-section{
+  background:#fff;
+  border:1px solid #e7eaf1;
+  border-radius:13px;
+  padding:20px;
+  margin-top:17px;
+  box-shadow:0 5px 18px rgba(15,23,42,.035);
 }
-.dash-table-wrap{overflow-x:auto}
-.dash-table{width:100%;border-collapse:collapse;min-width:420px}
-.dash-table th{
-  text-align:left;color:#8290a5;font-size:11px;padding:12px 9px;
+
+.dash-section h2{
+  font-size:18px;
+  color:#172033;
+}
+
+.section-description{
+  color:#64748b;
+  font-size:12px;
+  line-height:1.7;
+  margin-top:7px;
+}
+
+.market-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+}
+
+.market-tag{
+  color:#0f766e;
+  background:#ccfbf1;
+  padding:6px 11px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:700;
+}
+
+.market-frame{
+  display:block;
+  width:100%;
+  height:480px;
+  border:0;
+  border-radius:8px;
+  background:#fff;
+}
+
+.market-frame-small{
+  display:block;
+  width:100%;
+  height:390px;
+  border:0;
+  border-radius:8px;
+  background:#fff;
+}
+
+.market-note{
+  color:#94a3b8;
+  font-size:11px;
+  line-height:1.7;
+  margin-top:12px;
+}
+
+.market-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+
+.market-links a{
+  display:inline-block;
+  color:#2563eb;
+  font-size:12px;
+  text-decoration:none;
+  border:1px solid #dbeafe;
+  border-radius:8px;
+  padding:8px 11px;
+}
+
+/* =========================
+   Perfil：只显示账户和余额
+   不包含任何持仓数据
+========================= */
+
+#profilePage{display:none}
+
+.profile-card{
+  background:#fff;
+  border:1px solid #e7eaf1;
+  border-radius:13px;
+  padding:22px;
+  margin-top:16px;
+  box-shadow:0 5px 18px rgba(15,23,42,.035);
+}
+
+.profile-card h2{
+  color:#172033;
+  font-size:17px;
+  margin-bottom:20px;
+}
+
+.profile-info-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:15px 0;
   border-bottom:1px solid #edf0f5;
 }
-.dash-table td{
-  padding:14px 9px;border-bottom:1px solid #f0f2f6;
-  font-size:13px;color:#253047;
-}
-.dash-table tr:last-child td{border-bottom:0}
-.dash-market-link{color:#b18a1c;text-decoration:none;font-weight:700}
 
-/* 首页市场行情 */
-.market-intro{
-  font-size:12px;color:#64748b;line-height:1.6;margin-top:8px;
-}
-.market-heading{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:10px;margin-bottom:14px;flex-wrap:wrap;
-}
-.market-tag{
-  font-size:10px;color:#0f766e;background:#ccfbf1;
-  padding:6px 10px;border-radius:20px;font-weight:700;
-}
-.market-chart{
-  width:100%;height:460px;border:0;display:block;
-  border-radius:8px;background:#fff;
-}
-.market-chart-small{
-  width:100%;height:380px;border:0;display:block;
-  border-radius:8px;background:#fff;
-}
-.market-note{font-size:11px;color:#94a3b8;margin-top:12px;line-height:1.6}
-.market-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.market-links a{
-  font-size:12px;text-decoration:none;color:#2563eb;
-  border:1px solid #dbeafe;padding:8px 11px;border-radius:8px;
+.profile-info-row:last-child{border-bottom:0}
+
+.profile-label{
+  color:#64748b;
+  font-size:13px;
 }
 
-/* 底部导航 */
+.profile-value{
+  color:#172033;
+  font-size:14px;
+  font-weight:700;
+  text-align:right;
+}
+
+.balance-card{
+  background:linear-gradient(135deg,#101a2d,#080d18);
+  border-radius:13px;
+  padding:25px;
+  color:white;
+  margin-top:16px;
+}
+
+.balance-title{
+  font-size:13px;
+  color:#cbd5e1;
+}
+
+.balance-total{
+  font-size:32px;
+  color:var(--gold-light);
+  font-weight:800;
+  margin-top:14px;
+  word-break:break-word;
+}
+
+.balance-separator{
+  height:1px;
+  background:rgba(255,255,255,.15);
+  margin:20px 0;
+}
+
+.balance-detail{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:13px;
+}
+
+.balance-detail span:first-child{color:#cbd5e1}
+.balance-detail span:last-child{font-weight:700;color:#fff}
+
+/* =========================
+   不可用功能页面
+========================= */
+
+#unavailablePage{display:none}
+
+.unavailable-content{
+  background:#fff;
+  border:1px solid #e7eaf1;
+  border-radius:13px;
+  padding:55px 22px;
+  text-align:center;
+  margin-top:20px;
+}
+
+.unavailable-icon{
+  font-size:36px;
+  margin-bottom:18px;
+}
+
+.unavailable-content h2{
+  font-size:19px;
+  color:#172033;
+  margin-bottom:13px;
+}
+
+.unavailable-content p{
+  font-size:13px;
+  line-height:1.9;
+  color:#64748b;
+  max-width:480px;
+  margin:auto;
+}
+
+/* =========================
+   五个底部导航
+========================= */
+
 .bottom-navigation{
-  display:none;position:fixed;left:0;right:0;bottom:0;height:65px;
-  background:white;border-top:1px solid #e5e7eb;
-  box-shadow:0 -3px 15px #0000000a;z-index:9998;
+  display:none;
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:68px;
+  background:#fff;
+  border-top:1px solid #e5e7eb;
+  box-shadow:0 -3px 15px rgba(0,0,0,.05);
+  z-index:9998;
   grid-template-columns:repeat(5,1fr);
   padding-bottom:env(safe-area-inset-bottom);
 }
+
 .bottom-navigation.visible{display:grid}
+
 .nav-item{
-  border:0;background:transparent;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:3px;
-  color:#94a3b8;font-size:10px;font-weight:600;cursor:pointer;
+  border:0;
+  background:transparent;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  color:#94a3b8;
+  font-size:10px;
+  font-weight:600;
+  cursor:pointer;
 }
+
 .nav-icon{font-size:22px;line-height:25px}
 .nav-item.active{color:#2674e8}
 
-/* 个人中心 */
-#profilePage{display:none;min-height:80vh}
-.profile-value{font-size:25px;font-weight:800;margin-top:8px;color:#111827}
-.profile-label{font-size:13px;color:#64748b}
-.profile-row{margin-top:20px}
-.profile-warning{font-size:11px;color:#94a3b8;line-height:1.6;margin-top:18px}
+/* =========================
+   响应式
+========================= */
 
 @media(max-width:900px){
   .page{display:block}
-  .brand-panel{width:100%;min-height:320px;padding:35px 25px}
-  .login-panel{width:100%;min-height:calc(100vh - 320px);padding:35px 22px 100px}
+
+  .brand-panel{
+    width:100%;
+    min-height:340px;
+    padding:45px 30px;
+  }
+
   .brand-description{display:none}
-  .brand-logo{font-size:56px}
+
+  .brand-logo{font-size:58px}
+
+  .login-panel{
+    width:100%;
+    min-height:calc(100vh - 340px);
+    padding:45px 25px 120px;
+  }
 }
+
 @media(max-width:600px){
-  .brand-panel{min-height:280px}
-  .brand-logo{font-size:45px;letter-spacing:-2px}
-  .brand-subtitle{font-size:11px;letter-spacing:3px}
+  .brand-panel{
+    min-height:285px;
+    padding:30px 22px;
+  }
+
+  .premium-logo{
+    width:78px;
+    height:78px;
+    margin-bottom:22px;
+  }
+
+  .logo-diamond{width:58px;height:58px}
+  .logo-diamond-inner{width:44px;height:44px}
+
+  .base-monogram{font-size:33px;letter-spacing:-4px}
+
+  .brand-logo{
+    font-size:45px;
+    letter-spacing:-2px;
+  }
+
+  .brand-subtitle{
+    font-size:11px;
+    letter-spacing:3px;
+  }
+
+  .login-panel{
+    min-height:calc(100vh - 285px);
+    padding:35px 20px 120px;
+  }
+
   .login-header h1{font-size:29px}
-  .dash-top{padding:14px}
+
+  .contact-buttons{
+    right:12px;
+    bottom:12px;
+    gap:8px;
+  }
+
+  .contact-button{width:47px;height:47px}
+
+  .dash-top{padding:13px}
   .dash-brand{font-size:16px}
   .dash-user{font-size:10px;gap:7px}
-  .dash-wrap{padding:20px 12px}
-  .dash-summary{grid-template-columns:1fr}
-  .dash-card{padding:16px}
-  .market-chart{height:420px}
-  .market-chart-small{height:350px}
-  .contact-buttons{right:10px;bottom:78px;gap:8px}
-  .contact-button{width:43px;height:43px}
+  .dash-logout{padding:7px 9px}
+
+  .dash-wrap{padding:19px 12px}
+
+  .market-frame{height:410px}
+  .market-frame-small{height:350px}
+
+  .dash-section{padding:15px}
+
+  .balance-total{font-size:26px}
+
+  .profile-info-row{align-items:flex-start}
+  .profile-value{max-width:60%;word-break:break-word}
+
+  .toast{bottom:20px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- 登录页 -->
+<!-- =========================
+     登录页
+========================= -->
+
 <div class="page" id="loginPage">
+
   <section class="brand-panel">
     <div class="brand-content">
+
       <div class="premium-logo">
         <div class="logo-diamond"></div>
         <div class="logo-diamond-inner"></div>
@@ -277,92 +807,204 @@ body{
         <div class="logo-corner br"></div>
         <div class="base-monogram">BASE</div>
       </div>
+
       <div class="brand-line"></div>
-      <div class="brand-logo">BASEMAX<span>PRO</span></div>
-      <div class="brand-subtitle">Gestión Patrimonial</div>
+
+      <div class="brand-logo">
+        BASEMAX<span>PRO</span>
+      </div>
+
+      <div class="brand-subtitle">
+        Gestión Patrimonial
+      </div>
+
       <p class="brand-description">
         Soluciones profesionales para la gestión y administración
         de patrimonio. Accede a tu cuenta para continuar.
       </p>
+
     </div>
   </section>
 
   <section class="login-panel">
     <div class="login-card">
+
       <div class="login-header">
         <h1>Iniciar sesión</h1>
-        <p>Introduce tu teléfono o número de cuenta y tu contraseña para acceder.</p>
+        <p>
+          Introduce tu teléfono o número de cuenta y tu contraseña
+          para acceder.
+        </p>
       </div>
 
       <form id="loginForm">
+
         <div class="form-group">
-          <label class="form-label" for="username">Teléfono / Número de cuenta</label>
-          <input class="form-input" id="username" name="username"
-            type="text" placeholder="Introduce tu teléfono o cuenta"
-            autocomplete="username" required>
+          <label class="form-label" for="username">
+            Teléfono / Número de cuenta
+          </label>
+
+          <div class="input-wrapper">
+            <input
+              id="username"
+              name="username"
+              type="text"
+              class="form-input"
+              placeholder="Introduce tu teléfono o cuenta"
+              autocomplete="username"
+              inputmode="tel"
+              required
+            >
+          </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="password">Contraseña</label>
+          <label class="form-label" for="password">
+            Contraseña
+          </label>
+
           <div class="input-wrapper">
-            <input class="form-input password-input" id="password"
-              name="password" type="password"
-              placeholder="Introduce tu contraseña" required>
-            <button type="button" class="toggle-password" id="togglePassword">👁</button>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              class="form-input password-input"
+              placeholder="Introduce tu contraseña"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              type="button"
+              class="toggle-password"
+              id="togglePassword"
+              aria-label="Mostrar contraseña"
+            >👁</button>
           </div>
         </div>
 
         <div class="forgot-row">
-          <button type="button" class="forgot-password" id="forgotPassword">
+          <button
+            type="button"
+            class="forgot-password"
+            id="forgotPassword"
+          >
             ¿Olvidaste tu contraseña?
           </button>
         </div>
 
-        <button type="submit" class="login-button" id="loginButton">
-          <span id="loginButtonText">Iniciar sesión</span>
+        <button
+          type="submit"
+          class="login-button"
+          id="loginButton"
+        >
+          <span class="button-text">Iniciar sesión</span>
+          <span class="spinner" aria-hidden="true"></span>
         </button>
+
       </form>
 
-      <div class="login-footer">©️ 2026 BASEMAXPRO. Todos los derechos reservados.</div>
+      <div class="login-footer">
+        ©️ 2026 BASEMAXPRO. Todos los derechos reservados.
+      </div>
+
     </div>
   </section>
+
 </div>
 
-<!-- 原有联系入口 -->
+<!-- =========================
+     联系方式按钮
+========================= -->
+
 <div class="contact-buttons" id="contactButtons">
-  <a class="contact-button cnbv-button"
-     href="https://www.cnbv.gob.mx/paginas/busquedaentidades.aspx"
-     target="_blank" rel="noopener">CNBV</a>
 
-  <a class="contact-button binance-button"
-     href="https://www.binance.com/" target="_blank" rel="noopener">B</a>
+  <a
+    href="https://www.cnbv.gob.mx/paginas/busquedaentidades.aspx"
+    class="contact-button cnbv-button"
+    target="_blank"
+    rel="noopener noreferrer"
+    title="CNBV"
+  >
+    <span class="contact-letter">CNBV</span>
+  </a>
 
-  <a class="contact-button nasdaq-button"
-     href="https://www.nasdaq.com/market-activity"
-     target="_blank" rel="noopener">N</a>
+  <a
+    href="https://accounts.binance.bh/es-MX/register?ref=48488446"
+    class="contact-button binance-button"
+    target="_blank"
+    rel="noopener noreferrer"
+    title="Binance"
+  >
+    <span class="contact-letter">B</span>
+  </a>
 
-  <a class="contact-button tradingview-button"
-     href="https://www.tradingview.com/markets/"
-     target="_blank" rel="noopener">TV</a>
+  <a
+    href="https://www.nasdaq.com/market-activity"
+    class="contact-button nasdaq-button"
+    target="_blank"
+    rel="noopener noreferrer"
+    title="Nasdaq"
+  >
+    <span class="contact-letter">N</span>
+  </a>
 
-  <a class="contact-button telegram-button"
-     href="https://t.me/BASE_CasaDeBolsaMX"
-     target="_blank" rel="noopener">✈</a>
+  <a
+    href="https://www.tradingview.com/markets/stocks-mexico/"
+    class="contact-button tradingview-button"
+    target="_blank"
+    rel="noopener noreferrer"
+    title="TradingView"
+  >
+    <span class="contact-letter">TV</span>
+  </a>
 
-  <a class="contact-button email-button"
-     href="mailto:info@basemaxpro.com">✉</a>
+  <a
+    href="https://t.me/BASE_CasaDeBolsaMX"
+    class="contact-button telegram-button"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Telegram"
+  >
+    <svg viewBox="0 0 24 24">
+      <path d="M21.5 3.5 2.7 10.8c-1.28.51-1.27 1.22-.23 1.53l4.83 1.51 1.85 5.79c.23.65.12.91.78.91.52 0 .75-.24 1.03-.52l2.49-2.42 5.18 3.82c.95.53 1.63.27 1.87-.88l3.31-15.58c.36-1.42-.54-2.06-1.48-1.46z"/>
+    </svg>
+  </a>
 
-  <a class="contact-button whatsapp-button"
-     href="https://wa.me/" target="_blank" rel="noopener">☎</a>
+  <a
+    href="#"
+    class="contact-button email-button"
+    id="emailCopyButton"
+    aria-label="Copiar correo electrónico"
+  >
+    <svg viewBox="0 0 24 24">
+      <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+    </svg>
+  </a>
+
+  <button
+    type="button"
+    class="contact-button whatsapp-button"
+    id="whatsappButton"
+    aria-label="WhatsApp"
+  >
+    <svg viewBox="0 0 24 24">
+      <path d="M12.04 2C6.5 2 2 6.5 2 12.03c0 1.77.46 3.5 1.33 5.03L2 22l5.08-1.3a10 10 0 0 0 4.96 1.27h.01C17.58 21.97 22 17.47 22 12.03 22 6.5 17.58 2 12.04 2z"/>
+    </svg>
+  </button>
+
 </div>
 
-<!-- 提示框 -->
-<div class="toast" id="toast">
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite">
   <div class="toast-title" id="toastTitle"></div>
   <div class="toast-message" id="toastMessage"></div>
 </div>
 
-<!-- 登录后的账户系统 -->
+<!-- =========================
+     登录后的仪表盘
+========================= -->
+
 <main id="investmentDashboard">
 
   <header class="dash-top">
@@ -370,373 +1012,659 @@ body{
       <div class="dash-brand">BASEMAXPRO</div>
       <div class="dash-subbrand">GESTIÓN PATRIMONIAL</div>
     </div>
+
     <div class="dash-user">
       <span>Cuenta: <strong id="dashAccount"></strong></span>
-      <button class="dash-logout" id="dashLogout">Cerrar sesión</button>
+      <button class="dash-logout" id="dashLogout">
+        Cerrar sesión
+      </button>
     </div>
   </header>
 
-  <!-- Inicio：首页行情 -->
+  <!-- Inicio：墨西哥和美国市场 -->
   <section id="homePage" class="dash-wrap">
+
     <div class="dash-welcome">
       <div>
-        <h1>Mercados financieros</h1>
-        <p>Consulta las tendencias de los mercados de México y Estados Unidos.</p>
+        <h1>Inicio</h1>
+        <p>Mercados financieros de México y Estados Unidos</p>
       </div>
-      <span class="dash-demo">DATOS DE MERCADO</span>
     </div>
 
+    <!-- 墨西哥市场 -->
     <section class="dash-section">
-      <div class="market-heading">
+
+      <div class="market-header">
         <div>
           <h2>🇲🇽 Mercado de México</h2>
-          <p class="market-intro">
-            Índice y evolución del mercado bursátil mexicano.
+          <p class="section-description">
+            Índice S&P/BMV IPC y principales acciones mexicanas.
           </p>
         </div>
+
         <span class="market-tag">TradingView</span>
       </div>
 
+      <!-- 关键修正：正确的墨西哥 IPC 代码 BMV:ME -->
       <iframe
-        class="market-chart"
-        title="Gráfico del mercado mexicano"
-        src="https://s.tradingview.com/widgetembed/?frameElementId=tvMexico&symbol=BMV%3AIPC&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=light&style=1&timezone=America%2FMexico_City&withdateranges=1&hideideas=1&locale=es"
+        class="market-frame"
+        title="S&P BMV IPC México"
+        src="https://s.tradingview.com/widgetembed/?symbol=BMV%3AME&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&theme=light&style=1&timezone=America%2FMexico_City&withdateranges=1&hideideas=1&locale=es"
         loading="lazy"
         allowtransparency="true"
-        allowfullscreen>
-      </iframe>
+        allowfullscreen
+      ></iframe>
+
+      <p class="market-note">
+        Índice principal de la Bolsa Mexicana de Valores.
+        Los datos pueden estar sujetos a los permisos y retrasos
+        de cotización de cada mercado.
+      </p>
 
       <div class="market-links">
+        <a href="https://www.tradingview.com/symbols/BMV-ME/"
+           target="_blank" rel="noopener">IPC México ↗</a>
+
         <a href="https://www.tradingview.com/markets/stocks-mexico/"
-           target="_blank" rel="noopener">Ver acciones de México ↗</a>
-        <a href="https://www.tradingview.com/symbols/BMV-IPC/"
-           target="_blank" rel="noopener">Ver índice IPC ↗</a>
+           target="_blank" rel="noopener">Mercado mexicano ↗</a>
       </div>
-      <p class="market-note">
-        La disponibilidad de cotizaciones en tiempo real depende de los
-        permisos de datos de mercado de TradingView y de la bolsa correspondiente.
-      </p>
+
     </section>
 
+    <!-- 墨西哥股票 -->
     <section class="dash-section">
-      <div class="market-heading">
+
+      <div class="market-header">
         <div>
-          <h2>🇺🇸 Mercado de Estados Unidos</h2>
-          <p class="market-intro">
-            Evolución de los principales índices bursátiles estadounidenses.
+          <h2>Acciones mexicanas</h2>
+          <p class="section-description">
+            Consulta las cotizaciones de empresas mexicanas.
           </p>
         </div>
+      </div>
+
+      <iframe
+        class="market-frame-small"
+        title="Acciones mexicanas"
+        src="https://s.tradingview.com/widgetembed/?symbol=BMV%3AGMEXICO%2FB&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&theme=light&style=1&timezone=America%2FMexico_City&withdateranges=1&hideideas=1&locale=es"
+        loading="lazy"
+        allowfullscreen
+      ></iframe>
+
+      <div class="market-links">
+        <a href="https://www.tradingview.com/symbols/BMV-GMEXICO%2FB/"
+           target="_blank" rel="noopener">Grupo México ↗</a>
+
+        <a href="https://www.tradingview.com/symbols/BMV-GFNORTE%2FO/"
+           target="_blank" rel="noopener">Banorte ↗</a>
+
+        <a href="https://www.tradingview.com/symbols/BMV-AMX%2FB/"
+           target="_blank" rel="noopener">América Móvil ↗</a>
+
+        <a href="https://www.tradingview.com/symbols/BMV-WALMEX/"
+           target="_blank" rel="noopener">Walmart México ↗</a>
+      </div>
+
+    </section>
+
+    <!-- 美国市场 -->
+    <section class="dash-section">
+
+      <div class="market-header">
+        <div>
+          <h2>🇺🇸 Mercado de Estados Unidos</h2>
+          <p class="section-description">
+            Principales índices bursátiles estadounidenses.
+          </p>
+        </div>
+
         <span class="market-tag">TradingView</span>
       </div>
 
       <iframe
-        class="market-chart"
-        title="Gráfico del mercado estadounidense"
-        src="https://s.tradingview.com/widgetembed/?frameElementId=tvUSA&symbol=SP%3ASPX&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=light&style=1&timezone=America%2FNew_York&withdateranges=1&hideideas=1&locale=es"
+        class="market-frame"
+        title="S&P 500 Estados Unidos"
+        src="https://s.tradingview.com/widgetembed/?symbol=SP%3ASPX&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&theme=light&style=1&timezone=America%2FNew_York&withdateranges=1&hideideas=1&locale=es"
         loading="lazy"
-        allowtransparency="true"
-        allowfullscreen>
-      </iframe>
+        allowfullscreen
+      ></iframe>
 
       <div class="market-links">
         <a href="https://www.tradingview.com/symbols/SPX/"
            target="_blank" rel="noopener">S&P 500 ↗</a>
+
         <a href="https://www.tradingview.com/symbols/NASDAQ-NDX/"
            target="_blank" rel="noopener">NASDAQ 100 ↗</a>
+
         <a href="https://www.tradingview.com/symbols/DJ-DJI/"
            target="_blank" rel="noopener">Dow Jones ↗</a>
       </div>
-      <p class="market-note">
-        Los gráficos son proporcionados por TradingView. Los horarios,
-        retrasos y permisos de cotización dependen de cada mercado.
-      </p>
+
     </section>
 
+    <!-- 美国股票 -->
     <section class="dash-section">
-      <div class="market-heading">
+
+      <div class="market-header">
         <div>
-          <h2>Acciones populares de Estados Unidos</h2>
-          <p class="market-intro">Consulta gráficos individuales.</p>
+          <h2>Acciones de Estados Unidos</h2>
+          <p class="section-description">
+            Gráfico de acciones estadounidenses.
+          </p>
         </div>
       </div>
 
       <iframe
-        class="market-chart-small"
-        title="Acciones estadounidenses"
-        src="https://s.tradingview.com/widgetembed/?frameElementId=tvStocks&symbol=NASDAQ%3AAAPL&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=light&style=1&timezone=America%2FNew_York&withdateranges=1&hideideas=1&locale=es"
+        class="market-frame-small"
+        title="Acciones de Estados Unidos"
+        src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3AAAPL&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&theme=light&style=1&timezone=America%2FNew_York&withdateranges=1&hideideas=1&locale=es"
         loading="lazy"
-        allowfullscreen>
-      </iframe>
+        allowfullscreen
+      ></iframe>
+
+      <div class="market-links">
+        <a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/"
+           target="_blank" rel="noopener">Apple ↗</a>
+
+        <a href="https://www.tradingview.com/symbols/NASDAQ-MSFT/"
+           target="_blank" rel="noopener">Microsoft ↗</a>
+
+        <a href="https://www.tradingview.com/symbols/NASDAQ-NVDA/"
+           target="_blank" rel="noopener">NVIDIA ↗</a>
+
+        <a href="https://www.tradingview.com/symbols/NASDAQ-AMZN/"
+           target="_blank" rel="noopener">Amazon ↗</a>
+
+        <a href="https://www.tradingview.com/symbols/NASDAQ-TSLA/"
+           target="_blank" rel="noopener">Tesla ↗</a>
+      </div>
+
+      <p class="market-note">
+        Los gráficos son proporcionados por TradingView.
+        La disponibilidad de datos en tiempo real depende
+        de los permisos de datos de cada bolsa.
+      </p>
+
     </section>
+
   </section>
 
-  <!-- 其他四个导航功能 -->
-  <section id="unavailablePage" class="dash-wrap" style="display:none">
-    <div class="dash-section" style="text-align:center;padding:55px 20px">
-      <h2 id="unavailableTitle">Función temporalmente no disponible</h2>
-      <p style="margin-top:15px;color:#64748b;line-height:1.8">
+  <!-- 其他四个功能：统一不可访问提示 -->
+  <section id="unavailablePage" class="dash-wrap">
+
+    <div class="dash-welcome">
+      <div>
+        <h1 id="unavailableHeading">Servicio</h1>
+        <p>Información del servicio</p>
+      </div>
+    </div>
+
+    <div class="unavailable-content">
+      <div class="unavailable-icon">🔒</div>
+
+      <h2>Función temporalmente no disponible</h2>
+
+      <p>
         Tu cuenta no puede acceder temporalmente a esta función.
         Por favor, contacta con tu gerente de cuenta para obtener asistencia.
       </p>
     </div>
+
   </section>
 
-  <!-- 个人中心 -->
-  <section id="profilePage" class="dash-wrap" style="display:none">
+  <!-- Perfil：没有任何持仓数据 -->
+  <section id="profilePage" class="dash-wrap">
+
     <div class="dash-welcome">
       <div>
-        <h1>Mi perfil</h1>
-        <p>Información y resumen de tu cuenta</p>
+        <h1>Perfil</h1>
+        <p>Información de tu cuenta personal</p>
       </div>
-      <span class="dash-demo">CUENTA PERSONAL</span>
     </div>
 
-    <section class="dash-section">
+    <div class="profile-card">
+
       <h2>Información de cuenta</h2>
-      <div class="profile-row">
-        <p class="profile-label">Número de cuenta</p>
-        <strong id="profileAccount"></strong>
-      </div>
-    </section>
 
-    <section class="dash-section">
-      <h2>Resumen de patrimonio</h2>
-      <div class="profile-row">
-        <p class="profile-label">Activos totales</p>
-        <div class="profile-value" id="profileTotal"></div>
+      <div class="profile-info-row">
+        <span class="profile-label">Número de cuenta</span>
+        <span class="profile-value" id="profileAccount"></span>
       </div>
-      <div class="profile-row">
-        <p class="profile-label">Efectivo disponible</p>
-        <div class="profile-value" id="profileCash"></div>
-      </div>
-      <div class="profile-row">
-        <p class="profile-label">Valor de posiciones</p>
-        <div class="profile-value" id="profileHoldings"></div>
-      </div>
-    </section>
 
-    <section class="dash-section">
-      <h2>Detalles de mis posiciones</h2>
-      <div class="dash-table-wrap" style="margin-top:15px">
-        <table class="dash-table">
-          <thead>
-            <tr><th>Activo</th><th>Símbolo</th><th>Cantidad</th></tr>
-          </thead>
-          <tbody id="profilePositions"></tbody>
-        </table>
+    </div>
+
+    <div class="balance-card">
+
+      <div class="balance-title">Saldo total</div>
+
+      <div class="balance-total" id="profileTotal">
+        ¥0.00
       </div>
-      <p class="profile-warning">
-        Información de demostración. Las cantidades y saldos no representan
-        activos reales ni una cuenta de corretaje.
-      </p>
-    </section>
+
+      <div class="balance-separator"></div>
+
+      <div class="balance-detail">
+        <span>Saldo disponible</span>
+        <span id="profileCash">¥0.00</span>
+      </div>
+
+    </div>
+
   </section>
 
 </main>
 
 <!-- 五个底部导航 -->
 <nav class="bottom-navigation" id="bottomNavigation">
+
   <button class="nav-item active" data-tab="Inicio">
-    <span class="nav-icon">⌂</span><span>Inicio</span>
+    <span class="nav-icon">⌂</span>
+    <span>Inicio</span>
   </button>
+
   <button class="nav-item" data-tab="Mercados">
-    <span class="nav-icon">▥</span><span>Mercados</span>
+    <span class="nav-icon">▥</span>
+    <span>Mercados</span>
   </button>
+
   <button class="nav-item" data-tab="Transacción">
-    <span class="nav-icon">⇄</span><span>Transacción</span>
+    <span class="nav-icon">⇄</span>
+    <span>Transacción</span>
   </button>
+
   <button class="nav-item" data-tab="Mensajes">
-    <span class="nav-icon">▤</span><span>Mensajes</span>
+    <span class="nav-icon">▤</span>
+    <span>Mensajes</span>
   </button>
+
   <button class="nav-item" data-tab="Perfil">
-    <span class="nav-icon">♟</span><span>Perfil</span>
+    <span class="nav-icon">♟</span>
+    <span>Perfil</span>
   </button>
+
 </nav>
 
 <script>
-/* 演示账户：前端数据，不是真实券商账户 */
-const demoAccounts={
-  "13800138000":{
-    password:"123456",
-    total:1258600,
-    cash:568600,
-    holdingsValue:690000,
-    positions:[
-      {name:"Apple",symbol:"AAPL",quantity:1000},
-      {name:"Microsoft",symbol:"MSFT",quantity:500},
-      {name:"NVIDIA",symbol:"NVDA",quantity:1500}
-    ]
+/* =========================
+   演示账户数据
+   仅用于前端展示
+========================= */
+
+const demoAccounts = {
+  "13800138000": {
+    password: "123456",
+    total: 1258600,
+    cash: 568600
   },
-  "13900139000":{
-    password:"654321",
-    total:856300,
-    cash:356300,
-    holdingsValue:500000,
-    positions:[
-      {name:"Amazon",symbol:"AMZN",quantity:800},
-      {name:"Tesla",symbol:"TSLA",quantity:400},
-      {name:"Alphabet Class A",symbol:"GOOGL",quantity:1000}
-    ]
+
+  "13900139000": {
+    password: "654321",
+    total: 856300,
+    cash: 356300
   }
 };
 
-const $=id=>document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-let currentAccount=null;
-let currentUsername=null;
-let toastTimer=null;
+let currentAccount = null;
+let currentUsername = null;
+let toastTimer = null;
 
-function showToast(title,message){
-  $("toastTitle").textContent=title;
-  $("toastMessage").textContent=message;
+/* =========================
+   通知
+========================= */
+
+function showToast(title, message) {
+  $("toastTitle").textContent = title;
+  $("toastMessage").textContent = message;
+
   $("toast").classList.add("show");
+
   clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>$("toast").classList.remove("show"),3500);
+
+  toastTimer = setTimeout(() => {
+    $("toast").classList.remove("show");
+  }, 3500);
 }
 
-function formatCNY(value){
-  return "¥"+Number(value).toLocaleString("zh-CN",{
-    minimumFractionDigits:2,
-    maximumFractionDigits:2
+/* =========================
+   金额格式
+========================= */
+
+function formatMoney(value) {
+  return "¥" + Number(value).toLocaleString("zh-CN", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   });
 }
 
-/* 密码显示/隐藏 */
-$("togglePassword").addEventListener("click",()=>{
-  const input=$("password");
-  input.type=input.type==="password"?"text":"password";
-  $("togglePassword").textContent=input.type==="password"?"👁":"🙈";
+/* =========================
+   密码显示和隐藏
+========================= */
+
+$("togglePassword").addEventListener("click", () => {
+
+  const input = $("password");
+
+  const isPassword = input.type === "password";
+
+  input.type = isPassword ? "text" : "password";
+
+  $("togglePassword").textContent = isPassword ? "🙈" : "👁";
+
+  $("togglePassword").setAttribute(
+    "aria-label",
+    isPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+  );
+
 });
 
-/* 忘记密码 */
-$("forgotPassword").addEventListener("click",()=>{
+/* =========================
+   忘记密码
+========================= */
+
+$("forgotPassword").addEventListener("click", () => {
+
   showToast(
     "Información",
     "Por favor, contacte con el personal oficial para gestionar su solicitud."
   );
+
 });
 
-/* 创建持仓表格 */
-function renderPositions(account){
-  const tbody=$("profilePositions");
-  tbody.replaceChildren();
+/* =========================
+   邮箱复制
+========================= */
 
-  account.positions.forEach(position=>{
-    const tr=document.createElement("tr");
-    [position.name,position.symbol,
-      Number(position.quantity).toLocaleString("zh-CN")
-    ].forEach(value=>{
-      const td=document.createElement("td");
-      td.textContent=value;
-      tr.appendChild(td);
-    });
-    tbody.appendChild(tr);
-  });
-}
+$("emailCopyButton").addEventListener("click", async event => {
 
-/* 登录后显示账户 */
-function loginSuccess(username,account){
-  currentUsername=username;
-  currentAccount=account;
+  event.preventDefault();
 
-  $("dashAccount").textContent=username;
-  $("profileAccount").textContent=username;
-  $("profileTotal").textContent=formatCNY(account.total);
-  $("profileCash").textContent=formatCNY(account.cash);
-  $("profileHoldings").textContent=formatCNY(account.holdingsValue);
+  const email = "info@basemaxpro.com";
 
-  renderPositions(account);
+  try {
 
-  $("loginPage").style.display="none";
-  $("contactButtons").style.display="none";
-  $("investmentDashboard").style.display="block";
+    if (navigator.clipboard && window.isSecureContext) {
+
+      await navigator.clipboard.writeText(email);
+
+    } else {
+
+      const temporaryInput = document.createElement("textarea");
+
+      temporaryInput.value = email;
+      temporaryInput.style.position = "fixed";
+      temporaryInput.style.opacity = "0";
+
+      document.body.appendChild(temporaryInput);
+
+      temporaryInput.select();
+
+      const copied = document.execCommand("copy");
+
+      temporaryInput.remove();
+
+      if (!copied) {
+        throw new Error("Copy failed");
+      }
+
+    }
+
+    showToast(
+      "Correo electrónico copiado",
+      email
+    );
+
+  } catch (error) {
+
+    showToast(
+      "No se pudo copiar",
+      "Copia manualmente: " + email
+    );
+
+  }
+
+});
+
+/* =========================
+   WhatsApp
+========================= */
+
+$("whatsappButton").addEventListener("click", () => {
+
+  showToast(
+    "WhatsApp",
+    "El servicio de WhatsApp está temporalmente suspendido."
+  );
+
+});
+
+/* =========================
+   登录处理
+========================= */
+
+$("loginForm").addEventListener("submit", event => {
+
+  event.preventDefault();
+
+  const username = $("username").value.trim();
+  const password = $("password").value;
+
+  $("username").classList.remove("input-error");
+  $("password").classList.remove("input-error");
+
+  if (!username) {
+
+    $("username").classList.add("input-error");
+    $("username").focus();
+
+    showToast(
+      "Datos incompletos",
+      "Introduce tu número de cuenta."
+    );
+
+    return;
+
+  }
+
+  if (!password) {
+
+    $("password").classList.add("input-error");
+    $("password").focus();
+
+    showToast(
+      "Datos incompletos",
+      "Introduce tu contraseña."
+    );
+
+    return;
+
+  }
+
+  const account = demoAccounts[username];
+
+  if (!account) {
+
+    $("username").classList.add("input-error");
+
+    showToast(
+      "Cuenta no encontrada",
+      "Comprueba tu número de cuenta."
+    );
+
+    return;
+
+  }
+
+  if (account.password !== password) {
+
+    $("password").classList.add("input-error");
+
+    showToast(
+      "Contraseña incorrecta",
+      "Comprueba tu contraseña."
+    );
+
+    return;
+
+  }
+
+  const button = $("loginButton");
+
+  button.classList.add("loading");
+  button.disabled = true;
+
+  setTimeout(() => {
+
+    button.classList.remove("loading");
+    button.disabled = false;
+
+    loginSuccess(username, account);
+
+  }, 600);
+
+});
+
+/* =========================
+   登录成功
+========================= */
+
+function loginSuccess(username, account) {
+
+  currentUsername = username;
+  currentAccount = account;
+
+  $("dashAccount").textContent = username;
+
+  /* Perfil 仅显示账户和余额 */
+  $("profileAccount").textContent = username;
+
+  $("profileTotal").textContent =
+    formatMoney(account.total);
+
+  $("profileCash").textContent =
+    formatMoney(account.cash);
+
+  $("loginPage").style.display = "none";
+
+  $("contactButtons").style.display = "none";
+
+  $("investmentDashboard").style.display = "block";
+
   $("bottomNavigation").classList.add("visible");
 
   showPage("Inicio");
-  window.scrollTo(0,0);
+
+  window.scrollTo(0, 0);
+
 }
 
-/* 登录验证 */
-$("loginForm").addEventListener("submit",event=>{
-  event.preventDefault();
+/* =========================
+   页面切换
+========================= */
 
-  const username=$("username").value.trim();
-  const password=$("password").value;
+function showPage(tab) {
 
-  if(!demoAccounts[username]){
-    showToast("Cuenta no encontrada","Comprueba tu número de cuenta.");
-    $("username").focus();
-    return;
-  }
+  $("homePage").style.display = "none";
+  $("profilePage").style.display = "none";
+  $("unavailablePage").style.display = "none";
 
-  if(demoAccounts[username].password!==password){
-    showToast("Contraseña incorrecta","Comprueba tu contraseña.");
-    $("password").focus();
-    return;
-  }
+  document.querySelectorAll(".nav-item").forEach(item => {
 
-  $("loginButton").disabled=true;
-  $("loginButtonText").textContent="Cargando...";
+    item.classList.toggle(
+      "active",
+      item.dataset.tab === tab
+    );
 
-  setTimeout(()=>{
-    $("loginButton").disabled=false;
-    $("loginButtonText").textContent="Iniciar sesión";
-    loginSuccess(username,demoAccounts[username]);
-  },500);
-});
-
-/* 切换底部页面 */
-function showPage(tab){
-  $("homePage").style.display="none";
-  $("profilePage").style.display="none";
-  $("unavailablePage").style.display="none";
-
-  document.querySelectorAll(".nav-item").forEach(item=>{
-    item.classList.toggle("active",item.dataset.tab===tab);
   });
 
-  if(tab==="Inicio"){
-    $("homePage").style.display="block";
-  }else if(tab==="Perfil"){
-    $("profilePage").style.display="block";
-  }else{
-    $("unavailablePage").style.display="block";
-    $("unavailableTitle").textContent=
-      "Función temporalmente no disponible";
+  if (tab === "Inicio") {
+
+    $("homePage").style.display = "block";
+
+  } else if (tab === "Perfil") {
+
+    $("profilePage").style.display = "block";
+
+  } else {
+
+    $("unavailablePage").style.display = "block";
+
+    $("unavailableHeading").textContent = tab;
+
   }
 
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
+
 }
 
-document.querySelectorAll(".nav-item").forEach(item=>{
-  item.addEventListener("click",()=>{
-    showPage(item.dataset.tab);
+/* =========================
+   底部导航点击
+========================= */
 
-    if(item.dataset.tab!=="Inicio" && item.dataset.tab!=="Perfil"){
+document.querySelectorAll(".nav-item").forEach(item => {
+
+  item.addEventListener("click", () => {
+
+    const tab = item.dataset.tab;
+
+    showPage(tab);
+
+    if (
+      tab !== "Inicio" &&
+      tab !== "Perfil"
+    ) {
+
       showToast(
         "Función temporalmente no disponible",
         "Tu cuenta no puede acceder temporalmente a esta función. Por favor, contacta con tu gerente de cuenta para obtener asistencia."
       );
+
     }
+
   });
+
 });
 
-/* 退出登录 */
-$("dashLogout").addEventListener("click",()=>{
-  currentAccount=null;
-  currentUsername=null;
+/* =========================
+   退出登录
+========================= */
 
-  $("investmentDashboard").style.display="none";
+$("dashLogout").addEventListener("click", () => {
+
+  currentAccount = null;
+  currentUsername = null;
+
+  $("investmentDashboard").style.display = "none";
+
   $("bottomNavigation").classList.remove("visible");
-  $("loginPage").style.display="flex";
-  $("contactButtons").style.display="flex";
+
+  $("loginPage").style.display = "flex";
+
+  $("contactButtons").style.display = "flex";
 
   $("loginForm").reset();
-  $("togglePassword").textContent="👁";
-  $("password").type="password";
 
-  window.scrollTo(0,0);
+  $("password").type = "password";
+
+  $("togglePassword").textContent = "👁";
+
+  window.scrollTo(0, 0);
+
 });
+
+/* =========================
+   输入错误状态清除
+========================= */
+
+$("username").addEventListener("input", () => {
+  $("username").classList.remove("input-error");
+});
+
+$("password").addEventListener("input", () => {
+  $("password").classList.remove("input-error");
+});
+
 </script>
 
 </body>
