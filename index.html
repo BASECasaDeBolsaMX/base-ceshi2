@@ -2201,53 +2201,57 @@
     let currentAccountData = null;
     let currentAccountNumber = null;
 
-    // ===== DEPÓSITO / RETIRO =====
+// ===== DEPÓSITO / RETIRO =====
 const depositButton = document.getElementById('depositButton');
 const withdrawButton = document.getElementById('withdrawButton');
 const depositModal = document.getElementById('depositModal');
 const closeDeposit = document.getElementById('closeDeposit');
 const copyAddress = document.getElementById('copyAddress');
 
+const usdtAddress = 'TXmLTcUQrFPaHAhrpemKMDn4qfxxqo7zbN';
+
+// 打开 USDT 地址窗口
 if (depositButton && depositModal) {
     depositButton.addEventListener('click', () => {
         depositModal.style.display = 'flex';
     });
 }
 
+// 关闭 USDT 地址窗口
 if (closeDeposit && depositModal) {
     closeDeposit.addEventListener('click', () => {
         depositModal.style.display = 'none';
     });
 }
 
+// 点击复制按钮，复制 USDT 收款地址
 if (copyAddress) {
     copyAddress.addEventListener('click', async () => {
-        const address = 'TXmLTcUQrFPaHAhrpemKMDn4qfxxqo7zbN';
-
         try {
-            if (navigator.clipboard && window.isSecureContext) {
-                await navigator.clipboard.writeText(address);
+            const textarea = document.createElement('textarea');
+            textarea.value = usdtAddress;
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+
+            document.body.appendChild(textarea);
+            textarea.select();
+            textarea.setSelectionRange(0, textarea.value.length);
+
+            const success = document.execCommand('copy');
+            textarea.remove();
+
+            if (success) {
+                showToast('¡Dirección USDT copiada correctamente!');
             } else {
-                const textarea = document.createElement('textarea');
-                textarea.value = address;
-                textarea.style.position = 'fixed';
-                textarea.style.opacity = '0';
-                document.body.appendChild(textarea);
-                textarea.select();
-
-                const copied = document.execCommand('copy');
-                textarea.remove();
-
-                if (!copied) throw new Error('Copy failed');
+                showToast('No se pudo copiar la dirección');
             }
-
-            showToast('USDT地址已复制！');
         } catch (error) {
-            showToast('复制失败，请长按地址手动复制');
+            showToast('No se pudo copiar la dirección');
         }
     });
 }
 
+// 点击 Retiro，显示暂不可用
 if (withdrawButton) {
     withdrawButton.addEventListener('click', () => {
         showToast('Retiro no disponible por el momento');
