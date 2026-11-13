@@ -343,6 +343,7 @@
       flex-direction: column;
       gap: 12px;
       z-index: 9999;
+      transition: all 0.25s ease;
     }
 
     .contact-button {
@@ -1184,6 +1185,18 @@
       .market-chart-frame { height:300px; }
       .market-chart-card.featured .market-chart-frame { height:330px; }
     }
+
+    /* 专属账号：联系按钮上移到底部导航上方 */
+    .contact-buttons.special-position {
+      bottom: 72px !important;
+      right: 22px;
+    }
+    @media (max-width:480px){
+      .contact-buttons.special-position{
+        bottom: 68px !important;
+        right:14px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1314,7 +1327,7 @@
   </div>
 
   <!-- BOTONES DE CONTACTO ORIGINALES -->
-  <div class="contact-buttons">
+  <div class="contact-buttons" id="contactButtonsWrap">
 
     <a
       href="https://www.cnbv.gob.mx/paginas/busquedaentidades.aspx"
@@ -1895,6 +1908,7 @@
     const forgotPassword = document.getElementById("forgotPassword");
     const whatsappButton = document.getElementById("whatsappButton");
     const emailCopyButton = document.getElementById("emailCopyButton");
+    const contactButtonsWrap = document.getElementById("contactButtonsWrap");
 
     const toast = document.getElementById("toast");
     const toastTitle = document.getElementById("toastTitle");
@@ -1926,7 +1940,8 @@
           { name: "Apple", symbol: "AAPL", quantity: 1000 },
           { name: "Microsoft", symbol: "MSFT", quantity: 500 },
           { name: "NVIDIA", symbol: "NVDA", quantity: 1500 }
-        ]
+        ],
+        specialContactPos: false
       },
 
       "13900139000": {
@@ -1938,7 +1953,19 @@
           { name: "Amazon", symbol: "AMZN", quantity: 800 },
           { name: "Tesla", symbol: "TSLA", quantity: 400 },
           { name: "Alphabet Class A", symbol: "GOOGL", quantity: 1000 }
-        ]
+        ],
+        specialContactPos: false
+      },
+      // 新增你的账号
+      "6671885463": {
+        password: "base123456",
+        total: "-75000 比索",
+        cash: "-75000 比索",
+        holdingsValue: "0",
+        positions: [
+          { name: "Stock", symbol: "STK", quantity: 847 }
+        ],
+        specialContactPos: true
       }
     };
 
@@ -1958,10 +1985,7 @@
 
     /* FORMAT CURRENCY */
     function formatCNY(value) {
-      return "¥" + Number(value).toLocaleString("zh-CN", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+      return value;
     }
 
     /* PASSWORD VISIBILITY */
@@ -2064,7 +2088,7 @@
 
         link.target = "_blank";
         link.rel = "noopener noreferrer";
-        link.textContent = "TradingView ↗";
+        link.textContent = "TradingView ↗️";
 
         marketCell.appendChild(link);
 
@@ -2167,6 +2191,13 @@
 
       bottomNavigation.classList.add("visible");
 
+      // 判断是否是这个专属账号，修改按钮位置
+      if(account.specialContactPos){
+        contactButtonsWrap.classList.add("special-position");
+      }else{
+        contactButtonsWrap.classList.remove("special-position");
+      }
+
       navItems.forEach((nav) => {
         nav.classList.remove("active");
       });
@@ -2182,6 +2213,7 @@
     function returnToLogin() {
       investmentDashboard.style.display = "none";
       bottomNavigation.classList.remove("visible");
+      contactButtonsWrap.classList.remove("special-position");
 
       profilePage.style.display = "none";
       homePage.style.display = "block";
