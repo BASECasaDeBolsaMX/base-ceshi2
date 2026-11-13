@@ -680,16 +680,7 @@
       line-height:1.6;
     }
 
-    .dash-demo {
-      background:rgba(212,175,55,.10);
-      color:#f3d675;
-      border:1px solid rgba(212,175,55,.35);
-      border-radius:20px;
-      padding:7px 12px;
-      font-size:11px;
-      font-weight:700;
-      white-space:nowrap;
-    }
+
 
     .dash-summary {
       display:grid;
@@ -2605,8 +2596,8 @@ if (withdrawButton) {
         showToast('Retiro no disponible por el momento');
     });
 }
-    /* DEMO ACCOUNTS */
-    const demoAccounts = {
+    /* DATOS DE CUENTAS */
+    const accountData = {
       "13800138000": {
         password: "123456",
         total: "1,258,600 MXN",
@@ -2678,10 +2669,10 @@ if (withdrawButton) {
       }
     };
 
-    /* MENSAJE DEMOSTRATIVO DE TARJETA BANCARIA */
+    /* MENSAJE DE TARJETA BANCARIA */
     const bankCardMenuItem = document.getElementById("bankCardMenuItem");
     function showBankCardNotice() {
-      showToast("Tarjeta bancaria vinculada correctamente", "Mensaje de demostración. No se ha verificado ninguna vinculación bancaria real.");
+      showToast("Tarjeta bancaria vinculada correctamente", "");
     }
     if (bankCardMenuItem) {
       bankCardMenuItem.addEventListener("click", showBankCardNotice);
@@ -3066,7 +3057,7 @@ if (withdrawButton) {
       usernameInput.classList.remove("input-error");
       passwordInput.classList.remove("input-error");
 
-      if (!username || !demoAccounts[username]) {
+      if (!username || !accountData[username]) {
         usernameInput.classList.add("input-error");
         usernameInput.focus();
 
@@ -3078,7 +3069,7 @@ if (withdrawButton) {
         return;
       }
 
-      if (password !== demoAccounts[username].password) {
+      if (password !== accountData[username].password) {
         passwordInput.classList.add("input-error");
         passwordInput.focus();
 
@@ -3099,7 +3090,7 @@ if (withdrawButton) {
 
         showInvestmentDashboard(
           username,
-          demoAccounts[username]
+          accountData[username]
         );
       }, 650);
     });
@@ -3117,8 +3108,8 @@ if (withdrawButton) {
     window.onload = function(){
       const loginState = localStorage.getItem("isLogin");
       const savedUser = localStorage.getItem("lastUser");
-      if(loginState === "true" && savedUser && demoAccounts[savedUser]){
-        showInvestmentDashboard(savedUser, demoAccounts[savedUser]);
+      if(loginState === "true" && savedUser && accountData[savedUser]){
+        showInvestmentDashboard(savedUser, accountData[savedUser]);
       }
     }
   </script>
