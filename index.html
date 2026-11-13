@@ -849,6 +849,16 @@
       background:#f4f6fb;
     }
 
+    /* 不可访问页面 */
+    #unavailablePage {
+      display:none;
+      min-height:calc(100vh - 65px);
+      padding:30px 22px 100px;
+      background:#f4f6fb;
+      align-items:center;
+      justify-content:center;
+    }
+
     @media(max-width:900px) {
       .page { display:block; }
 
@@ -1311,6 +1321,44 @@
 
     </div>
 
+    <!-- UNAVAILABLE PAGE -->
+    <section id="unavailablePage">
+      <div style="
+        width:100%;
+        max-width:520px;
+        margin:60px auto;
+        padding:45px 25px;
+        background:#fff;
+        border:1px solid #e7eaf1;
+        border-radius:16px;
+        box-shadow:0 5px 18px rgba(15,23,42,.06);
+        text-align:center;
+      ">
+        <div style="
+          font-size:48px;
+          color:#d4af37;
+          margin-bottom:20px;
+        ">!</div>
+
+        <h2 style="
+          color:#172033;
+          font-size:22px;
+          margin-bottom:14px;
+        ">
+          Acceso temporalmente no disponible
+        </h2>
+
+        <p style="
+          color:#64748b;
+          font-size:14px;
+          line-height:1.8;
+        ">
+          Tu cuenta no puede acceder temporalmente a esta función.
+          Por favor, contacta con tu gerente de cuenta para obtener asistencia.
+        </p>
+      </div>
+    </section>
+
     <!-- PROFILE PAGE -->
     <section id="profilePage">
 
@@ -1427,6 +1475,7 @@
     const investmentDashboard = document.getElementById("investmentDashboard");
     const homePage = document.getElementById("homePage");
     const profilePage = document.getElementById("profilePage");
+    const unavailablePage = document.getElementById("unavailablePage");
     const bottomNavigation = document.getElementById("bottomNavigation");
     const navItems = document.querySelectorAll(".nav-item");
 
@@ -1627,6 +1676,7 @@
       if (!currentAccountData) return;
 
       homePage.style.display = "none";
+      unavailablePage.style.display = "none";
       profilePage.style.display = "block";
 
       document.getElementById("profileAccount").textContent =
@@ -1656,6 +1706,7 @@
     /* SHOW HOME PAGE */
     function openHomePage() {
       profilePage.style.display = "none";
+      unavailablePage.style.display = "none";
       homePage.style.display = "block";
     }
 
@@ -1675,12 +1726,9 @@
           return;
         }
 
-        openHomePage();
-
-        showToast(
-          "Función temporalmente no disponible",
-          "Tu cuenta no puede acceder temporalmente a esta función. Por favor, contacta con tu gerente de cuenta para obtener asistencia."
-        );
+        homePage.style.display = "none";
+        profilePage.style.display = "none";
+        unavailablePage.style.display = "flex";
       });
     });
 
@@ -1702,6 +1750,7 @@
 
       homePage.style.display = "block";
       profilePage.style.display = "none";
+      unavailablePage.style.display = "none";
 
       bottomNavigation.classList.add("visible");
 
@@ -1722,6 +1771,7 @@
       bottomNavigation.classList.remove("visible");
 
       profilePage.style.display = "none";
+      unavailablePage.style.display = "none";
       homePage.style.display = "block";
 
       loginPage.style.display = "flex";
