@@ -1423,7 +1423,97 @@
   background: rgba(255,255,255,.08);
   color: #fff;
   border: 1px solid rgba(255,255,255,.15);
-}</style>
+}
+    /* HISTORIAL DE PAGOS DE IPO */
+    .ipo-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 21000;
+      background: rgba(0,0,0,.78);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .ipo-modal.show { display: flex; }
+    .ipo-modal-box {
+      width: 100%;
+      max-width: 520px;
+      max-height: min(80vh, 680px);
+      overflow-y: auto;
+      padding: 26px 22px;
+      border-radius: 18px;
+      background: linear-gradient(145deg,#14223a,#0b1220);
+      border: 1px solid rgba(212,175,55,.4);
+      box-shadow: 0 15px 45px rgba(0,0,0,.5);
+      color: #fff;
+    }
+    .ipo-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .ipo-modal-header h2 {
+      color: #f3d675;
+      font-size: 21px;
+      margin: 0;
+    }
+    .ipo-modal-close {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 9px;
+      background: rgba(255,255,255,.07);
+      color: #fff;
+      font-size: 21px;
+      cursor: pointer;
+    }
+    .ipo-empty-state {
+      padding: 34px 16px;
+      text-align: center;
+      border: 1px dashed rgba(212,175,55,.25);
+      border-radius: 13px;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .ipo-empty-icon {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 12px;
+      opacity: .85;
+    }
+    .ipo-record-list { display: grid; gap: 10px; }
+    .ipo-record {
+      padding: 14px 15px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 11px;
+      background: rgba(255,255,255,.045);
+    }
+    .ipo-record-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+    .ipo-record-line strong { color: #f3d675; }
+    .ipo-modal-footer { margin-top: 18px; }
+    .ipo-modal-footer button {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 10px;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+  </style>
 </head>
 <body>
 
@@ -2131,6 +2221,10 @@
             <span>Registro de fondos</span>
             <i>›</i>
           </div>
+          <div class="menu-item" id="ipoPaymentsMenuItem" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="ipoPaymentsModal">
+            <span>Registro de pagos de IPO</span>
+            <i>›</i>
+          </div>
           <div class="menu-item">
             <span>Contraseña de entrada</span>
             <i>›</i>
@@ -2138,6 +2232,25 @@
         </div>
       </div>
     </section>
+
+    <!-- VENTANA DEL HISTORIAL DE PAGOS DE IPO -->
+    <div class="ipo-modal" id="ipoPaymentsModal" role="dialog" aria-modal="true" aria-labelledby="ipoPaymentsTitle">
+      <div class="ipo-modal-box">
+        <div class="ipo-modal-header">
+          <h2 id="ipoPaymentsTitle">Registro de pagos de IPO</h2>
+          <button type="button" class="ipo-modal-close" id="closeIpoPaymentsModal" aria-label="Cerrar">×</button>
+        </div>
+        <div id="ipoPaymentsContent">
+          <div class="ipo-empty-state">
+            <span class="ipo-empty-icon" aria-hidden="true">▤</span>
+            <span>No hay registros de pagos de IPO</span>
+          </div>
+        </div>
+        <div class="ipo-modal-footer">
+          <button type="button" id="closeIpoPaymentsButton">Cerrar</button>
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -2181,6 +2294,88 @@
     const whatsappButton = document.getElementById("whatsappButton");
     const emailCopyButton = document.getElementById("emailCopyButton");
     const profileLogoutBtn = document.getElementById("profileLogoutBtn");
+
+    // HISTORIAL DE PAGOS DE IPO
+    const ipoPaymentsMenuItem = document.getElementById("ipoPaymentsMenuItem");
+    const ipoPaymentsModal = document.getElementById("ipoPaymentsModal");
+    const closeIpoPaymentsModal = document.getElementById("closeIpoPaymentsModal");
+    const closeIpoPaymentsButton = document.getElementById("closeIpoPaymentsButton");
+    const ipoPaymentsContent = document.getElementById("ipoPaymentsContent");
+
+    function renderIpoPayments() {
+      const records = currentAccountData && Array.isArray(currentAccountData.ipoPayments)
+        ? currentAccountData.ipoPayments
+        : [];
+
+      if (records.length === 0) {
+        ipoPaymentsContent.innerHTML = `
+          <div class="ipo-empty-state">
+            <span class="ipo-empty-icon" aria-hidden="true">▤</span>
+            <span>No hay registros de pagos de IPO</span>
+          </div>`;
+        return;
+      }
+
+      const list = document.createElement("div");
+      list.className = "ipo-record-list";
+      records.forEach((record) => {
+        const item = document.createElement("div");
+        item.className = "ipo-record";
+
+        const dateLine = document.createElement("div");
+        dateLine.className = "ipo-record-line";
+        const dateLabel = document.createElement("span");
+        dateLabel.textContent = "Fecha";
+        const dateValue = document.createElement("strong");
+        dateValue.textContent = record.date || "—";
+        dateLine.append(dateLabel, dateValue);
+
+        const amountLine = document.createElement("div");
+        amountLine.className = "ipo-record-line";
+        amountLine.style.marginTop = "8px";
+        const amountLabel = document.createElement("span");
+        amountLabel.textContent = "Importe";
+        const amountValue = document.createElement("strong");
+        amountValue.textContent = record.amount || "—";
+        amountLine.append(amountLabel, amountValue);
+
+        item.append(dateLine, amountLine);
+        list.appendChild(item);
+      });
+      ipoPaymentsContent.replaceChildren(list);
+    }
+
+    function openIpoPaymentsModal() {
+      renderIpoPayments();
+      ipoPaymentsModal.classList.add("show");
+    }
+
+    function closeIpoModal() {
+      ipoPaymentsModal.classList.remove("show");
+    }
+
+    if (ipoPaymentsMenuItem) {
+      ipoPaymentsMenuItem.addEventListener("click", openIpoPaymentsModal);
+      ipoPaymentsMenuItem.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openIpoPaymentsModal();
+        }
+      });
+    }
+    if (closeIpoPaymentsModal) closeIpoPaymentsModal.addEventListener("click", closeIpoModal);
+    if (closeIpoPaymentsButton) closeIpoPaymentsButton.addEventListener("click", closeIpoModal);
+    if (ipoPaymentsModal) {
+      ipoPaymentsModal.addEventListener("click", (event) => {
+        if (event.target === ipoPaymentsModal) closeIpoModal();
+      });
+    }
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && ipoPaymentsModal.classList.contains("show")) {
+        closeIpoModal();
+      }
+    });
+
 
     const toast = document.getElementById("toast");
     const toastTitle = document.getElementById("toastTitle");
@@ -2273,7 +2468,8 @@ if (withdrawButton) {
           { name: "Microsoft", symbol: "MSFT", quantity: 500 },
           { name: "NVIDIA", symbol: "NVDA", quantity: 1500 }
         ],
-        payments: []
+        payments: [],
+        ipoPayments: []
       },
 
       "13900139000": {
@@ -2287,7 +2483,8 @@ if (withdrawButton) {
           { name: "Tesla", symbol: "TSLA", quantity: 400 },
           { name: "Alphabet Class A", symbol: "GOOGL", quantity: 1000 }
         ],
-        payments: []
+        payments: [],
+        ipoPayments: []
       },
 
       "6671885463": {
@@ -2302,7 +2499,8 @@ if (withdrawButton) {
         payments: [
           {date:"02/10/2026", amount:"2200 USDT"},
           {date:"02/10/2026", amount:"3888 USDT"}
-        ]
+        ],
+        ipoPayments: []
       }
     };
 
