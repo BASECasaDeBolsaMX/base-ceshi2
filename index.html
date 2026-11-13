@@ -2347,15 +2347,15 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
           <div class="stat-row">
             <div class="stat-item">
               <small>Valor de la posición</small>
-              <span id="profileHoldings">0</span>
+              <span id="profileHoldings">***</span>
             </div>
             <div class="stat-item">
               <small>Ganancia/Pérdida de posición</small>
-              <span>0</span>
+              <span id="profitPosition">***</span>
             </div>
             <div class="stat-item positive">
               <small>Ganancia/Pérdida total</small>
-              <span id="profitTotal">21153.82</span>
+              <span id="profitTotal">***</span>
             </div>
           </div>
         </div>
@@ -2859,13 +2859,15 @@ if (withdrawButton) {
     });
 }
     /* DATOS DE CUENTAS */
+    // Estadísticas independientes por cuenta: los valores vacíos se muestran como "***".
     const accountData = {
       "13800138000": {
         password: "123456",
         total: "1,258,600 MXN",
         cash: "568,600 MXN",
-        holdingsValue: "690,000 MXN",
-        profitTotal: "12500.00",
+        holdingsValue: "",
+        profitPosition: "",
+        profitTotal: "",
         positions: [
           { name: "Apple", symbol: "AAPL", quantity: 1000 },
           { name: "Microsoft", symbol: "MSFT", quantity: 500 },
@@ -2887,8 +2889,9 @@ if (withdrawButton) {
         password: "654321",
         total: "856,300 MXN",
         cash: "356,300 MXN",
-        holdingsValue: "500,000 MXN",
-        profitTotal: "8650.00",
+        holdingsValue: "",
+        profitPosition: "",
+        profitTotal: "",
         positions: [
           { name: "Amazon", symbol: "AMZN", quantity: 800 },
           { name: "Tesla", symbol: "TSLA", quantity: 400 },
@@ -2912,8 +2915,9 @@ if (withdrawButton) {
         // Precisión de los activos totales por moneda; no modifica el saldo original.
         totalFractionDigits: { MXN: 4, USD: 2 },
         cash: "0 USD",
-        holdingsValue: "0",
-        profitTotal: "21153.82",
+        holdingsValue: "",
+        profitPosition: "",
+        profitTotal: "205671.26 MX",
         positions: [
           { name: "Acción", symbol: "STK", quantity: 847 }
         ],
@@ -3301,6 +3305,25 @@ if (withdrawButton) {
     refreshExchangeRate();
     setInterval(refreshExchangeRate, 30 * 60 * 1000);
 
+    /* ESTADÍSTICAS DEL PERFIL */
+    function formatProfileStatistic(value) {
+      // No confundir un cero introducido explícitamente con un dato sin configurar.
+      if (value === null || value === undefined) return "***";
+      if (typeof value === "number" && !Number.isFinite(value)) return "***";
+      const text = String(value).trim();
+      return text === "" ? "***" : text;
+    }
+
+    function updateProfileStatistics() {
+      const statistics = currentAccountData || {};
+      document.getElementById("profileHoldings").textContent =
+        formatProfileStatistic(statistics.holdingsValue);
+      document.getElementById("profitPosition").textContent =
+        formatProfileStatistic(statistics.profitPosition);
+      document.getElementById("profitTotal").textContent =
+        formatProfileStatistic(statistics.profitTotal);
+    }
+
     /* MOSTRAR PERFIL */
     function openProfilePage() {
       if (!currentAccountData) return;
@@ -3316,11 +3339,7 @@ if (withdrawButton) {
       updateProfileCurrency();
       refreshExchangeRate();
 
-      document.getElementById("profileHoldings").textContent =
-        currentAccountData.holdingsValue;
-
-      document.getElementById("profitTotal").textContent =
-        currentAccountData.profitTotal;
+      updateProfileStatistics();
     }
 
     /* MOSTRAR LA PÁGINA DE INICIO */
@@ -3400,6 +3419,7 @@ if (withdrawButton) {
 
       currentAccountData = null;
       currentAccountNumber = null;
+      updateProfileStatistics();
 
       loginForm.reset();
       resetLoginValidation();
